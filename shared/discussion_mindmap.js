@@ -45,9 +45,9 @@
 
         for (let i = 0; i < parts.length; i++) {
             const p = parts[i].toLowerCase();
-            if (p === 'lecture' || p === 'laboratory') {
+            if (p === 'lecture' || p === 'laboratory' || p === 'body_fluids') {
                 folder = p;
-                if (i + 1 < parts.length) {
+                if (i + 1 < parts.length && p !== 'body_fluids') {
                     subfolder = parts[i + 1].toLowerCase();
                 }
                 break;
@@ -57,12 +57,27 @@
         // Clean lesson key: strip _Discussion, __Discussion, _S0_, etc.
         const cleaned = rawName.replace(/_{1,2}Discussion/i, '').replace(/_S\d+$/i, '').toLowerCase();
         const match = rawName.match(/^(L\d+_[^_]+(?:_[^_]+)*?)(?:_S\d+)?(?:_{1,2}Discussion|_Mind_Map)?$/i);
-        const lessonKey = match ? match[1].toLowerCase() : cleaned;
+        const bfMatch = rawName.match(/^(?:BF)?0?(\d+)[_-]([A-Za-z0-9-]+?)(?:_S\d+)?(?:_Complete)?(?:_{1,2}Discussion|_Mind_Map)?$/i);
+
+        let lessonKey = '';
+        if (match) {
+            lessonKey = match[1].toLowerCase();
+        } else if (bfMatch) {
+            const num = bfMatch[1].padStart(2, '0');
+            const name = bfMatch[2].toLowerCase();
+            lessonKey = `${num}_${name}`;
+        } else {
+            lessonKey = cleaned;
+        }
 
         const candidates = [];
         if (folder && subfolder) candidates.push(`${folder}/${subfolder}/${lessonKey}`);
         if (folder) candidates.push(`${folder}/${lessonKey}`);
         candidates.push(lessonKey);
+        if (bfMatch) {
+            candidates.push(`${bfMatch[1].padStart(2, '0')}_${bfMatch[2].toLowerCase()}`);
+            candidates.push(bfMatch[2].toLowerCase());
+        }
         candidates.push(cleaned);
         candidates.push(rawName.toLowerCase());
 
@@ -215,9 +230,15 @@
         }
 
         // 4. Clean filename fallback
+        const currentPath = decodeURIComponent(window.location.pathname).replace(/\\/g, '/').toLowerCase();
         const currentFile = decodeURIComponent(window.location.pathname).replace(/\\/g, '/').split('/').pop() || '';
-        const base = currentFile.replace(/_S\d+_{1,2}Discussion\.html|_Discussion\.html/i, '');
+        const isBF = currentPath.includes('/body_fluids/') || /^(?:bf)?0?\d+[_-]/i.test(currentFile);
+        const base = currentFile.replace(/_(?:S\d+_)?(?:Complete_)?Discussion\.html$/i, '');
         if (base) {
+            if (isBF) {
+                // If the workspace uses _S1_Mind_Map naming (like CHGH), use _S1_Mind_Map; otherwise _Mind_Map
+                return currentFile.includes('_S0_') ? `${base}_S1_Mind_Map.html` : `${base}_Mind_Map.html`;
+            }
             return `${base}_S1_Mind_Map.html`;
         }
 
