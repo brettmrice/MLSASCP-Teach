@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Resource Explorer - MLSASCP-Teach">
+    <title>Resource Explorer</title>
+    
+    <!-- Google Fonts: Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css?v=20261016">
+    
+    <!-- Prevent automatic browser anchor scrolling on initial load -->
+    <script>
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        if (window.location.hash) {
+            window.scrollTo(0, 0);
+        }
+    </script>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header id="mainHeader">
+        <div class="header-container">
+            <a href="#" class="brand">
+                <div class="brand-icon">RE</div>
+                <div class="brand-text">
+                    <div class="brand-title">Resource Explorer</div>
+                </div>
+            </a>
+            
+            <button class="btn btn-icon-only header-top-btn" id="headerTopBtn" aria-label="Back to top" title="Back to top">
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 11l7-7 7 7M5 19l7-7 7 7"/>
+                </svg>
+            </button>
+
+            <div class="header-actions">
+                <button class="btn btn-icon-only" id="themeToggleBtn" aria-label="Toggle Dark Mode" title="Toggle Theme">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Controls Bar -->
+    <div class="controls-bar">
+        <!-- Search & View Toggle Row -->
+        <div class="search-row">
+            <div class="search-box">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+                <input type="text" id="searchInput" placeholder="Search mind maps, discussions, slides, or topics..." autocomplete="off">
+            </div>
+
+            <div class="view-toggle">
+                <button class="toggle-btn active" id="btnViewGrid" title="Card Grid View">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                    </svg>
+                    Grid
+                </button>
+                <button class="toggle-btn" id="btnViewTree" title="Directory Tree View">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+                    </svg>
+                    Tree
+                </button>
+            </div>
+        </div>
+
+        <!-- Domain / Folder Filter Chips -->
+        <div class="filter-group">
+            <span class="filter-label">Folder:</span>
+            <div class="chips-row domain-chips-row">
+                <button class="chip chip-domain chip-all active" data-domain="all" id="tabDomainAll">
+                    All Folders <span class="chip-count" id="countDomainAll">0</span>
+                </button>
+                <div class="chips-wrap-group">
+                    <button class="chip chip-domain" data-domain="lecture" id="tabDomainLecture">
+                        Hematology Lecture <span class="chip-count" id="countDomainLecture">0</span>
+                    </button>
+                    <button class="chip chip-domain" data-domain="laboratory" id="tabDomainLab">
+                        Hematology Lab <span class="chip-count" id="countDomainLab">0</span>
+                    </button>
+                    <button class="chip chip-domain" data-domain="body_fluids" id="tabDomainBodyFluids">
+                        Body Fluids <span class="chip-count" id="countDomainBodyFluids">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Module / Subfolder Filter Chips -->
+        <div class="filter-group">
+            <span class="filter-label">Module:</span>
+            <div class="chips-row module-chips-row">
+                <button class="chip chip-module chip-all active" data-module="all" id="tabModuleAll">
+                    All Modules <span class="chip-count" id="countModuleAll">0</span>
+                </button>
+                <div class="chips-wrap-group">
+                    <button class="chip chip-module" data-module="Physiology" id="tabModulePhysiology">
+                        Physiology <span class="chip-count" id="countModulePhysiology">0</span>
+                    </button>
+                    <button class="chip chip-module" data-module="CBC_PBS" id="tabModuleCBC">
+                        CBC & PBS <span class="chip-count" id="countModuleCBC">0</span>
+                    </button>
+                    <button class="chip chip-module" data-module="Erythrocyte" id="tabModuleErythrocyte">
+                        Erythrocyte <span class="chip-count" id="countModuleErythrocyte">0</span>
+                    </button>
+                    <button class="chip chip-module" data-module="Leukocyte" id="tabModuleLeukocyte">
+                        Leukocyte <span class="chip-count" id="countModuleLeukocyte">0</span>
+                    </button>
+                    <button class="chip chip-module" data-module="Body_Fluids" id="tabModuleBodyFluids">
+                        Body Fluids <span class="chip-count" id="countModuleBodyFluids">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resource Type Filter Chips -->
+        <div class="filter-group">
+            <span class="filter-label">Type:</span>
+            <div class="chips-row type-chips-row">
+                <button class="chip chip-type chip-all active" data-filter="all">
+                    All Types <span class="chip-count" id="countAll">0</span>
+                </button>
+                <div class="chips-wrap-group">
+                    <button class="chip chip-type" data-filter="discussion">
+                        <svg width="14" height="14" viewBox="0 0 14 14" style="vertical-align: middle;"><circle cx="7" cy="7" r="6.5" fill="var(--accent-bg-doc)" stroke="var(--accent-doc)" stroke-width="1"/><circle cx="7" cy="7" r="3" fill="var(--accent-doc)"/></svg>
+                        Discussions <span class="chip-count" id="countDisc">0</span>
+                    </button>
+                    <button class="chip chip-type" data-filter="flowchart">
+                        <svg width="14" height="14" viewBox="0 0 14 14" style="vertical-align: middle;"><circle cx="7" cy="7" r="6.5" fill="var(--accent-bg-flowchart)" stroke="var(--accent-flowchart)" stroke-width="1"/><circle cx="7" cy="7" r="3" fill="var(--accent-flowchart)"/></svg>
+                        Flow Charts <span class="chip-count" id="countFlowChart">0</span>
+                    </button>
+                    <button class="chip chip-type" data-filter="pdf">
+                        <svg width="14" height="14" viewBox="0 0 14 14" style="vertical-align: middle;"><circle cx="7" cy="7" r="6.5" fill="var(--accent-bg-pdf)" stroke="var(--accent-pdf)" stroke-width="1"/><circle cx="7" cy="7" r="3" fill="var(--accent-pdf)"/></svg>
+                        Slide Decks <span class="chip-count" id="countPdf">0</span>
+                    </button>
+                    <button class="chip chip-type" data-filter="video">
+                        <svg width="14" height="14" viewBox="0 0 14 14" style="vertical-align: middle;"><circle cx="7" cy="7" r="6.5" fill="var(--accent-bg-video)" stroke="var(--accent-video)" stroke-width="1"/><circle cx="7" cy="7" r="3" fill="var(--accent-video)"/></svg>
+                        Videos <span class="chip-count" id="countVideo">0</span>
+                    </button>
+                    <button class="chip chip-type" data-filter="demonstration">
+                        <svg width="14" height="14" viewBox="0 0 14 14" style="vertical-align: middle;"><circle cx="7" cy="7" r="6.5" fill="var(--accent-bg-demo)" stroke="var(--accent-demo)" stroke-width="1"/><circle cx="7" cy="7" r="3" fill="var(--accent-demo)"/></svg>
+                        Demonstrations <span class="chip-count" id="countDemo">0</span>
+                    </button>
+                    <button class="chip chip-type" data-filter="tool">
+                        <svg width="14" height="14" viewBox="0 0 14 14" style="vertical-align: middle;"><circle cx="7" cy="7" r="6.5" fill="var(--accent-bg-tool)" stroke="var(--accent-tool)" stroke-width="1"/><circle cx="7" cy="7" r="3" fill="var(--accent-tool)"/></svg>
+                        Tools <span class="chip-count" id="countTool">0</span>
+                    </button>
+                    <button class="chip chip-type" data-filter="trainer">
+                        <svg width="14" height="14" viewBox="0 0 14 14" style="vertical-align: middle;"><circle cx="7" cy="7" r="6.5" fill="var(--accent-bg-trainer)" stroke="var(--accent-trainer)" stroke-width="1"/><circle cx="7" cy="7" r="3" fill="var(--accent-trainer)"/></svg>
+                        Trainers <span class="chip-count" id="countTrainer">0</span>
+                    </button>
+                    <button class="chip chip-type" data-filter="mindmap">
+                        <svg width="14" height="14" viewBox="0 0 14 14" style="vertical-align: middle;"><circle cx="7" cy="7" r="6.5" fill="var(--accent-bg-map)" stroke="var(--accent-map)" stroke-width="1"/><circle cx="7" cy="7" r="3" fill="var(--accent-map)"/></svg>
+                        Mind Maps <span class="chip-count" id="countMaps">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <main>
+        <div class="results-stats" id="resultsStats">Loading files index...</div>
+        <div id="contentContainer">
+            <!-- Dynamic files grid or tree rendered by app.js -->
+        </div>
+    </main>
+
+    <!-- Modal Drawer Previewer -->
+    <div class="modal-backdrop" id="modalBackdrop">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title" id="modalTitle">Document Preview</div>
+                <div class="modal-controls">
+                    <a class="btn btn-primary" id="modalExternalLink" href="#" target="_blank" rel="noopener noreferrer" style="padding: 6px 12px; font-size: 0.8rem;">
+                        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                        </svg>
+                        Open in New Tab
+                    </a>
+                    <button class="btn btn-icon-only" id="modalCloseBtn" aria-label="Close modal" style="background: rgba(255,255,255,0.15); color: #FFF; border: none;">
+                        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <iframe id="modalIframe" src="about:blank" title="Resource Preview"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Resource Explorer · MLSASCP-Teach</p>
+    </footer>
+
+    <!-- Application Manifest & Scripts -->
+    <script src="files_data.js?v=20261016b"></script>
+    <script src="video_links.js?v=20261016b"></script>
+    <script src="app.js?v=20261016b"></script>
+</body>
+</html>

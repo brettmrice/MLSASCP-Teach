@@ -1,0 +1,152 @@
+window.VIDEO_LINKS = [
+  {
+    "slide_deck_file": "L1_Hematopoiesis_S1_Blood_Composition.pdf",
+    "title": "Blood Composition",
+    "youtube_url": "https://youtu.be/jG0gyuxHCss"
+  },
+  {
+    "slide_deck_file": "L1_Hematopoiesis_S2_Hematopoiesis_Sites.pdf",
+    "title": "Hematopoiesis Sites",
+    "youtube_url": "https://youtu.be/-tAUTqSBBV8"
+  },
+  {
+    "slide_deck_file": "L1_Hematopoiesis_S3_Hematopoiesis_Process.pdf",
+    "title": "Hematopoiesis Process",
+    "youtube_url": "https://youtu.be/F6M8pZDxGdw"
+  },
+  {
+    "slide_deck_file": "L1_Manual_Counts_S1_Hemocytometer.pdf",
+    "title": "Hemocytometer",
+    "youtube_url": "https://youtu.be/GEtNXeqoKlo"
+  },
+  {
+    "demo": "L1_Manual_Counts_S1_1",
+    "title": "Hemocytometer Thrombo-TIC Setup",
+    "youtube_url": "https://youtu.be/QTzEcoxlkoI"
+  },
+  {
+    "demo": "L1_Manual_Counts_S1_2",
+    "title": "Hemocytometer Charging",
+    "youtube_url": "https://youtu.be/m-EP2Vj_CQo"
+  },
+  {
+    "demo": "L1_Manual_Counts_S1_3",
+    "title": "Hemocytometer Read",
+    "youtube_url": "https://youtu.be/IdD9H5buUrA"
+  },
+  {
+    "tool": "L1_Manual_Counts_S1_1",
+    "title": "Week 2 Hemocytometer",
+    "youtube_url": "https://teach.brettmrice.com/#week-2"
+  },
+  {
+    "slide_deck_file": "L1_Manual_Counts_S2_Hematocrit.pdf",
+    "title": "Hematocrit",
+    "youtube_url": "https://youtu.be/lojI06C6A5Q"
+  },
+  {
+    "demo": "L1_Manual_Counts_S2_1",
+    "title": "Hematocrit Setup",
+    "youtube_url": "https://youtu.be/4W0XvRYXTJw"
+  },
+  {
+    "demo": "L1_Manual_Counts_S2_2",
+    "title": "Hematocrit Centrifuge & Read",
+    "youtube_url": "https://youtu.be/0_Id8VUFsQ4"
+  },
+  {
+    "trainer": "L1_Manual_Counts_S1_1",
+    "title": "Hematocrit Reader",
+    "youtube_url": "https://www.brettmrice.com/Hematocrit-Trainer/"
+  },
+  {
+    "slide_deck_file": "L2_BCE_RBC-HGB_S1_Erythrocyte.pdf",
+    "title": "Erythrocyte",
+    "youtube_url": "https://youtu.be/LcgQgGLCt5I"
+  },
+  {
+    "slide_deck_file": "L2_BCE_RBC-HGB_S2_Hemoglobin.pdf",
+    "title": "Hemoglobin",
+    "youtube_url": "https://youtu.be/Bn2MnwjD51w"
+  },
+  {
+    "slide_deck_file": "L2_Slide_Preparation_S1_PBS_Preparation.pdf",
+    "title": "PBS Preparation",
+    "youtube_url": "https://youtu.be/Mn4t2B3R_UY"
+  },
+  {
+    "demo": "L2_Slide_Preparation_S1_1",
+    "title": "Slide Prep Microcapillary Tube",
+    "youtube_url": "https://youtu.be/_J5hAGrS650"
+  },
+  {
+    "demo": "L2_Slide_Preparation_S1_2",
+    "title": "Slide Prep Applicator Stick",
+    "youtube_url": "https://youtu.be/cjWf9c6Uqdw"
+  },
+  {
+    "slide_deck_file": "L3_BCE_WBC-PLT_S1_Granulocytes.pdf",
+    "title": "Granulocytes",
+    "youtube_url": "https://youtu.be/h-lqd3K_byM"
+  },
+  {
+    "slide_deck_file": "L3_BCE_WBC-PLT_S2_Lymphocytes.pdf",
+    "title": "Lymphocytes",
+    "youtube_url": "https://youtu.be/dQ7j6_6IZig"
+  },
+  {
+    "slide_deck_file": "L3_BCE_WBC-PLT_S3_Monocytes-Platelets.pdf",
+    "title": "Monocytes & Platelets",
+    "youtube_url": "https://youtu.be/S5z8BRAl9f4"
+  },
+  {
+    "slide_deck_file": "L3_Slide_Evaluation_S1_PBS_Evaluation.pdf",
+    "title": "PBS Evaluation",
+    "youtube_url": "https://youtu.be/_RkPRVrStLM"
+  },
+  {
+    "slide_deck_file": "L3_Slide_Evaluation_S2_PBS_Morphologies.pdf",
+    "title": "PBS Morphologies",
+    "youtube_url": "https://youtu.be/8Q7muZftcao"
+  },
+  {
+    "demo": "L3_Slide_Evaluation_S2_1",
+    "title": "CPS Tutorial",
+    "youtube_url": "https://www.youtube.com/watch?v=0m0JuzliCN4"
+  },
+  {
+    "tool": "L3_Slide_Evaluation_S2_1",
+    "title": "Week 3 Slides",
+    "youtube_url": "https://teach.brettmrice.com/#week-3"
+  },
+  {
+    "tool": "L3_Slide_Evaluation_S2_2",
+    "title": "Blood Cell ID",
+    "youtube_url": "https://bloodcellid.com/"
+  },
+  {
+    "slide_deck_file": "L4_RBC_Analysis_S1_RBC_Indices.pdf",
+    "title": "RBC Indices",
+    "youtube_url": "https://youtu.be/12lDKTSlcg0"
+  },
+  {
+    "slide_deck_file": "L4_RBC_Analysis_S2_RBC_Poikilocytes.pdf",
+    "title": "RBC Poikilocytes",
+    "youtube_url": "https://youtu.be/3-FpS1rfeuA"
+  },
+  {
+    "slide_deck_file": "L4_RBC_Analysis_S3_RBC_Inclusions.pdf",
+    "title": "RBC Inclusions",
+    "youtube_url": "https://youtu.be/6JfUtpf2mvc"
+  },
+  {
+    "slide_deck_file": "L4_CBC_Analysis_S1_Principles.pdf",
+    "title": "Principles",
+    "youtube_url": "https://youtu.be/UIS-zmZTZeU"
+  },
+  {
+    "slide_deck_file": "L4_CBC_Analysis_S2_Parameters.pdf",
+    "title": "Parameters",
+    "youtube_url": "https://youtu.be/113lBFF1Iuw"
+  }
+];

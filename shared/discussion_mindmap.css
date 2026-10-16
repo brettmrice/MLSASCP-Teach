@@ -1,0 +1,799 @@
+/* =========================================================================
+   Discussion Portable Mind Map Overlay CSS
+   ========================================================================= */
+
+/* Floating Trigger Buttons: Bottom-Right Stack (Quiz Me [120px] -> Mind Map [72px] -> Navigation [24px]) */
+.discussion-mindmap-fab {
+    position: fixed !important;
+    bottom: 72px !important;
+    left: auto !important;
+    right: 24px !important;
+    width: auto;
+    padding: 8px 16px !important;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    font-family: inherit !important;
+    border-radius: 20px !important;
+    cursor: pointer;
+    z-index: 1001 !important;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15) !important;
+    transition: opacity 0.25s ease, transform 0.25s ease, background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s !important;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(10px);
+    background-color: var(--hdr-icon-text, #EFE1CE) !important;
+    color: var(--hdr-icon-bg, #363945) !important;
+    border: 1px solid var(--hdr-btn-border, #E2E8F0) !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    outline: none;
+    user-select: none;
+    text-decoration: none;
+    line-height: 1.2;
+}
+
+.discussion-mindmap-fab svg,
+.jump-to-nav-btn svg {
+    stroke: currentColor;
+    flex-shrink: 0;
+}
+
+.discussion-mindmap-fab.visible {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translateY(0) !important;
+}
+
+.discussion-mindmap-fab:hover {
+    background-color: var(--hdr-icon-bg, #363945) !important;
+    border-color: var(--hdr-icon-bg, #363945) !important;
+    color: var(--hdr-icon-text, #EFE1CE) !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
+    transform: translateY(0) !important;
+}
+
+.discussion-mindmap-fab:active {
+    transform: translateY(0) !important;
+}
+
+/* Floating Bottom-Right Navigation Button */
+.jump-to-nav-btn {
+    position: fixed !important;
+    bottom: 24px !important;
+    left: auto !important;
+    right: 24px !important;
+    width: auto;
+    padding: 8px 16px !important;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    font-family: inherit !important;
+    border-radius: 20px !important;
+    cursor: pointer;
+    z-index: 1000 !important;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15) !important;
+    transition: opacity 0.25s ease, transform 0.25s ease, background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s !important;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(10px);
+    background-color: var(--hdr-icon-text, #EFE1CE) !important;
+    color: var(--hdr-icon-bg, #363945) !important;
+    border: 1px solid var(--hdr-btn-border, #E2E8F0) !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    outline: none;
+    user-select: none;
+    text-decoration: none;
+    line-height: 1.2;
+}
+
+.jump-to-nav-btn.visible {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translateY(0) !important;
+}
+
+.jump-to-nav-btn:hover {
+    background-color: var(--hdr-icon-bg, #363945) !important;
+    border-color: var(--hdr-icon-bg, #363945) !important;
+    color: var(--hdr-icon-text, #EFE1CE) !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
+    transform: translateY(0) !important;
+}
+
+.jump-to-nav-btn:active {
+    transform: translateY(0) !important;
+}
+
+/* =========================================================================
+   Unified Floating Action Dock Container
+   Bottom-Right Stack (>1300px: Quiz Me [top] -> Mind Map [mid] -> Navigation [bottom])
+   Horizontal Row (<=1300px: Quiz Me -> Mind Map -> Navigation [Left to Right, Icon Only, Circular])
+   ========================================================================= */
+.discussion-fab-dock {
+    position: fixed !important;
+    bottom: 24px !important;
+    right: max(24px, calc(50% - 540px - 140px)) !important;
+    left: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+    gap: 10px !important;
+    z-index: 1000 !important;
+    pointer-events: none !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    transition: right 0.25s ease, bottom 0.25s ease, left 0.25s ease, transform 0.25s ease, gap 0.25s ease !important;
+    transform: none !important;
+}
+
+/* Individual buttons reset fixed positioning when inside dock */
+.discussion-fab-dock .discussion-quiz-fab,
+.discussion-fab-dock .discussion-mindmap-fab,
+.discussion-fab-dock .jump-to-nav-btn {
+    position: static !important;
+    bottom: auto !important;
+    right: auto !important;
+    left: auto !important;
+    top: auto !important;
+    margin: 0 !important;
+}
+
+/* Ordering: Quiz Me (1) -> Mind Map (2) -> Navigation (3) */
+.discussion-fab-dock .discussion-quiz-fab {
+    order: 1 !important;
+    z-index: 1002 !important;
+}
+.discussion-fab-dock .discussion-mindmap-fab {
+    order: 2 !important;
+    z-index: 1001 !important;
+}
+.discussion-fab-dock .jump-to-nav-btn {
+    order: 3 !important;
+    z-index: 1000 !important;
+}
+
+/* Responsive: Collapse into Horizontal Circular Icon-Only Dock when overlapping text (<= 1300px) */
+@media (max-width: 1300px) {
+    .discussion-fab-dock {
+        flex-direction: row !important;
+        align-items: center !important;
+        right: 20px !important;
+        left: auto !important;
+        transform: none !important;
+        bottom: 20px !important;
+        gap: 8px !important;
+    }
+
+    .discussion-fab-dock .discussion-quiz-fab,
+    .discussion-fab-dock .discussion-mindmap-fab,
+    .discussion-fab-dock .jump-to-nav-btn {
+        width: 38px !important;
+        height: 38px !important;
+        min-width: 38px !important;
+        max-width: 38px !important;
+        padding: 0 !important;
+        border-radius: 50% !important;
+        font-size: 0 !important;
+        gap: 0 !important;
+        justify-content: center !important;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2) !important;
+    }
+
+    .discussion-fab-dock .discussion-quiz-fab span,
+    .discussion-fab-dock .discussion-mindmap-fab span,
+    .discussion-fab-dock .jump-to-nav-btn span,
+    .discussion-fab-dock .fab-text {
+        display: none !important;
+    }
+
+    .discussion-fab-dock .discussion-quiz-fab svg,
+    .discussion-fab-dock .discussion-mindmap-fab svg,
+    .discussion-fab-dock .jump-to-nav-btn svg {
+        width: 18px !important;
+        height: 18px !important;
+        margin: 0 !important;
+    }
+}
+
+/* Mobile (Very Narrow) View: Center bottom positioning & Card Sticky Adjustment */
+@media (max-width: 768px) {
+    :root {
+        --card-sticky-bottom: calc(max(16px, env(safe-area-inset-bottom, 16px)) + 52px);
+    }
+
+    .discussion-fab-dock {
+        left: 50% !important;
+        right: auto !important;
+        transform: translateX(-50%) !important;
+        bottom: max(16px, env(safe-area-inset-bottom, 16px)) !important;
+        gap: 8px !important;
+        z-index: 1000 !important;
+    }
+
+    /* Prevent sticky bottom preview/header cards from overlapping centered FAB dock */
+    :root html body .flowchart-wrapper:not(.is-collapsed) .flowchart-header-card,
+    :root html body .flowchart-wrapper:not(.is-collapsed) .flowchart-preview-card,
+    :root html body .table-wrapper:not(.is-collapsed) .table-header-card,
+    :root html body .table-wrapper:not(.is-collapsed) .table-preview-card,
+    :root html body .formula-wrapper:not(.is-collapsed) .formula-header-card,
+    :root html body .formula-wrapper:not(.is-collapsed) .formula-preview-card,
+    :root html body .graphic-wrapper:not(.is-collapsed) .graphic-header-card,
+    :root html body .graphic-wrapper:not(.is-collapsed) .graphic-preview-card {
+        bottom: calc(max(16px, env(safe-area-inset-bottom, 16px)) + 52px) !important;
+        transition: bottom 0.25s ease !important;
+    }
+}
+    .mindmap-bottom-close-btn {
+        bottom: 16px !important;
+        width: 38px !important;
+        height: 38px !important;
+        min-width: 38px !important;
+        padding: 0 !important;
+        border-radius: 8px !important;
+        font-size: 0 !important;
+        gap: 0 !important;
+        justify-content: center !important;
+    }
+    .mindmap-bottom-close-btn span {
+        display: none !important;
+    }
+    .mindmap-bottom-close-btn svg {
+        width: 18px !important;
+        height: 18px !important;
+        margin: 0 !important;
+    }
+}
+
+/* Modal Overlay & Backdrop */
+.discussion-mindmap-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 999999;
+    justify-content: center;
+    align-items: center;
+    padding: 3vh 3vw;
+    box-sizing: border-box;
+    opacity: 0;
+    transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    overscroll-behavior: contain;
+    touch-action: none;
+}
+
+.discussion-mindmap-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+/* Frameless Modal Window Container */
+.discussion-mindmap-modal {
+    position: relative;
+    width: 94vw;
+    height: 92vh;
+    max-width: 1700px;
+    background: #ffffff;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    border-radius: 14px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35), 0 4px 16px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+    transform: scale(0.97);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    overscroll-behavior: contain;
+}
+
+.discussion-mindmap-overlay.active .discussion-mindmap-modal {
+    transform: scale(1);
+}
+
+/* Embedded Mind Map Iframe */
+.mindmap-modal-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: #f7f9fc;
+    display: block;
+    overscroll-behavior: contain;
+}
+
+/* Floating Close Button Bottom Center */
+.mindmap-bottom-close-btn {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 20px;
+    background: rgba(15, 23, 42, 0.88);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    font-family: inherit;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+    outline: none;
+}
+
+.mindmap-bottom-close-btn:hover {
+    background: rgba(220, 38, 38, 0.95);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
+    transform: translateX(-50%) translateY(-2px);
+}
+
+.mindmap-bottom-close-btn:active {
+    transform: translateX(-50%) translateY(0);
+}
+
+.mindmap-bottom-close-btn svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* Dark Mode Overrides */
+@media (prefers-color-scheme: dark) {
+    .discussion-mindmap-fab {
+        background-color: #EFE1CE !important;
+        color: #22242D !important;
+        border-color: #333745 !important;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4) !important;
+    }
+    .discussion-mindmap-fab:hover {
+        background-color: #22242D !important;
+        border-color: #EFE1CE !important;
+        color: #EFE1CE !important;
+        box-shadow: 0 4px 16px rgba(239, 225, 206, 0.35) !important;
+    }
+    .jump-to-nav-btn {
+        background-color: #EFE1CE !important;
+        color: #22242D !important;
+        border-color: #333745 !important;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4) !important;
+    }
+    .jump-to-nav-btn:hover {
+        background-color: #22242D !important;
+        border-color: #EFE1CE !important;
+        color: #EFE1CE !important;
+        box-shadow: 0 4px 16px rgba(239, 225, 206, 0.35) !important;
+    }
+    .discussion-mindmap-modal {
+        background: #0d1117;
+        border-color: #30363d;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+    }
+    .mindmap-modal-iframe {
+        background-color: #0d1117;
+    }
+    .mindmap-bottom-close-btn {
+        background: rgba(30, 41, 59, 0.92);
+        border-color: #475569;
+        color: #f1f5f9;
+    }
+    .mindmap-bottom-close-btn:hover {
+        background: rgba(239, 68, 68, 0.95);
+        border-color: #f87171;
+    }
+    .discussion-header-top-btn:hover,
+    .discussion-brand:hover .discussion-brand-icon,
+    .discussion-theme-btn:hover {
+        border-color: #EFE1CE !important;
+        box-shadow: 0 2px 14px rgba(239, 225, 206, 0.35) !important;
+    }
+}
+
+[data-theme="dark"] .discussion-mindmap-fab {
+    background-color: #EFE1CE !important;
+    color: #22242D !important;
+    border-color: #333745 !important;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4) !important;
+}
+[data-theme="dark"] .discussion-mindmap-fab:hover {
+    background-color: #22242D !important;
+    border-color: #EFE1CE !important;
+    color: #EFE1CE !important;
+    box-shadow: 0 4px 16px rgba(239, 225, 206, 0.35) !important;
+}
+[data-theme="dark"] .jump-to-nav-btn {
+    background-color: #EFE1CE !important;
+    color: #22242D !important;
+    border-color: #333745 !important;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4) !important;
+}
+[data-theme="dark"] .jump-to-nav-btn:hover {
+    background-color: #22242D !important;
+    border-color: #EFE1CE !important;
+    color: #EFE1CE !important;
+    box-shadow: 0 4px 16px rgba(239, 225, 206, 0.35) !important;
+}
+[data-theme="dark"] .discussion-header-top-btn:hover,
+[data-theme="dark"] .discussion-brand:hover .discussion-brand-icon,
+[data-theme="dark"] .discussion-theme-btn:hover {
+    border-color: #EFE1CE !important;
+    box-shadow: 0 2px 14px rgba(239, 225, 206, 0.35) !important;
+}
+
+/* =========================================================================
+   Portable Discussion Header (Solo & Non-Preview Mode)
+   ========================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+:root {
+    --hdr-bg: rgba(255, 255, 255, 0.85);
+    --hdr-border: #E2E8F0;
+    --hdr-text-primary: #363945;
+    --hdr-text-secondary: #64748B;
+    --hdr-icon-bg: #363945;
+    --hdr-icon-text: #EFE1CE;
+    --hdr-btn-bg: #FFFFFF;
+    --hdr-btn-border: #E2E8F0;
+    --hdr-btn-hover-bg: rgba(54, 57, 69, 0.12);
+    --hdr-arrow-hover: #0969da;
+    --hdr-transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="dark"] {
+    --hdr-bg: rgba(34, 36, 45, 0.85);
+    --hdr-border: #333745;
+    --hdr-text-primary: #F1F5F9;
+    --hdr-text-secondary: #94A3B8;
+    --hdr-icon-bg: #22242D;
+    --hdr-icon-text: #EFE1CE;
+    --hdr-btn-bg: #22242D;
+    --hdr-btn-border: #333745;
+    --hdr-btn-hover-bg: rgba(239, 225, 206, 0.15);
+    --hdr-arrow-hover: #1f6feb;
+}
+
+/* Theme overrides for markdown content when dark mode is toggled */
+[data-theme="dark"] body {
+    background-color: #0d1117 !important;
+    color: #e6edf3 !important;
+    --color-canvas-default: #0d1117;
+    --color-fg-default: #e6edf3;
+    --color-border-default: #30363d;
+}
+
+[data-theme="dark"] .markdown-body {
+    color-scheme: dark;
+    color: #e6edf3;
+}
+
+[data-theme="light"] body {
+    background-color: #ffffff !important;
+    color: #1f2328 !important;
+    --color-canvas-default: #ffffff;
+    --color-fg-default: #1f2328;
+    --color-border-default: #d0d7de;
+}
+
+[data-theme="light"] .markdown-body {
+    color-scheme: light;
+    color: #1f2328;
+}
+
+body.has-discussion-header {
+    padding-top: 85px !important;
+}
+
+/* Hide redundant first H1 heading inside discussion body in solo mode */
+.discussion-first-heading-hidden,
+body.has-discussion-header .discussion-first-heading-hidden,
+body.has-discussion-header .markdown-body > h1:first-child,
+body.has-discussion-header .markdown-body > h1:first-of-type {
+    display: none !important;
+}
+
+#discussionMainHeader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--hdr-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--hdr-border);
+    z-index: 99999;
+    box-shadow: 0 2px 8px rgba(54, 57, 69, 0.06);
+    transition: background-color var(--hdr-transition-fast),
+                border-color var(--hdr-transition-fast),
+                box-shadow var(--hdr-transition-fast);
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    box-sizing: border-box;
+}
+
+/* Scroll progress bar docked to bottom of header */
+#discussionMainHeader .scroll-progress-container,
+.scroll-progress-container {
+    position: fixed;
+    top: var(--discussion-header-height, 65px) !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 4px;
+    background-color: transparent;
+    z-index: 100000;
+    pointer-events: none;
+}
+
+#discussionMainHeader .scroll-progress-container {
+    position: absolute !important;
+    top: auto !important;
+    bottom: -1px !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 3px;
+    z-index: 10;
+}
+
+.discussion-header-container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    position: relative;
+    box-sizing: border-box;
+    transition: padding var(--hdr-transition-fast);
+}
+
+/* Shrunk / Compact Header state matching index */
+#discussionMainHeader.header-shrunk .discussion-header-container {
+    padding: 6px 24px;
+}
+
+#discussionMainHeader.header-shrunk .discussion-brand-subtitle {
+    display: none;
+}
+
+#discussionMainHeader.header-shrunk .discussion-brand-title {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* 'Back to top' button in header actions */
+.discussion-header-top-btn {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: 1px solid var(--hdr-btn-border);
+    background-color: var(--hdr-icon-text);
+    color: var(--hdr-icon-bg);
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    transition: opacity var(--hdr-transition-fast), transform var(--hdr-transition-fast), visibility var(--hdr-transition-fast), background-color var(--hdr-transition-fast), border-color var(--hdr-transition-fast), color var(--hdr-transition-fast), box-shadow var(--hdr-transition-fast);
+}
+
+#discussionMainHeader.header-shrunk .discussion-header-top-btn {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+    display: inline-flex;
+}
+
+.discussion-header-top-btn:hover {
+    background-color: var(--hdr-icon-bg);
+    border-color: var(--hdr-icon-bg);
+    color: var(--hdr-icon-text);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+}
+
+html, body {
+    overflow-x: clip;
+    max-width: 100%;
+}
+
+.discussion-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--hdr-text-primary);
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: visible;
+    cursor: pointer;
+    user-select: none;
+    transition: opacity var(--hdr-transition-fast);
+}
+
+.discussion-brand:hover {
+    opacity: 0.95;
+}
+
+.discussion-brand:active {
+    opacity: 0.85;
+}
+
+.discussion-brand-icon {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    padding: 8px;
+    background: var(--hdr-icon-text);
+    color: var(--hdr-icon-bg);
+    border: 1px solid var(--hdr-btn-border);
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    transition: all var(--hdr-transition-fast);
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.discussion-brand:hover .discussion-brand-icon {
+    background: var(--hdr-icon-bg);
+    color: var(--hdr-icon-text);
+    border-color: var(--hdr-icon-bg);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+}
+
+.discussion-brand-svg {
+    display: block;
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    transition: transform var(--hdr-transition-fast);
+}
+
+.discussion-brand:hover .discussion-brand-svg {
+    transform: translateX(-1.5px);
+}
+
+.discussion-brand-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    flex: 1 1 auto;
+    overflow: hidden;
+}
+
+.discussion-brand-title {
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--hdr-text-primary);
+    letter-spacing: -0.3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    transition: font-size var(--hdr-transition-fast), color var(--hdr-transition-fast);
+}
+
+#discussionMainHeader.header-shrunk .discussion-brand-title {
+    font-size: 1rem;
+    font-weight: 600;
+    max-width: 100%;
+}
+
+.discussion-brand-subtitle {
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.75rem;
+    color: var(--hdr-text-secondary);
+    font-weight: 400;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.discussion-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.discussion-theme-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid var(--hdr-btn-border);
+    background-color: var(--hdr-icon-text);
+    color: var(--hdr-icon-bg);
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    transition: all var(--hdr-transition-fast);
+    box-sizing: border-box;
+}
+
+.discussion-theme-btn:hover {
+    background-color: var(--hdr-icon-bg);
+    border-color: var(--hdr-icon-bg);
+    color: var(--hdr-icon-text);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+}
+
+.discussion-theme-btn svg {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    body.has-discussion-header {
+        padding-top: 75px !important;
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+    }
+    .discussion-header-container {
+        padding: 10px 14px;
+        gap: 8px;
+    }
+    #discussionMainHeader.header-shrunk .discussion-header-container {
+        padding: 6px 14px;
+    }
+    .discussion-brand {
+        gap: 8px;
+    }
+    .discussion-brand-icon {
+        width: 34px;
+        height: 34px;
+        padding: 6px;
+    }
+    .discussion-brand-svg {
+        width: 17px;
+        height: 17px;
+    }
+    .discussion-brand-title {
+        font-size: 1.05rem;
+    }
+    #discussionMainHeader.header-shrunk .discussion-brand-title {
+        font-size: 0.95rem;
+    }
+    .discussion-brand-subtitle {
+        font-size: 0.7rem;
+    }
+    .discussion-header-top-btn,
+    .discussion-theme-btn {
+        width: 34px;
+        height: 34px;
+        padding: 6px;
+    }
+    .discussion-theme-btn svg {
+        width: 17px;
+        height: 17px;
+    }
+}
