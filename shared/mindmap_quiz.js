@@ -2522,9 +2522,9 @@
     const titleBtn = document.getElementById('btn-open-sidebar');
     if (titleBtn) {
       const topicEl = document.getElementById('topic-title');
-      const topicText = topicEl ? topicEl.textContent.trim() : 'Course Mind Maps';
-      titleBtn.setAttribute('title', `${topicText} - Open Course Mind Maps`);
-      titleBtn.setAttribute('aria-label', `${topicText} - Open Course Mind Maps`);
+      const topicText = topicEl ? topicEl.textContent.trim() : 'Mind Maps';
+      titleBtn.setAttribute('title', `${topicText} - Open Mind Maps`);
+      titleBtn.setAttribute('aria-label', `${topicText} - Open Mind Maps`);
     }
   }
 
