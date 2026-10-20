@@ -1,0 +1,3779 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flow Cytometry Gating Simulator & Clinical Trainer</title>
+  
+  <!-- Roboto & JetBrains Mono Fonts matching CHGH -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* =========================================================================
+       CHGH Theme: Warm Beige (#EFE1CE) & Deep Charcoal (#363945 / #22242D)
+       ========================================================================= */
+    :root {
+      --theme-first-color: #363945;
+      --theme-first-color-light: rgba(54, 57, 69, 0.1);
+      --theme-first-color-muted: rgba(54, 57, 69, 0.65);
+      --theme-second-color: #EFE1CE;
+      --theme-second-color-hover: #e5d3ba;
+
+      --bg-primary: #F7F8FA;
+      --bg-surface: #FFFFFF;
+      --bg-card: #FFFFFF;
+      --bg-card-header: #F1F5F9;
+      --border-color: #E2E8F0;
+      --border-strong: #CBD5E1;
+      
+      --text-primary: #363945;
+      --text-secondary: #64748B;
+      --text-muted: #94A3B8;
+
+      --accent: #2563EB;
+      --accent-hover: #1D4ED8;
+      --gate-color: #D946EF;
+      --gate-bg: rgba(217, 70, 239, 0.14);
+
+      --plot-bg: #FFFFFF;
+      --plot-inner-bg: #FAFAFA;
+      --plot-grid: #E2E8F0;
+      --plot-axis: #64748B;
+      --quadrant-line: rgba(71, 85, 105, 0.5);
+
+      --shadow-sm: 0 1px 3px rgba(54, 57, 69, 0.08);
+      --shadow-md: 0 4px 12px rgba(54, 57, 69, 0.1);
+
+      --success: #059669;
+      --warning: #D97706;
+      --danger: #DC2626;
+    }
+
+    [data-theme="dark"] {
+      --theme-first-color: #EFE1CE;
+      --theme-first-color-light: rgba(239, 225, 206, 0.15);
+      --theme-first-color-muted: rgba(241, 245, 249, 0.7);
+      --theme-second-color: #363945;
+      --theme-second-color-hover: #434756;
+
+      --bg-primary: #18191E;
+      --bg-surface: #22242D;
+      --bg-card: #22242D;
+      --bg-card-header: #2B2E3A;
+      --border-color: #333745;
+      --border-strong: #4A4F63;
+
+      --text-primary: #F1F5F9;
+      --text-secondary: #94A3B8;
+      --text-muted: #64748B;
+
+      --accent: #60A5FA;
+      --accent-hover: #93C5FD;
+      --gate-color: #F0ABFC;
+      --gate-bg: rgba(240, 171, 252, 0.16);
+
+      --plot-bg: #14151A;
+      --plot-inner-bg: #18191E;
+      --plot-grid: #282C37;
+      --plot-axis: #94A3B8;
+      --quadrant-line: rgba(239, 225, 206, 0.45);
+
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+      --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.45);
+
+      --success: #10B981;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden; /* Fill window without scrolling */
+      font-family: "Roboto", -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      display: flex;
+      flex-direction: column;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    /* Header Navigation Bar */
+    header {
+      background-color: var(--bg-surface);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0.35rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      gap: 0.75rem;
+      z-index: 50;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .brand-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: var(--theme-first-color);
+      color: var(--theme-second-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    [data-theme="dark"] .brand-icon {
+      background: var(--theme-second-color);
+      color: #22242D;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      line-height: 1.15;
+      color: var(--text-primary);
+    }
+
+    .brand-subtitle {
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .control-select {
+      background: var(--theme-second-color);
+      border: 1px solid #D8C3A5;
+      color: #363945;
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      outline: none;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s ease-in-out;
+    }
+
+    .control-select:hover, .control-select:focus {
+      border-color: #B89B77;
+    }
+
+    .control-select option {
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      font-weight: normal;
+    }
+
+    [data-theme="dark"] .control-select {
+      background: #3A352D;
+      color: #EFE1CE;
+      border-color: #554D40;
+    }
+
+    [data-theme="dark"] .control-select:hover, [data-theme="dark"] .control-select:focus {
+      border-color: #8C7B65;
+    }
+
+    [data-theme="dark"] .control-select option {
+      background: var(--bg-surface);
+      color: var(--text-primary);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      padding: 0.3rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.15s ease-in-out;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+
+    .btn-chgh-primary {
+      background: var(--theme-second-color);
+      color: #363945;
+      border-color: var(--border-color);
+      font-weight: 600;
+    }
+    .btn-chgh-primary:hover {
+      background: var(--theme-second-color-hover);
+    }
+    [data-theme="dark"] .btn-chgh-primary {
+      background: var(--theme-second-color);
+      color: #18191E;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border-color: var(--border-color);
+      color: var(--text-primary);
+    }
+    .btn-outline:hover {
+      background: var(--bg-card-header);
+    }
+
+    .btn-icon-only {
+      width: 30px;
+      height: 30px;
+      padding: 0;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+    }
+    .btn-icon-only:hover {
+      background: var(--bg-card-header);
+    }
+
+    /* Statistics Ribbon */
+    .stats-ribbon {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0.25rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-shrink: 0;
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+      position: relative;
+      z-index: 40;
+    }
+
+    .stats-ribbon-left {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .stats-ribbon-badges {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .stats-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: var(--bg-primary);
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      border: 1px solid var(--border-color);
+    }
+
+    .stats-val {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .stats-val.highlight {
+      color: var(--gate-color);
+    }
+
+    /* Main Grid Area: 2 rows x 3 columns */
+    main {
+      flex: 1;
+      min-height: 0;
+      padding: 0.4rem;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .plots-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 0.45rem;
+      flex: 1;
+      height: 100%;
+      min-height: 0;
+    }
+
+    .plot-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      min-height: 0;
+      height: 100%;
+    }
+
+    .plot-card.primary-master {
+      border-color: var(--gate-color);
+      box-shadow: 0 0 0 1px var(--gate-color), var(--shadow-md);
+    }
+
+    .plot-header {
+      background: var(--bg-card-header);
+      padding: 0.28rem 0.55rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.76rem;
+      flex-shrink: 0;
+    }
+
+    .plot-title {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--text-primary);
+    }
+
+    .tag-primary {
+      background: var(--gate-color);
+      color: #fff;
+      font-size: 0.62rem;
+      padding: 0.1rem 0.35rem;
+      border-radius: 3px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    [data-theme="dark"] .tag-primary {
+      color: #18191E;
+    }
+
+    .plot-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .plot-axis-summary {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      background: var(--bg-surface);
+      padding: 0.12rem 0.45rem;
+      border-radius: 4px;
+      border: 1px solid var(--border-color);
+    }
+
+    .canvas-container {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      min-height: 0;
+      background: var(--plot-bg);
+      cursor: crosshair;
+      overflow: hidden;
+    }
+
+    /* Sleek Axis Pill Buttons along Plot Canvas Margins */
+    .axis-pill-btn {
+      position: absolute;
+      z-index: 25;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.18rem 0.55rem;
+      border-radius: 9999px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      font-family: inherit;
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      border: 1px solid var(--border-strong);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      user-select: none;
+      white-space: nowrap;
+      pointer-events: auto;
+    }
+
+    .axis-pill-btn:hover {
+      background: var(--theme-second-color-hover);
+      border-color: var(--accent);
+      color: var(--theme-first-color);
+      box-shadow: 0 2px 7px rgba(0, 0, 0, 0.2);
+    }
+
+    [data-theme="dark"] .axis-pill-btn:hover {
+      background: var(--theme-second-color);
+      color: #18191E;
+    }
+
+    .axis-pill-btn.fixed {
+      cursor: default;
+      background: var(--bg-primary);
+      opacity: 0.88;
+      border-style: dashed;
+      box-shadow: none;
+    }
+    .axis-pill-btn.fixed:hover {
+      background: var(--bg-primary);
+      border-color: var(--border-strong);
+      color: var(--text-primary);
+      box-shadow: none;
+      transform: none;
+    }
+
+    /* X-Axis centered along bottom margin (padB is 38px) */
+    .axis-pill-x {
+      bottom: 5px;
+      left: calc(50px + (100% - 62px) / 2);
+      transform: translateX(-50%);
+    }
+    .axis-pill-x:not(.fixed):hover {
+      transform: translateX(-50%) translateY(-1px);
+    }
+
+    /* Y-Axis centered along left margin (padL is 50px) rotated -90deg */
+    .axis-pill-y {
+      left: 18px;
+      top: calc(12px + (100% - 50px) / 2);
+      transform: translate(-50%, -50%) rotate(-90deg);
+      transform-origin: center center;
+    }
+    .axis-pill-y:not(.fixed):hover {
+      transform: translate(-50%, -50%) rotate(-90deg) scale(1.03);
+    }
+
+    .axis-pill-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    .axis-pill-caret {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+    }
+
+    .axis-pill-lock {
+      font-size: 0.68rem;
+      opacity: 0.75;
+    }
+
+    /* Panel Selection Dropdown in Top Header */
+    .panel-dropdown-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    .panel-dropdown-menu {
+      position: absolute;
+      top: calc(100% + 5px);
+      left: 0;
+      width: 310px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
+      z-index: 150;
+      display: none;
+      flex-direction: column;
+      padding: 0.35rem 0;
+      animation: modalFadeIn 0.15s ease-out;
+    }
+
+    .panel-dropdown-menu.open {
+      display: flex;
+    }
+
+    .panel-menu-header {
+      padding: 0.45rem 0.8rem 0.25rem;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+
+    .panel-menu-item {
+      padding: 0.5rem 0.8rem;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      transition: background 0.12s;
+    }
+
+    .panel-menu-item:hover {
+      background: var(--bg-card-header);
+    }
+
+    .panel-item-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .panel-item-desc {
+      font-size: 0.68rem;
+      color: var(--text-secondary);
+      line-height: 1.25;
+    }
+
+    .panel-menu-divider {
+      height: 1px;
+      background: var(--border-color);
+      margin: 0.35rem 0;
+    }
+
+    /* Marker Selector Dialog / Modal */
+    .marker-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(2px);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .marker-modal-backdrop.open {
+      display: flex;
+    }
+
+    .marker-modal {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      width: 620px;
+      max-width: 95vw;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+      animation: modalFadeIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.97); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .marker-modal-header {
+      padding: 0.75rem 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-color);
+      background: var(--bg-card-header);
+    }
+
+    .marker-modal-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .marker-modal-subtitle {
+      font-size: 0.73rem;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    .marker-modal-search {
+      padding: 0.55rem 1.1rem;
+      border-bottom: 1px solid var(--border-color);
+      background: var(--bg-surface);
+    }
+
+    .marker-modal-search input {
+      width: 100%;
+      padding: 0.45rem 0.75rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-size: 0.82rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .marker-modal-search input:focus {
+      border-color: var(--accent);
+    }
+
+    .marker-modal-body {
+      padding: 0.85rem 1.1rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      flex: 1;
+    }
+
+    .marker-category-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .marker-category-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+
+    .marker-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 0.45rem;
+    }
+
+    .marker-choice-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.4rem 0.65rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-family: inherit;
+      transition: all 0.12s ease;
+      text-align: left;
+    }
+
+    .marker-choice-btn:hover {
+      border-color: var(--accent);
+      background: var(--bg-card-header);
+      transform: translateY(-1px);
+    }
+
+    .marker-choice-btn.active {
+      border-color: var(--accent);
+      background: var(--theme-first-color-light);
+      font-weight: 700;
+    }
+
+    .marker-choice-name {
+      font-weight: 600;
+    }
+
+    .marker-choice-fluor {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+    }
+
+    /* Toast Notification */
+    .toast-notification {
+      position: fixed;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%) translateY(50px);
+      background: var(--theme-first-color);
+      color: var(--theme-second-color);
+      padding: 0.45rem 1rem;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 300;
+    }
+
+    [data-theme="dark"] .toast-notification {
+      background: var(--theme-second-color);
+      color: #18191E;
+    }
+
+    .toast-notification.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Empty state message in secondary plots */
+    .plot-empty-message {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1rem;
+      background: var(--plot-inner-bg);
+      color: var(--text-secondary);
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .plot-empty-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.4rem;
+      color: var(--text-muted);
+    }
+
+    .plot-empty-text {
+      font-size: 0.78rem;
+      line-height: 1.35;
+      max-width: 260px;
+    }
+
+    .plot-empty-text strong {
+      color: var(--gate-color);
+    }
+
+    /* Slide-out Diagnostic & Quiz Drawer */
+    .drawer {
+      position: fixed;
+      top: 0;
+      right: -620px;
+      width: 600px;
+      max-width: 95vw;
+      height: 100vh;
+      background: var(--bg-surface);
+      border-left: 1px solid var(--border-color);
+      z-index: 100;
+      box-shadow: -8px 0 24px rgba(0,0,0,0.3);
+      transition: right 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .drawer.open {
+      right: 0;
+    }
+
+    .drawer-header {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-card-header);
+    }
+
+    .drawer-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--text-primary);
+    }
+
+    .drawer-body {
+      padding: 1rem;
+      overflow-y: auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 90;
+      display: none;
+    }
+
+    .drawer-backdrop.open {
+      display: block;
+    }
+
+    .ref-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+    }
+
+    .ref-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.74rem;
+      text-align: left;
+    }
+
+    .ref-table th, .ref-table td {
+      padding: 0.5rem 0.65rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .ref-table th {
+      background: var(--bg-card-header);
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .ref-table tr:hover {
+      background: rgba(0, 0, 0, 0.02);
+    }
+    [data-theme="dark"] .ref-table tr:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .ref-table tr.active-case-row {
+      background: var(--theme-first-color-light);
+      border-left: 3px solid var(--accent);
+    }
+
+    .pos-marker {
+      color: var(--success);
+      font-weight: 600;
+    }
+
+    .neg-marker {
+      color: var(--danger);
+    }
+
+    .quiz-card {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .quiz-prompt {
+      font-size: 0.82rem;
+      line-height: 1.4;
+      color: var(--text-secondary);
+    }
+
+    .quiz-options {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.35rem;
+    }
+
+    .quiz-opt-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 0.45rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.15s;
+      font-family: inherit;
+    }
+
+    .quiz-opt-btn:hover:not(:disabled) {
+      border-color: var(--accent);
+      background: var(--theme-first-color-light);
+    }
+
+    .quiz-opt-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    .quiz-opt-btn.correct {
+      background: rgba(16, 185, 129, 0.15) !important;
+      border-color: var(--success) !important;
+      color: var(--success) !important;
+      font-weight: 600;
+      opacity: 1 !important;
+    }
+
+    .quiz-opt-btn.incorrect {
+      background: rgba(239, 68, 68, 0.15) !important;
+      border-color: var(--danger) !important;
+      color: var(--danger) !important;
+      opacity: 0.65 !important;
+    }
+
+    .feedback-box {
+      padding: 0.65rem;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      line-height: 1.35;
+      display: none;
+    }
+
+    .feedback-box.show {
+      display: block;
+    }
+
+    .feedback-box.success {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid var(--success);
+      color: var(--success);
+    }
+
+    .feedback-box.error {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid var(--danger);
+      color: var(--danger);
+    }
+
+    .close-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 1.25rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Navigation -->
+  <header>
+    <div class="brand" id="brandHeader" style="cursor: pointer;" title="Flow Cytometry Gating Simulator (Click to return to home)">
+      <div class="brand-icon">FC</div>
+      <div class="brand-text">
+        <div class="brand-title">Flow Cytometry Gating Simulator <span id="quizBadge" style="display:none; font-size:0.65rem; background:var(--accent); color:#fff; padding:2px 7px; border-radius:10px; margin-left:8px; vertical-align:middle; text-transform:uppercase; font-weight:700; letter-spacing:0.04em;">Quiz Mode <button id="btnExitQuiz" style="background:rgba(255,255,255,0.25); border:none; color:#fff; border-radius:4px; padding:1px 5px; margin-left:4px; font-size:0.65rem; cursor:pointer;" title="Exit Quiz Mode">Exit</button></span></div>
+        <div class="brand-subtitle">Clinical Hematopathology & Diagnostic Immunophenotyping</div>
+      </div>
+    </div>
+
+    <div class="header-controls">
+      <!-- Diagnostic Reference & Quiz Buttons -->
+      <button id="btnDiagnosticGuide" class="btn btn-outline" title="Open diagnostic guide & immunophenotypes">
+        Diagnostic Guide
+      </button>
+
+      <button id="btnQuizAction" class="btn btn-outline" title="Test diagnostic skills in Quiz Mode">
+        ? Me
+      </button>
+
+      <!-- CHGH Dark/Light Mode Toggle Button -->
+      <button id="themeToggleBtn" class="btn-icon-only" aria-label="Toggle Theme" title="Toggle Light/Dark Theme">
+        <svg id="themeIcon" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Statistics Ribbon with Case Selection, Diagnostic Panels & Reset -->
+  <div class="stats-ribbon">
+    <div class="stats-ribbon-left">
+      <div style="display:flex; align-items:center; gap:0.35rem;">
+        <label for="caseSelect" style="font-size:0.75rem; color:var(--text-secondary); font-weight:500;">Case:</label>
+        <select id="caseSelect" class="control-select" autocomplete="off">
+          <option value="normal" selected>Normal Peripheral Blood Control</option>
+          <option value="cll">Case 1: Chronic Lymphocytic Leukemia (CLL)</option>
+          <option value="mcl">Case 2: Mantle Cell Lymphoma (MCL)</option>
+          <option value="hcl">Case 3: Hairy Cell Leukemia (HCL)</option>
+          <option value="aml">Case 4: Acute Myeloid Leukemia (AML)</option>
+          <option value="amml">Case 5: Acute Myelomonocytic Leukemia (AMML)</option>
+          <option value="ball">Case 6: B-cell Acute Lymphoblastic Leukemia (B-ALL)</option>
+          <option value="tall">Case 7: T-cell Acute Lymphoblastic Leukemia (T-ALL)</option>
+          <option value="pcm">Case 8: Plasma Cell Myeloma (Multiple Myeloma)</option>
+        </select>
+      </div>
+
+      <!-- Diagnostic Differential Panels Dropdown Button -->
+      <div class="panel-dropdown-container">
+        <button id="btnPanelDropdown" class="btn btn-outline" title="Prefill secondary plots with standard clinical panels">
+          Diagnostic Panels <span style="font-size:0.65rem; margin-left:2px;">▼</span>
+        </button>
+        <div class="panel-dropdown-menu" id="panelDropdownMenu">
+          <div class="panel-menu-header">Clinical Differential Panels</div>
+          <div class="panel-menu-item" data-panel="case_default">
+            <div class="panel-item-title">⭐ Case Recommended Panel</div>
+            <div class="panel-item-desc">Prefills optimal markers for the current active clinical case</div>
+          </div>
+          <div class="panel-menu-divider"></div>
+          <div class="panel-menu-item" data-panel="b_cell_lpd">
+            <div class="panel-item-title">🟡 B-Cell LPD Panel</div>
+            <div class="panel-item-desc">CD19/CD20, CD19/CD5, CD5/CD23, CD20/FMC-7, Kappa/Lambda</div>
+          </div>
+          <div class="panel-menu-item" data-panel="acute_leukemia">
+            <div class="panel-item-title">🔴 Acute Leukemia / Blast Screen</div>
+            <div class="panel-item-desc">CD34/CD117, CD13/CD33, CD34/cMPO, CD19/CD10, CD34/TdT</div>
+          </div>
+          <div class="panel-menu-item" data-panel="t_cell">
+            <div class="panel-item-title">🟣 T-Cell & NK Neoplasm Panel</div>
+            <div class="panel-item-desc">CD3/CD5, cCD3/CD7, CD2/CD7, CD34/TdT, CD5/CD7</div>
+          </div>
+          <div class="panel-menu-item" data-panel="myeloid_mono">
+            <div class="panel-item-title">🟢 Myeloid & Monocytic Maturation</div>
+            <div class="panel-item-desc">CD34/CD117, CD13/CD33, CD14/CD64, CD34/CD14, CD33/CD64</div>
+          </div>
+          <div class="panel-menu-item" data-panel="plasma_cell">
+            <div class="panel-item-title">🔵 Plasma Cell Myeloma Panel</div>
+            <div class="panel-item-desc">CD38/CD138, CD56/CD19, CD45/CD56, CD38/CD45, CD19/CD138</div>
+          </div>
+          <div class="panel-menu-item" data-panel="hairy_cell">
+            <div class="panel-item-title">🟠 Hairy Cell Leukemia Panel</div>
+            <div class="panel-item-desc">CD19/CD20, CD19/CD103, CD25/CD11c, CD123/CD25, CD19/CD5</div>
+          </div>
+        </div>
+      </div>
+
+      <button id="btnResetGate" class="btn btn-outline" title="Clear all drawn gates">
+        ↺ Reset Gates
+      </button>
+    </div>
+    <div class="stats-ribbon-badges">
+      <div class="stats-badge">
+        <span>Total Acquired Events:</span>
+        <span id="statTotalEvents" class="stats-val">7,500</span>
+      </div>
+      <div class="stats-badge">
+        <span>Gated Events:</span>
+        <span id="statGatedEvents" class="stats-val highlight">0</span>
+      </div>
+      <div class="stats-badge">
+        <span>% of Parent:</span>
+        <span id="statGatedPercent" class="stats-val highlight">0.0%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main 2x3 Plot Grid (Fills Window without Scrolling) -->
+  <main>
+    <div class="plots-grid">
+
+      <!-- Plot 0: Master Gate Plot (Side Scatter vs CD45 FITC) -->
+      <div class="plot-card primary-master" id="cardPlot0">
+        <div class="plot-header">
+          <div class="plot-title" id="titlePlot0">
+            <span class="tag-primary">Master Gate</span>
+            <span id="titleText0">Plot 1: Side Scatter vs CD45 FITC</span>
+          </div>
+          <div class="plot-controls">
+            <span class="plot-axis-summary">CD45 vs SSC</span>
+          </div>
+        </div>
+        <div class="canvas-container" id="container0">
+          <canvas id="canvas0"></canvas>
+          <div class="axis-pill-btn axis-pill-x fixed" title="Primary Master Gate: CD45 FITC (Fixed)">
+            <span class="axis-pill-lock">🔒</span>
+            <span class="axis-pill-label">X:</span>
+            <span class="axis-pill-value">CD45 FITC</span>
+          </div>
+          <div class="axis-pill-btn axis-pill-y fixed" title="Primary Master Gate: Side Scatter (Fixed)">
+            <span class="axis-pill-lock">🔒</span>
+            <span class="axis-pill-label">Y:</span>
+            <span class="axis-pill-value">Side Scatter</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Plot 1: Secondary Comparison -->
+      <div class="plot-card" id="cardPlot1">
+        <div class="plot-header">
+          <div class="plot-title" id="titlePlot1">
+            <span id="titleText1">Plot 2: Gated Events</span>
+          </div>
+          <div class="plot-controls">
+            <span class="plot-axis-summary" id="axisSummary1">CD19 vs CD20</span>
+          </div>
+        </div>
+        <div class="canvas-container" id="container1">
+          <canvas id="canvas1"></canvas>
+          <button type="button" class="axis-pill-btn axis-pill-x" id="btnAxisX1" data-plot="1" data-axis="x" title="Click to customize X-axis marker">
+            <span class="axis-pill-label">X:</span>
+            <span class="axis-pill-value" id="valAxisX1">CD19 PE-Cy7</span>
+            <span class="axis-pill-caret">▾</span>
+          </button>
+          <button type="button" class="axis-pill-btn axis-pill-y" id="btnAxisY1" data-plot="1" data-axis="y" title="Click to customize Y-axis marker">
+            <span class="axis-pill-label">Y:</span>
+            <span class="axis-pill-value" id="valAxisY1">CD20 PerCP</span>
+            <span class="axis-pill-caret">▾</span>
+          </button>
+          <div class="plot-empty-message" id="emptyMsg1">
+            <div class="plot-empty-icon">🎯</div>
+            <div class="plot-empty-text">
+              Gate a population on the <strong>Master Gate</strong> (Plot 1) to inspect this marker panel.
+              <div style="font-size:0.68rem; color:var(--text-muted); margin-top:0.35rem;">
+                Tip: Click axis buttons or select a Diagnostic Panel anytime to build your panel.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Plot 2: Secondary Comparison -->
+      <div class="plot-card" id="cardPlot2">
+        <div class="plot-header">
+          <div class="plot-title" id="titlePlot2">
+            <span id="titleText2">Plot 3: Gated Events</span>
+          </div>
+          <div class="plot-controls">
+            <span class="plot-axis-summary" id="axisSummary2">CD5 vs CD19</span>
+          </div>
+        </div>
+        <div class="canvas-container" id="container2">
+          <canvas id="canvas2"></canvas>
+          <button type="button" class="axis-pill-btn axis-pill-x" id="btnAxisX2" data-plot="2" data-axis="x" title="Click to customize X-axis marker">
+            <span class="axis-pill-label">X:</span>
+            <span class="axis-pill-value" id="valAxisX2">CD5 APC</span>
+            <span class="axis-pill-caret">▾</span>
+          </button>
+          <button type="button" class="axis-pill-btn axis-pill-y" id="btnAxisY2" data-plot="2" data-axis="y" title="Click to customize Y-axis marker">
+            <span class="axis-pill-label">Y:</span>
+            <span class="axis-pill-value" id="valAxisY2">CD19 PE-Cy7</span>
+            <span class="axis-pill-caret">▾</span>
+          </button>
+          <div class="plot-empty-message" id="emptyMsg2">
+            <div class="plot-empty-icon">🎯</div>
+            <div class="plot-empty-text">
+              Gate a population on the <strong>Master Gate</strong> (Plot 1) to inspect this marker panel.
+              <div style="font-size:0.68rem; color:var(--text-muted); margin-top:0.35rem;">
+                Tip: Click axis buttons or select a Diagnostic Panel anytime to build your panel.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Plot 3: Secondary Comparison -->
+      <div class="plot-card" id="cardPlot3">
+        <div class="plot-header">
+          <div class="plot-title" id="titlePlot3">
+            <span id="titleText3">Plot 4: Gated Events</span>
+          </div>
+          <div class="plot-controls">
+            <span class="plot-axis-summary" id="axisSummary3">CD3 vs CD5</span>
+          </div>
+        </div>
+        <div class="canvas-container" id="container3">
+          <canvas id="canvas3"></canvas>
+          <button type="button" class="axis-pill-btn axis-pill-x" id="btnAxisX3" data-plot="3" data-axis="x" title="Click to customize X-axis marker">
+            <span class="axis-pill-label">X:</span>
+            <span class="axis-pill-value" id="valAxisX3">CD3 FITC</span>
+            <span class="axis-pill-caret">▾</span>
+          </button>
+          <button type="button" class="axis-pill-btn axis-pill-y" id="btnAxisY3" data-plot="3" data-axis="y" title="Click to customize Y-axis marker">
+            <span class="axis-pill-label">Y:</span>
+            <span class="axis-pill-value" id="valAxisY3">CD5 APC</span>
+            <span class="axis-pill-caret">▾</span>
+          </button>
+          <div class="plot-empty-message" id="emptyMsg3">
+            <div class="plot-empty-icon">🎯</div>
+            <div class="plot-empty-text">
+              Gate a population on the <strong>Master Gate</strong> (Plot 1) to inspect this marker panel.
+              <div style="font-size:0.68rem; color:var(--text-muted); margin-top:0.35rem;">
+                Tip: Click axis buttons or select a Diagnostic Panel anytime to build your panel.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Plot 4: Secondary Comparison -->
+      <div class="plot-card" id="cardPlot4">
+        <div class="plot-header">
+          <div class="plot-title" id="titlePlot4">
+            <span id="titleText4">Plot 5: Gated Events</span>
+          </div>
+          <div class="plot-controls">
+            <span class="plot-axis-summary" id="axisSummary4">CD34 vs CD117</span>
+          </div>
+        </div>
+        <div class="canvas-container" id="container4">
+          <canvas id="canvas4"></canvas>
+          <button type="button" class="axis-pill-btn axis-pill-x" id="btnAxisX4" data-plot="4" data-axis="x" title="Click to customize X-axis marker">
+            <span class="axis-pill-label">X:</span>
+            <span class="axis-pill-value" id="valAxisX4">CD34 PE</span>
+            <span class="axis-pill-caret">▾</span>
+          </button>
+          <button type="button" class="axis-pill-btn axis-pill-y" id="btnAxisY4" data-plot="4" data-axis="y" title="Click to customize Y-axis marker">
+            <span class="axis-pill-label">Y:</span>
+            <span class="axis-pill-value" id="valAxisY4">CD117 APC</span>
+            <span class="axis-pill-caret">▾</span>
+          </button>
+          <div class="plot-empty-message" id="emptyMsg4">
+            <div class="plot-empty-icon">🎯</div>
+            <div class="plot-empty-text">
+              Gate a population on the <strong>Master Gate</strong> (Plot 1) to inspect this marker panel.
+              <div style="font-size:0.68rem; color:var(--text-muted); margin-top:0.35rem;">
+                Tip: Click axis buttons or select a Diagnostic Panel anytime to build your panel.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Plot 5: Secondary Comparison -->
+      <div class="plot-card" id="cardPlot5">
+        <div class="plot-header">
+          <div class="plot-title" id="titlePlot5">
+            <span id="titleText5">Plot 6: Gated Events</span>
+          </div>
+          <div class="plot-controls">
+            <span class="plot-axis-summary" id="axisSummary5">CD13 vs CD33</span>
+          </div>
+        </div>
+        <div class="canvas-container" id="container5">
+          <canvas id="canvas5"></canvas>
+          <button type="button" class="axis-pill-btn axis-pill-x" id="btnAxisX5" data-plot="5" data-axis="x" title="Click to customize X-axis marker">
+            <span class="axis-pill-label">X:</span>
+            <span class="axis-pill-value" id="valAxisX5">CD13 PE</span>
+            <span class="axis-pill-caret">▾</span>
+          </button>
+          <button type="button" class="axis-pill-btn axis-pill-y" id="btnAxisY5" data-plot="5" data-axis="y" title="Click to customize Y-axis marker">
+            <span class="axis-pill-label">Y:</span>
+            <span class="axis-pill-value" id="valAxisY5">CD33 APC</span>
+            <span class="axis-pill-caret">▾</span>
+          </button>
+          <div class="plot-empty-message" id="emptyMsg5">
+            <div class="plot-empty-icon">🎯</div>
+            <div class="plot-empty-text">
+              Gate a population on the <strong>Master Gate</strong> (Plot 1) to inspect this marker panel.
+              <div style="font-size:0.68rem; color:var(--text-muted); margin-top:0.35rem;">
+                Tip: Click axis buttons or select a Diagnostic Panel anytime to build your panel.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Slide-out Drawer: Diagnostic Guide & Quiz -->
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="drawer" id="diagnosticDrawer">
+    <div class="drawer-header">
+      <div class="drawer-title">
+        <span id="drawerTitleText">Diagnostic Guide</span>
+      </div>
+      <button class="close-btn" id="btnCloseDrawer">&times;</button>
+    </div>
+
+    <div class="drawer-body">
+
+      <!-- Case Clinical Brief -->
+      <div class="quiz-card" id="caseInfoCard">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <h4 style="font-size:0.88rem; color:var(--text-primary); font-weight:700;" id="caseCardTitle">Clinical Presentation</h4>
+          <span class="tag-primary" id="caseCategoryTag">Diagnostic Mode</span>
+        </div>
+        <p class="quiz-prompt" id="caseDescriptionText"></p>
+      </div>
+
+      <!-- Diagnostic Quiz Challenge -->
+      <div class="quiz-card" id="quizChallengeCard">
+        <h4 style="font-size:0.88rem; color:var(--text-primary); font-weight:700;">Case Diagnosis Challenge</h4>
+        <p class="quiz-prompt">
+          Based on the primary gating coordinates in Plot 1 (CD45 vs SSC) and the immunophenotype observed in Plots 2–6, what is the most likely diagnosis?
+        </p>
+        <div class="quiz-options" id="quizOptionsContainer"></div>
+        <div class="feedback-box" id="quizFeedback"></div>
+      </div>
+
+      <!-- Immunophenotype Comparison Reference Table -->
+      <div id="summaryComparisonSection">
+        <h4 style="font-size:0.85rem; color:var(--text-primary); font-weight:700; margin-bottom:0.4rem;">
+          Summary Comparison of Malignancy Immunophenotypes
+        </h4>
+        <div class="ref-table-wrap">
+          <table class="ref-table">
+            <thead>
+              <tr>
+                <th>Pathologic Condition</th>
+                <th>Primary Gating Coordinates</th>
+                <th>Diagnostic Positive Markers</th>
+                <th>Key Negative / Aberrant Markers</th>
+              </tr>
+            </thead>
+            <tbody id="refTableBody">
+              <tr data-cond="cll">
+                <td><strong>CLL</strong></td>
+                <td>CD45 Bright, SSC Low</td>
+                <td><span class="pos-marker">CD19+, CD20+ (dim), CD5+, CD23+, κ or λ restricted (dim)</span></td>
+                <td><span class="neg-marker">CD10-, FMC-7-</span></td>
+              </tr>
+              <tr data-cond="mcl">
+                <td><strong>Mantle Cell Lymphoma</strong></td>
+                <td>CD45 Bright, SSC Low</td>
+                <td><span class="pos-marker">CD19+, CD20+ (bright), CD5+, FMC-7+</span></td>
+                <td><span class="neg-marker"><strong>CD23 Negative</strong>, CD10-</span></td>
+              </tr>
+              <tr data-cond="hcl">
+                <td><strong>Hairy Cell Leukemia</strong></td>
+                <td>CD45 Bright/Mod-Bright, SSC Low-to-Intermediate (approaching monocytes)</td>
+                <td><span class="pos-marker">CD19+, CD20+, CD11c+, CD25+, CD103+, CD123+</span></td>
+                <td><span class="neg-marker">CD5-, CD10-</span></td>
+              </tr>
+              <tr data-cond="aml">
+                <td><strong>AML</strong></td>
+                <td>CD45 Dim, SSC Low</td>
+                <td><span class="pos-marker">CD34+, CD117+, CD13+, CD33+, cMPO+</span></td>
+                <td><span class="neg-marker">CD19-, CD3-, CD14-</span></td>
+              </tr>
+              <tr data-cond="amml">
+                <td><strong>AMML</strong></td>
+                <td>CD45 Dim, SSC Low-to-Mod</td>
+                <td><span class="pos-marker">CD34+, CD13+, CD33+, CD14+, CD64+</span></td>
+                <td><span class="neg-marker">CD19-, CD3-</span></td>
+              </tr>
+              <tr data-cond="ball">
+                <td><strong>B-ALL</strong></td>
+                <td>CD45 Dim, SSC Low</td>
+                <td><span class="pos-marker">CD34+, TdT+, CD19+, CD10+, CD22+</span></td>
+                <td><span class="neg-marker">cMPO-, CD3-, CD14-</span></td>
+              </tr>
+              <tr data-cond="tall">
+                <td><strong>T-ALL</strong></td>
+                <td>CD45 Dim, SSC Low</td>
+                <td><span class="pos-marker">CD34+, TdT+, cCD3+, CD7+, CD2+, CD5+</span></td>
+                <td><span class="neg-marker">cMPO-, CD19-, CD14-</span></td>
+              </tr>
+              <tr data-cond="pcm">
+                <td><strong>Plasma Cell Myeloma</strong></td>
+                <td>CD45 Neg-to-Dim, SSC Low</td>
+                <td><span class="pos-marker">CD38 (Bright), CD138+, CD56+ (aberrant)</span></td>
+                <td><span class="neg-marker"><strong>CD19 Negative</strong>, CD34-, CD45-</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Marker Selector Modal -->
+  <div class="marker-modal-backdrop" id="markerModalBackdrop">
+    <div class="marker-modal" id="markerModal">
+      <div class="marker-modal-header">
+        <div>
+          <div class="marker-modal-title" id="markerModalTitle">Select Marker</div>
+          <div class="marker-modal-subtitle" id="markerModalSubtitle">Choose an antibody conjugate or scatter parameter</div>
+        </div>
+        <button class="close-btn" id="btnCloseMarkerModal">&times;</button>
+      </div>
+      <div class="marker-modal-search">
+        <input type="text" id="markerSearchInput" placeholder="Filter markers (e.g. CD19, FITC, PE, Myeloid)..." autocomplete="off" />
+      </div>
+      <div class="marker-modal-body" id="markerModalBody"></div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toastNotification" class="toast-notification"></div>
+
+  <!-- Application Logic -->
+  <script>
+    /**
+     * Flow Cytometry Gating Simulator & Clinical Trainer
+     * Waterfall Cascade Multi-Plot Gating, Hover-to-Delete, Calibrated 10^0 Bottom-Left Origin
+     */
+
+    // --- PHENOTYPIC CLUSTER COLORS ---
+    const POP_COLORS = {
+      light: {
+        lymph:  '#2563EB', // Bright Royal Blue
+        mono:   '#059669', // Emerald Green
+        gran:   '#D97706', // Amber / Gold
+        blast:  '#C026D3', // Bright Magenta / Orchid
+        plasma: '#7C3AED', // Deep Purple / Violet
+        debris: '#94A3B8'  // Muted Slate
+      },
+      dark: {
+        lymph:  '#3B82F6', // Lighter Blue
+        mono:   '#10B981', // Lighter Emerald
+        gran:   '#F59E0B', // Lighter Amber
+        blast:  '#E879F9', // Lighter Orchid / Pink
+        plasma: '#A78BFA', // Lighter Purple
+        debris: '#64748B'  // Slate
+      }
+    };
+
+    // --- MARKER DEFINITIONS ---
+    // Side Scatter: Linear 50–550 (ticks: 100, 200, 300, 400, 500)
+    // Log markers (CD45 & Antibodies): Log10 0.1–10000 (ticks: 10^0, 10^1, 10^2, 10^3, 10^4)
+    const MARKERS = {
+      ssc: { name: 'Side Scatter', type: 'linear', min: 50, max: 550, ticks: [100, 200, 300, 400, 500] },
+      cd45: { name: 'CD45 FITC', type: 'log', min: 0.1, max: 10000, ticks: [1, 10, 100, 1000, 10000] },
+      cd19: { name: 'CD19 PE-Cy7', type: 'log', min: 0.1, max: 10000, ticks: [1, 10, 100, 1000, 10000] },
+      cd20: { name: 'CD20 PerCP', type: 'log', min: 0.1, max: 10000, ticks: [1, 10, 100, 1000, 10000] },
+      cd5:  { name: 'CD5 APC', type: 'log', min: 0.1, max: 10000, ticks: [1, 10, 100, 1000, 10000] },
+      cd23: { name: 'CD23 PE', type: 'log', min: 0.1, max: 10000, ticks: [1, 10, 100, 1000, 10000] },
+      fmc7: { name: 'FMC-7 FITC', type: 'log', min: 0.1, max: 10000, ticks: [1, 10, 100, 1000, 10000] },
+      cd10: { name: 'CD10 APC-H7', type: 'log', min: 0.1, max: 10000, ticks: [1, 10, 100, 1000, 10000] },
+      cd34: { name: 'CD34 PE', type: 'log', min: 0.1, max: 10000, ticks: [1, 10, 100, 1000, 10000] },
+      cd117:{ name: 'CD117 APC', type: 'log', min: 0.1, max: 10000, ticks: [1, 10, 100, 1000, 10000] },
+      cd13: { name: 'CD13 PE', type: 'log', min: 0.1, max: 10000, ticks: [1, 10, 100, 1000, 10000] },
+      cd33: { name: 'CD33 APC', type: 'log', min: 0.1, max: 10000, ticks: [1, 10, 100, 1000, 10000] },
+      cmpo: { name: 'cMPO FITC', type: 'log', min: 0.1, max: 10000, ticks: [1, 10, 100, 1000, 10000] },
+      cd14: { name: 'CD14 PE', type: 'log', min: 0.1, max: 10000, ticks: [1, 10, 100, 1000, 10000] },
+      cd64: { name: 'CD64 APC', type: 'log', min: 0.1, max: 10000, ticks: [1, 10, 100, 1000, 10000] },
+      tdt:  { name: 'TdT FITC', type: 'log', min: 0.1, max: 10000, ticks: [1, 10, 100, 1000, 10000] },
+      cd22: { name: 'CD22 APC', type: 'log', min: 0.1, max: 10000, ticks: [1, 10, 100, 1000, 10000] },
+      ccd3: { name: 'cCD3 FITC', type: 'log', min: 0.1, max: 10000, ticks: [1, 10, 100, 1000, 10000] },
+      cd7:  { name: 'CD7 PE', type: 'log', min: 0.1, max: 10000, ticks: [1, 10, 100, 1000, 10000] },
+      cd2:  { name: 'CD2 PerCP', type: 'log', min: 0.1, max: 10000, ticks: [1, 10, 100, 1000, 10000] },
+      cd38: { name: 'CD38 PE-Cy7', type: 'log', min: 0.1, max: 10000, ticks: [1, 10, 100, 1000, 10000] },
+      cd138:{ name: 'CD138 APC', type: 'log', min: 0.1, max: 10000, ticks: [1, 10, 100, 1000, 10000] },
+      cd56: { name: 'CD56 PE', type: 'log', min: 0.1, max: 10000, ticks: [1, 10, 100, 1000, 10000] },
+      cd11c:{ name: 'CD11c PE', type: 'log', min: 0.1, max: 10000, ticks: [1, 10, 100, 1000, 10000] },
+      cd25: { name: 'CD25 APC', type: 'log', min: 0.1, max: 10000, ticks: [1, 10, 100, 1000, 10000] },
+      cd103:{ name: 'CD103 FITC', type: 'log', min: 0.1, max: 10000, ticks: [1, 10, 100, 1000, 10000] },
+      cd123:{ name: 'CD123 PE', type: 'log', min: 0.1, max: 10000, ticks: [1, 10, 100, 1000, 10000] },
+      cd3:  { name: 'CD3 FITC', type: 'log', min: 0.1, max: 10000, ticks: [1, 10, 100, 1000, 10000] },
+      kappa:{ name: 'Kappa APC', type: 'log', min: 0.1, max: 10000, ticks: [1, 10, 100, 1000, 10000] },
+      lambda:{ name: 'Lambda PE', type: 'log', min: 0.1, max: 10000, ticks: [1, 10, 100, 1000, 10000] }
+    };
+
+    // --- CLINICAL CASES ---
+    const CASES = {
+      normal: {
+        name: "Normal Peripheral Blood Control",
+        clinical: "Healthy 34-year-old donor routine check. Normal hematopoiesis: Granulocytes (SSC high, CD45 mid), Monocytes (SSC mid, CD45 mid-bright), and mature Lymphocytes (SSC low, CD45 bright).",
+        defaultPlots: [
+          { x: 'cd19', y: 'cd20' },
+          { x: 'cd5',  y: 'cd19' },
+          { x: 'cd3',  y: 'cd5' },
+          { x: 'cd34', y: 'cd117' },
+          { x: 'cd13', y: 'cd33' }
+        ],
+        quizCondition: 'normal',
+        explanation: "Normal specimen demonstrates standard trilineage maturation: mature T-cells (CD3+/CD5+), B-cells (CD19+/CD20+), monocytes, and granulocytes with minimal (<1%) immature blasts (CD34-)."
+      },
+      cll: {
+        name: "Chronic Lymphocytic Leukemia (CLL)",
+        clinical: "71-year-old male with persistent asymptomatic absolute lymphocytosis (WBC 48 × 10⁹/L). Smudge cells noted on peripheral blood smear.",
+        defaultPlots: [
+          { x: 'cd19', y: 'cd20' },
+          { x: 'cd19', y: 'cd5' },
+          { x: 'cd5',  y: 'cd23' },
+          { x: 'cd20', y: 'fmc7' },
+          { x: 'kappa', y: 'lambda' }
+        ],
+        quizCondition: 'cll',
+        explanation: "CLL is characterized by a mature monoclonal B-cell population (CD19+, CD20 dim) co-expressing CD5 and CD23, characteristically negative for FMC-7 and CD10, with monotypic light chain restriction (dim Kappa or dim Lambda)."
+      },
+      mcl: {
+        name: "Mantle Cell Lymphoma (MCL)",
+        clinical: "65-year-old male presenting with generalized lymphadenopathy, splenomegaly, and leukocytosis. High cyclin D1 t(11;14) suspected.",
+        defaultPlots: [
+          { x: 'cd19', y: 'cd20' },
+          { x: 'cd19', y: 'cd5' },
+          { x: 'cd5',  y: 'cd23' },
+          { x: 'cd20', y: 'fmc7' },
+          { x: 'cd19', y: 'cd10' }
+        ],
+        quizCondition: 'mcl',
+        explanation: "Mantle Cell Lymphoma displays CD19+ B-cells with bright CD20 and CD5 co-expression, FMC-7 positivity, and is classically CD23 NEGATIVE (in contrast to CLL which is CD23+)."
+      },
+      hcl: {
+        name: "Hairy Cell Leukemia (HCL)",
+        clinical: "58-year-old male presenting with marked splenomegaly, severe pancytopenia, and 'dry tap' bone marrow aspiration. 'Hairy' cytoplasmic projections on lymphocytes.",
+        defaultPlots: [
+          { x: 'cd19', y: 'cd20' },
+          { x: 'cd11c', y: 'cd25' },
+          { x: 'cd103', y: 'cd123' },
+          { x: 'cd19', y: 'cd5' },
+          { x: 'cd19', y: 'cd10' }
+        ],
+        quizCondition: 'hcl',
+        explanation: "Hairy Cell Leukemia is defined by mature B-cells (CD19+, CD20 bright) that strongly express CD11c, CD25, CD103, and CD123, lacking CD5 and CD10. On CD45 vs SSC gating, hairy cells characteristically display increased side scatter (SSC) approaching or slightly merging into the monocyte region due to their abundant cytoplasm and circumferential cytoplasmic projections."
+      },
+      aml: {
+        name: "Acute Myeloid Leukemia (AML)",
+        clinical: "62-year-old female with profound fatigue, easy bruising, anemia, and 68% myeloblasts in bone marrow. Auer rods visible.",
+        defaultPlots: [
+          { x: 'cd34', y: 'cd117' },
+          { x: 'cd13', y: 'cd33' },
+          { x: 'cd34', y: 'cmpo' },
+          { x: 'cd19', y: 'cd3' },
+          { x: 'cd14', y: 'cd64' }
+        ],
+        quizCondition: 'aml',
+        explanation: "AML myeloblasts reside in the CD45 Dim (10¹–10²), SSC Low blast gate and express immature progenitor markers (CD34+, CD117+), myeloid antigens (CD13+, CD33+), and cytoplasmic MPO."
+      },
+      amml: {
+        name: "Acute Myelomonocytic Leukemia (AMML)",
+        clinical: "54-year-old male with gum hypertrophy, leukocytosis, and both myeloblasts and monoblasts in peripheral blood.",
+        defaultPlots: [
+          { x: 'cd34', y: 'cd117' },
+          { x: 'cd13', y: 'cd33' },
+          { x: 'cd14', y: 'cd64' },
+          { x: 'cd34', y: 'cmpo' },
+          { x: 'cd19', y: 'cd3' }
+        ],
+        quizCondition: 'amml',
+        explanation: "AMML features blasts in the CD45 Dim, SSC Low-to-Moderate gate expressing myeloid markers (CD34+, CD13+, CD33+) with prominent monocytic differentiation markers (CD14+, CD64+)."
+      },
+      ball: {
+        name: "B-cell Acute Lymphoblastic Leukemia (B-ALL)",
+        clinical: "12-year-old boy presenting with fever, bone pain, petechiae, hepatosplenomegaly, and high circulating blast count.",
+        defaultPlots: [
+          { x: 'cd34', y: 'tdt' },
+          { x: 'cd19', y: 'cd10' },
+          { x: 'cd19', y: 'cd22' },
+          { x: 'cd34', y: 'cmpo' },
+          { x: 'cd19', y: 'cd3' }
+        ],
+        quizCondition: 'ball',
+        explanation: "B-ALL blasts reside in the CD45 Dim (10¹–10²), SSC Low gate and display immature markers (CD34+, TdT+) combined with B-cell lineage markers (CD19+, CD10+, CD22+)."
+      },
+      tall: {
+        name: "T-cell Acute Lymphoblastic Leukemia (T-ALL)",
+        clinical: "19-year-old male presenting with respiratory distress, large anterior mediastinal mass on chest X-ray, and marked leukocytosis.",
+        defaultPlots: [
+          { x: 'cd34', y: 'tdt' },
+          { x: 'ccd3', y: 'cd7' },
+          { x: 'cd2',  y: 'cd5' },
+          { x: 'cd19', y: 'cd34' },
+          { x: 'cd34', y: 'cmpo' }
+        ],
+        quizCondition: 'tall',
+        explanation: "T-ALL blasts (CD45 Dim, SSC Low) are immature (CD34+, TdT+) and express T-lineage markers—most importantly cytoplasmic CD3 (cCD3+), CD7+, CD2+, and CD5+."
+      },
+      pcm: {
+        name: "Plasma Cell Myeloma (Multiple Myeloma)",
+        clinical: "68-year-old female with lower back bone pain (osteolytic lesions), hypercalcemia, renal impairment, and IgG kappa M-spike.",
+        defaultPlots: [
+          { x: 'cd38', y: 'cd138' },
+          { x: 'cd56', y: 'cd19' },
+          { x: 'cd34', y: 'cd45' },
+          { x: 'cd19', y: 'cd20' },
+          { x: 'cd38', y: 'cd56' }
+        ],
+        quizCondition: 'pcm',
+        explanation: "Malignant Plasma Cells are CD45 Neg-to-Dim with Low SSC, displaying intense CD38 (Bright) and CD138 positivity, aberrant CD56 expression, and are characteristically CD19 NEGATIVE."
+      }
+    };
+
+    // --- MARKER CATEGORIES FOR PICKER MODAL ---
+    const MARKER_CATEGORIES = [
+      {
+        name: "B-Cell Lineage & Maturation",
+        markers: ['cd19', 'cd20', 'cd5', 'cd23', 'fmc7', 'cd10', 'cd22', 'kappa', 'lambda']
+      },
+      {
+        name: "T-Cell & NK Lineage",
+        markers: ['cd3', 'ccd3', 'cd5', 'cd7', 'cd2', 'cd56']
+      },
+      {
+        name: "Myeloid & Monocytic",
+        markers: ['cd34', 'cd117', 'cd13', 'cd33', 'cmpo', 'cd14', 'cd64']
+      },
+      {
+        name: "Stem & Immature Progenitors",
+        markers: ['cd34', 'cd117', 'tdt']
+      },
+      {
+        name: "Plasma Cell & Myeloma",
+        markers: ['cd38', 'cd138', 'cd56']
+      },
+      {
+        name: "Hairy Cell & Splenic B-Cell",
+        markers: ['cd11c', 'cd25', 'cd103', 'cd123']
+      },
+      {
+        name: "Scatter & Primary Gating",
+        markers: ['cd45', 'ssc']
+      }
+    ];
+
+    // --- CURATED CLINICAL DIFFERENTIAL PANELS ---
+    const DIFFERENTIAL_PANELS = {
+      case_default: {
+        name: "Case Recommended Panel",
+        plots: null // Pulled dynamically from active case
+      },
+      b_cell_lpd: {
+        name: "B-Cell LPD Panel (CLL vs MCL vs HCL)",
+        plots: [
+          { x: 'cd19', y: 'cd20' },
+          { x: 'cd19', y: 'cd5' },
+          { x: 'cd5',  y: 'cd23' },
+          { x: 'cd20', y: 'fmc7' },
+          { x: 'kappa', y: 'lambda' }
+        ]
+      },
+      acute_leukemia: {
+        name: "Acute Leukemia / Blast Screen",
+        plots: [
+          { x: 'cd34', y: 'cd117' },
+          { x: 'cd13', y: 'cd33' },
+          { x: 'cd34', y: 'cmpo' },
+          { x: 'cd19', y: 'cd10' },
+          { x: 'cd34', y: 'tdt' }
+        ]
+      },
+      t_cell: {
+        name: "T-Cell & NK Neoplasm Panel",
+        plots: [
+          { x: 'cd3',  y: 'cd5' },
+          { x: 'ccd3', y: 'cd7' },
+          { x: 'cd2',  y: 'cd7' },
+          { x: 'cd34', y: 'tdt' },
+          { x: 'cd5',  y: 'cd7' }
+        ]
+      },
+      myeloid_mono: {
+        name: "Myeloid & Monocytic Maturation Panel",
+        plots: [
+          { x: 'cd34', y: 'cd117' },
+          { x: 'cd13', y: 'cd33' },
+          { x: 'cd14', y: 'cd64' },
+          { x: 'cd34', y: 'cd14' },
+          { x: 'cd33', y: 'cd64' }
+        ]
+      },
+      plasma_cell: {
+        name: "Plasma Cell Myeloma Panel",
+        plots: [
+          { x: 'cd38', y: 'cd138' },
+          { x: 'cd56', y: 'cd19' },
+          { x: 'cd45', y: 'cd56' },
+          { x: 'cd38', y: 'cd45' },
+          { x: 'cd19', y: 'cd138' }
+        ]
+      },
+      hairy_cell: {
+        name: "Hairy Cell Leukemia Differential Panel",
+        plots: [
+          { x: 'cd19', y: 'cd20' },
+          { x: 'cd19', y: 'cd103' },
+          { x: 'cd25', y: 'cd11c' },
+          { x: 'cd123', y: 'cd25' },
+          { x: 'cd19', y: 'cd5' }
+        ]
+      }
+    };
+
+    // --- DEFAULT POPULATION GATES (PLOT 1: CD45 vs SSC) ---
+    // Pre-calculated calibrated gates for the 5 clinical diagnostic populations
+    const DEFAULT_MASTER_GATES = [
+      {
+        id: 'lymph',
+        name: 'Lymphocytes',
+        pop: 'lymph',
+        cx: 700,
+        cy: 136,
+        rxLog: 0.30,
+        rx: 100,
+        ryLog: 0.2,
+        ry: 36,
+        colorLight: '#2563EB',
+        colorDark: '#3B82F6'
+      },
+      {
+        id: 'mono',
+        name: 'Monocytes',
+        pop: 'mono',
+        cx: 280,
+        cy: 220,
+        rxLog: 0.28,
+        rx: 50,
+        ryLog: 0.2,
+        ry: 45,
+        colorLight: '#059669',
+        colorDark: '#10B981'
+      },
+      {
+        id: 'gran',
+        name: 'Granulocytes',
+        pop: 'gran',
+        cx: 90,
+        cy: 330,
+        rxLog: 0.35,
+        rx: 40,
+        ryLog: 0.2,
+        ry: 100,
+        colorLight: '#D97706',
+        colorDark: '#F59E0B'
+      },
+      {
+        id: 'blast',
+        name: 'CD45 Dim',
+        pop: 'blast',
+        cx: 28,
+        cy: 145,
+        rxLog: 0.36,
+        rx: 15,
+        ryLog: 0.2,
+        ry: 45,
+        colorLight: '#C026D3',
+        colorDark: '#E879F9'
+      },
+      {
+        id: 'neg',
+        name: 'CD45 Neg',
+        pop: 'debris',
+        cx: 2.8,
+        cy: 120,
+        rxLog: 0.55,
+        rx: 5,
+        ryLog: 0.2,
+        ry: 38,
+        colorLight: '#64748B',
+        colorDark: '#94A3B8'
+      }
+    ];
+
+    // --- APPLICATION STATE ---
+    // Sequential Waterfall Cascade: gates[i] is defined on plot i
+    // Plot i displays events filtered by gates[0] ... gates[i-1].
+    const state = {
+      theme: 'light',
+      currentCase: 'normal',
+      events: [],
+      // Array of gates for plots 0..5 (null if not set)
+      gates: [null, null, null, null, null, null],
+      // Array of Set of event indices visible at plot i
+      plotEvents: [[], [], [], [], [], []],
+      // Hovered gate delete state: { plotIdx: number } or null
+      hoveredDeleteGate: null,
+      // Hovered default gate id ('lymph', 'mono', 'gran', 'blast', 'neg') or null
+      hoveredDefaultGate: null,
+      // Precomputed percentage stats for the 5 default master gates
+      defaultGateStats: {},
+      // Plot axis configs for plots 0..5
+      plots: [
+        { x: 'cd45', y: 'ssc' }, // Plot 0 is fixed master gate
+        { x: 'cd19', y: 'cd20' },
+        { x: 'cd5',  y: 'cd19' },
+        { x: 'cd3',  y: 'cd5' },
+        { x: 'cd34', y: 'cd117' },
+        { x: 'cd13', y: 'cd33' }
+      ]
+    };
+
+    function randn(mean = 0, std = 1) {
+      let u = 0, v = 0;
+      while (u === 0) u = Math.random();
+      while (v === 0) v = Math.random();
+      return mean + std * Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+    }
+
+    function clamp(val, min, max) {
+      return Math.max(min, Math.min(max, val));
+    }
+
+    // --- POPULATION EVENT GENERATOR ---
+    // Calibrated so > 10^1 is positive, 10^1-10^2 is dim/blasts/granulocytes, >10^2 is bright (lymphocytes/monocytes)
+    function generateEvents(caseKey) {
+      const TOTAL_EVENTS = 7500;
+      const events = [];
+
+      let pGran = 0.55;
+      let pMono = 0.08;
+      let pLymph = 0.32;
+      let pBlast = 0.02;
+      let pPlasma = 0.01;
+      let pDebris = 0.02;
+
+      if (caseKey === 'cll' || caseKey === 'mcl' || caseKey === 'hcl') {
+        pLymph = 0.74;
+        pGran = 0.16;
+        pMono = 0.05;
+        pBlast = 0.01;
+        pDebris = 0.04;
+      } else if (caseKey === 'aml' || caseKey === 'ball' || caseKey === 'tall') {
+        pBlast = 0.68;
+        pGran = 0.12;
+        pLymph = 0.12;
+        pMono = 0.04;
+        pDebris = 0.04;
+      } else if (caseKey === 'amml') {
+        pBlast = 0.54;
+        pMono = 0.26;
+        pGran = 0.08;
+        pLymph = 0.08;
+        pDebris = 0.04;
+      } else if (caseKey === 'pcm') {
+        pPlasma = 0.52;
+        pGran = 0.24;
+        pLymph = 0.14;
+        pMono = 0.05;
+        pDebris = 0.05;
+      }
+
+      // CLL Light chain restriction randomization (50% Kappa vs 50% Lambda)
+      const cllRestriction = Math.random() < 0.5 ? 'kappa' : 'lambda';
+      state.cllRestriction = cllRestriction;
+
+      for (let i = 0; i < TOTAL_EVENTS; i++) {
+        const roll = Math.random();
+        let pop = 'gran';
+        if (roll < pDebris) pop = 'debris';
+        else if (roll < pDebris + pBlast) pop = 'blast';
+        else if (roll < pDebris + pBlast + pPlasma) pop = 'plasma';
+        else if (roll < pDebris + pBlast + pPlasma + pLymph) pop = 'lymph';
+        else if (roll < pDebris + pBlast + pPlasma + pLymph + pMono) pop = 'mono';
+        else pop = 'gran';
+
+        const ev = { pop };
+
+        // Base negative auto-fluorescence: centered below 10^1 (~2-3), naturally spreading across 10^0
+        Object.keys(MARKERS).forEach(m => {
+          if (m === 'ssc') ev[m] = 0;
+          else ev[m] = Math.pow(10, randn(0.40, 0.32));
+        });
+
+        // 1. PRIMARY GATING PARAMETERS (SSC and CD45 FITC)
+        // Scaled to match the 10^0 - 10^4 log scale of other plots
+        if (pop === 'gran') {
+          // Granulocytes: SSC High (centroid ~320, std 52), CD45 intermediate (~90, 10^1.95)
+          ev.ssc = randn(320, 52);
+          ev.cd45 = Math.pow(10, randn(1.95, 0.14));
+          ev.cd13 = Math.pow(10, randn(2.5, 0.22));
+          ev.cd33 = Math.pow(10, randn(2.3, 0.22));
+          ev.cmpo = Math.pow(10, randn(2.6, 0.22));
+          ev.cd11c = Math.pow(10, randn(2.4, 0.22));
+        } else if (pop === 'mono') {
+          // Monocytes: SSC Mid (centroid ~220, std 22), CD45 intermediate-bright (~280, 10^2.45)
+          ev.ssc = randn(220, 22);
+          ev.cd45 = Math.pow(10, randn(2.45, 0.12));
+          ev.cd14 = Math.pow(10, randn(2.8, 0.2));
+          ev.cd64 = Math.pow(10, randn(2.8, 0.2));
+          ev.cd33 = Math.pow(10, randn(2.5, 0.2));
+          ev.cd13 = Math.pow(10, randn(2.2, 0.2));
+        } else if (pop === 'lymph') {
+          // Lymphocytes: SSC Low (centroid ~136, std 14), CD45 Bright (~700, 10^2.85)
+          ev.ssc = randn(136, 14);
+          ev.cd45 = Math.pow(10, randn(2.85, 0.12));
+
+          if (caseKey === 'normal') {
+            const isB = Math.random() < 0.20;
+            const isNK = !isB && Math.random() < 0.15;
+            if (isB) {
+              ev.cd19 = Math.pow(10, randn(2.6, 0.18));
+              ev.cd20 = Math.pow(10, randn(2.8, 0.18));
+              // Polytypic light chain expression on normal mature B cells (~60% Kappa, ~40% Lambda)
+              if (Math.random() < 0.60) {
+                ev.kappa = Math.pow(10, randn(2.7, 0.18));
+                ev.lambda = Math.pow(10, randn(0.38, 0.30));
+              } else {
+                ev.kappa = Math.pow(10, randn(0.38, 0.30));
+                ev.lambda = Math.pow(10, randn(2.7, 0.18));
+              }
+            } else if (isNK) {
+              ev.cd56 = Math.pow(10, randn(2.6, 0.2));
+            } else {
+              ev.cd3 = Math.pow(10, randn(2.8, 0.18));
+              ev.cd5 = Math.pow(10, randn(2.7, 0.18));
+              ev.cd2 = Math.pow(10, randn(2.7, 0.18));
+              ev.cd7 = Math.pow(10, randn(2.6, 0.18));
+            }
+          } else if (caseKey === 'cll') {
+            ev.cd19 = Math.pow(10, randn(2.7, 0.16));
+            ev.cd20 = Math.pow(10, randn(1.4, 0.18)); // Characteristic DIM CD20
+            ev.cd5  = Math.pow(10, randn(2.6, 0.16)); // CD5+
+            ev.cd23 = Math.pow(10, randn(2.7, 0.17)); // CD23+
+            ev.fmc7 = Math.pow(10, randn(0.40, 0.32)); // FMC-7 Neg (unclamped)
+            ev.cd10 = Math.pow(10, randn(0.38, 0.32)); // CD10 Neg (unclamped)
+
+            // Monoclonal light chain restriction with characteristically DIM expression (~10^1.4 to 10^1.8)
+            if (cllRestriction === 'kappa') {
+              ev.kappa = Math.pow(10, randn(1.6, 0.18));  // Characteristic DIM Kappa+
+              ev.lambda = Math.pow(10, randn(0.38, 0.30)); // Lambda Neg
+            } else {
+              ev.kappa = Math.pow(10, randn(0.38, 0.30));  // Kappa Neg
+              ev.lambda = Math.pow(10, randn(1.6, 0.18));  // Characteristic DIM Lambda+
+            }
+          } else if (caseKey === 'mcl') {
+            ev.cd19 = Math.pow(10, randn(2.8, 0.16));
+            ev.cd20 = Math.pow(10, randn(3.2, 0.15)); // Characteristic BRIGHT CD20
+            ev.cd5  = Math.pow(10, randn(2.7, 0.16)); // CD5+
+            ev.fmc7 = Math.pow(10, randn(2.8, 0.18)); // FMC-7 POSITIVE
+            ev.cd23 = Math.pow(10, randn(0.40, 0.32)); // CD23 NEGATIVE (unclamped)
+            ev.cd10 = Math.pow(10, randn(0.38, 0.32));
+          } else if (caseKey === 'hcl') {
+            const isHairy = Math.random() < 0.80;
+            if (isHairy) {
+              // Neoplastic Hairy Cells: elevated SSC approaching/merging into monocyte region, slightly broader CD45
+              ev.ssc = randn(185, 28);
+              ev.cd45 = Math.pow(10, randn(2.74, 0.16));
+              ev.cd19 = Math.pow(10, randn(2.8, 0.15));
+              ev.cd20 = Math.pow(10, randn(3.3, 0.15));
+              ev.cd11c = Math.pow(10, randn(3.1, 0.18));
+              ev.cd25  = Math.pow(10, randn(2.7, 0.18));
+              ev.cd103 = Math.pow(10, randn(2.8, 0.18));
+              ev.cd123 = Math.pow(10, randn(2.6, 0.18));
+              ev.cd5   = Math.pow(10, randn(0.38, 0.32)); // CD5 Neg
+              ev.cd10  = Math.pow(10, randn(0.38, 0.32));
+            } else {
+              // Residual normal resting lymphocytes (SSC ~136, CD45 bright)
+              ev.ssc = randn(136, 14);
+              ev.cd45 = Math.pow(10, randn(2.85, 0.12));
+              const isB = Math.random() < 0.15;
+              if (isB) {
+                ev.cd19 = Math.pow(10, randn(2.6, 0.18));
+                ev.cd20 = Math.pow(10, randn(2.8, 0.18));
+                if (Math.random() < 0.60) {
+                  ev.kappa = Math.pow(10, randn(2.7, 0.18));
+                  ev.lambda = Math.pow(10, randn(0.38, 0.30));
+                } else {
+                  ev.kappa = Math.pow(10, randn(0.38, 0.30));
+                  ev.lambda = Math.pow(10, randn(2.7, 0.18));
+                }
+              } else {
+                ev.cd3 = Math.pow(10, randn(2.8, 0.18));
+                ev.cd5 = Math.pow(10, randn(2.7, 0.18));
+                ev.cd2 = Math.pow(10, randn(2.7, 0.18));
+                ev.cd7 = Math.pow(10, randn(2.6, 0.18));
+              }
+            }
+          }
+        } else if (pop === 'blast') {
+          // Blasts: CD45 Dim (10^1 to 10^2, ~28), SSC Low (~138)
+          ev.ssc = randn(138, 18);
+          ev.cd45 = Math.pow(10, randn(1.45, 0.14));
+
+          if (caseKey === 'aml') {
+            ev.cd34  = Math.pow(10, randn(2.8, 0.18));
+            ev.cd117 = Math.pow(10, randn(2.7, 0.18));
+            ev.cd13  = Math.pow(10, randn(2.6, 0.18));
+            ev.cd33  = Math.pow(10, randn(2.9, 0.18));
+            ev.cmpo  = Math.pow(10, randn(2.7, 0.20));
+          } else if (caseKey === 'amml') {
+            ev.ssc = randn(175, 26);
+            ev.cd34  = Math.pow(10, randn(2.5, 0.22));
+            ev.cd13  = Math.pow(10, randn(2.7, 0.18));
+            ev.cd33  = Math.pow(10, randn(2.9, 0.18));
+            ev.cd14  = Math.pow(10, randn(2.6, 0.24));
+            ev.cd64  = Math.pow(10, randn(2.8, 0.20));
+          } else if (caseKey === 'ball') {
+            ev.cd34 = Math.pow(10, randn(2.8, 0.18));
+            ev.tdt  = Math.pow(10, randn(2.9, 0.18));
+            ev.cd19 = Math.pow(10, randn(2.7, 0.18));
+            ev.cd10 = Math.pow(10, randn(3.0, 0.18));
+            ev.cd22 = Math.pow(10, randn(2.6, 0.18));
+          } else if (caseKey === 'tall') {
+            ev.cd34 = Math.pow(10, randn(2.7, 0.2));
+            ev.tdt  = Math.pow(10, randn(2.8, 0.2));
+            ev.ccd3 = Math.pow(10, randn(2.9, 0.18));
+            ev.cd7  = Math.pow(10, randn(3.0, 0.18));
+            ev.cd2  = Math.pow(10, randn(2.6, 0.2));
+            ev.cd5  = Math.pow(10, randn(2.7, 0.2));
+          }
+        } else if (pop === 'plasma') {
+          // Plasma cells: CD45 Neg-to-Dim (~5), SSC Low (~145)
+          ev.ssc = randn(145, 20);
+          ev.cd45 = Math.pow(10, randn(0.70, 0.35));
+          if (caseKey === 'pcm') {
+            ev.cd38  = Math.pow(10, randn(3.4, 0.14)); // CD38 VERY BRIGHT
+            ev.cd138 = Math.pow(10, randn(2.9, 0.16)); // CD138+
+            ev.cd56  = Math.pow(10, randn(2.8, 0.18)); // CD56+ Aberrant
+            ev.cd19  = Math.pow(10, randn(0.38, 0.32)); // CD19 NEGATIVE (unclamped)
+          }
+        } else if (pop === 'debris') {
+          // Debris / Platelets / Red cell fragments: SSC low, CD45 naturally crossing 10^0
+          ev.ssc = randn(118, 18);
+          ev.cd45 = Math.pow(10, randn(0.40, 0.35));
+        }
+
+        events.push(ev);
+      }
+      return events;
+    }
+
+    // --- COORDINATE TRANSFORMATIONS ---
+    function valToPx(val, markerKey, width, height, isX) {
+      const padL = 50, padR = 12, padT = 12, padB = 38;
+      const m = MARKERS[markerKey] || MARKERS.cd45;
+      const plotW = width - padL - padR;
+      const plotH = height - padT - padB;
+
+      let norm = 0;
+      if (m.type === 'log') {
+        const logMin = Math.log10(m.min); // log10(0.3)
+        const logMax = Math.log10(m.max); // 4 (10^4)
+        const logVal = Math.log10(Math.max(m.min, val));
+        norm = (logVal - logMin) / (logMax - logMin);
+      } else {
+        norm = (val - m.min) / (m.max - m.min);
+      }
+      // Hard stop strictly at the plot area boundaries [0, 1]
+      norm = clamp(norm, 0, 1);
+
+      if (isX) {
+        return padL + norm * plotW;
+      } else {
+        return padT + (1 - norm) * plotH;
+      }
+    }
+
+    function pxToVal(px, markerKey, width, height, isX) {
+      const padL = 50, padR = 12, padT = 12, padB = 38;
+      const m = MARKERS[markerKey] || MARKERS.cd45;
+      const plotW = width - padL - padR;
+      const plotH = height - padT - padB;
+
+      let norm = 0;
+      if (isX) {
+        norm = (px - padL) / plotW;
+      } else {
+        norm = 1 - (px - padT) / plotH;
+      }
+      norm = clamp(norm, 0, 1);
+
+      if (m.type === 'log') {
+        const logMin = Math.log10(m.min);
+        const logMax = Math.log10(m.max);
+        const logVal = logMin + norm * (logMax - logMin);
+        return Math.pow(10, logVal);
+      } else {
+        return m.min + norm * (m.max - m.min);
+      }
+    }
+
+    // Check if an event is inside a specific gate
+    function isEventInGate(ev, gate, plotCfg) {
+      if (!gate) return true;
+      const valX = ev[plotCfg.x] || 1.0;
+      const valY = ev[plotCfg.y] || 1.0;
+      const mX = MARKERS[plotCfg.x];
+      const mY = MARKERS[plotCfg.y];
+
+      let dx = 0;
+      if (mX.type === 'log') {
+        const logX = Math.log10(Math.max(mX.min, valX));
+        const gLogX = Math.log10(Math.max(mX.min, gate.cx));
+        dx = (logX - gLogX) / gate.rxLog;
+      } else {
+        dx = (valX - gate.cx) / gate.rx;
+      }
+
+      let dy = 0;
+      if (mY.type === 'log') {
+        const logY = Math.log10(Math.max(mY.min, valY));
+        const gLogY = Math.log10(Math.max(mY.min, gate.cy));
+        dy = (logY - gLogY) / gate.ryLog;
+      } else {
+        dy = (valY - gate.cy) / gate.ry;
+      }
+
+      return (dx * dx + dy * dy) <= 1.0;
+    }
+
+    // --- SEQUENTIAL WATERFALL EVENT CASCADE ---
+    // Plot 0 receives all events.
+    // Plot 1 receives events filtered by Gate 0 (Gate 1).
+    // Plot 2 receives events filtered by Gate 0 + Gate 1 (if Gate 1 exists).
+    // ... and so on down to Plot 5.
+    function updateWaterfallEvents() {
+      // Plot 0 visible events = all events
+      const totalEvents = state.events.length;
+      state.plotEvents[0] = Array.from({ length: totalEvents }, (_, i) => i);
+
+      // Precompute percentage statistics for default master gates
+      state.defaultGateStats = {};
+      const cfg0 = state.plots[0];
+      DEFAULT_MASTER_GATES.forEach(g => {
+        let count = 0;
+        for (let j = 0; j < totalEvents; j++) {
+          if (isEventInGate(state.events[j], g, cfg0)) {
+            count++;
+          }
+        }
+        const pct = totalEvents > 0 ? ((count / totalEvents) * 100).toFixed(1) : '0.0';
+        state.defaultGateStats[g.id] = { count, pct };
+      });
+
+      // Cascade down
+      for (let i = 1; i < 6; i++) {
+        const prevPlotIdx = i - 1;
+        const prevGate = state.gates[prevPlotIdx];
+        const prevEvents = state.plotEvents[prevPlotIdx];
+
+        if (prevPlotIdx === 0) {
+          // Plot 1 depends strictly on Master Gate (Gate 1)
+          if (!prevGate) {
+            state.plotEvents[i] = [];
+          } else {
+            const plotCfg = state.plots[0];
+            state.plotEvents[i] = prevEvents.filter(idx => isEventInGate(state.events[idx], prevGate, plotCfg));
+          }
+        } else {
+          // Secondary plots: if prevGate exists, filter by it; otherwise inherit parent's events
+          if (prevEvents.length === 0) {
+            state.plotEvents[i] = [];
+          } else if (prevGate) {
+            const plotCfg = state.plots[prevPlotIdx];
+            state.plotEvents[i] = prevEvents.filter(idx => isEventInGate(state.events[idx], prevGate, plotCfg));
+          } else {
+            state.plotEvents[i] = [...prevEvents];
+          }
+        }
+      }
+
+      // Update Plot Titles dynamically to reflect the gating chain
+      updatePlotTitles();
+
+      // Update Ribbon Stats
+      const masterGatedCount = state.gates[0] ? state.plotEvents[1].length : 0;
+      const pct = totalEvents > 0 ? ((masterGatedCount / totalEvents) * 100).toFixed(1) : '0.0';
+      document.getElementById('statTotalEvents').textContent = totalEvents.toLocaleString();
+      document.getElementById('statGatedEvents').textContent = masterGatedCount.toLocaleString();
+      document.getElementById('statGatedPercent').textContent = `${pct}%`;
+
+      // Update empty state messages on plots 1..5
+      const hasMasterGate = (state.gates[0] !== null && state.plotEvents[1].length > 0);
+      for (let i = 1; i < 6; i++) {
+        const msgEl = document.getElementById(`emptyMsg${i}`);
+        if (msgEl) {
+          msgEl.style.display = hasMasterGate ? 'none' : 'flex';
+        }
+      }
+    }
+
+    // Update Plot Titles dynamically
+    function updatePlotTitles() {
+      // Plot 1 (Master)
+      const t0 = document.getElementById('titleText0');
+      if (t0) {
+        if (state.gates[0]) {
+          const g0Name = state.gates[0].name ? ` (${state.gates[0].name})` : '';
+          t0.textContent = `Plot 1: Gate 1${g0Name} (CD45 vs SSC)`;
+        } else {
+          t0.textContent = 'Plot 1: Master Gate (CD45 vs SSC)';
+        }
+      }
+
+      // Plots 2..6
+      for (let i = 1; i < 6; i++) {
+        const titleEl = document.getElementById(`titleText${i}`);
+        if (!titleEl) continue;
+
+        if (!state.gates[0]) {
+          titleEl.textContent = `Plot ${i + 1}: Gated Events`;
+          continue;
+        }
+
+        // Gather all upstream active gates that contribute to this plot
+        const gateChain = [];
+        for (let g = 0; g < i; g++) {
+          if (state.gates[g]) {
+            const gName = state.gates[g].name ? `Gate ${g + 1} (${state.gates[g].name})` : `Gate ${g + 1}`;
+            gateChain.push(gName);
+          }
+        }
+        // If this plot itself also has a gate drawn on it:
+        if (state.gates[i]) {
+          const giName = state.gates[i].name ? `Gate ${i + 1} (${state.gates[i].name})` : `Gate ${i + 1}`;
+          gateChain.push(giName);
+        }
+
+        titleEl.textContent = `Plot ${i + 1}: ${gateChain.join(' + ')}`;
+      }
+    }
+
+    // --- CANVAS RENDERING ENGINE ---
+    function renderPlot(plotIdx) {
+      const canvas = document.getElementById(`canvas${plotIdx}`);
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.parentElement.getBoundingClientRect();
+      const w = Math.floor(rect.width);
+      const h = Math.floor(rect.height);
+
+      if (w <= 0 || h <= 0) return;
+
+      if (canvas.width !== w * dpr || canvas.height !== h * dpr) {
+        canvas.width = w * dpr;
+        canvas.height = h * dpr;
+      }
+      ctx.resetTransform();
+      ctx.scale(dpr, dpr);
+
+      const isMaster = (plotIdx === 0);
+      const cfg = state.plots[plotIdx];
+      const mX = MARKERS[cfg.x] || MARKERS.cd45;
+      const mY = MARKERS[cfg.y] || MARKERS.ssc;
+
+      const padL = 50, padR = 12, padT = 12, padB = 38;
+      const plotW = w - padL - padR;
+      const plotH = h - padT - padB;
+
+      const isDark = (state.theme === 'dark');
+      const colors = isDark ? POP_COLORS.dark : POP_COLORS.light;
+      const bgCard = isDark ? '#14151A' : '#FFFFFF';
+      const bgInner = isDark ? '#18191E' : '#FAFAFA';
+      const gridColor = isDark ? '#262A36' : '#E2E8F0';
+      const axisColor = isDark ? '#475569' : '#CBD5E1';
+      const textAxis = isDark ? '#94A3B8' : '#64748B';
+      const quadLineColor = isDark ? 'rgba(239, 225, 206, 0.45)' : 'rgba(54, 57, 69, 0.45)';
+
+      // Background
+      ctx.fillStyle = bgCard;
+      ctx.fillRect(0, 0, w, h);
+
+      // Inner chart area
+      ctx.fillStyle = bgInner;
+      ctx.fillRect(padL, padT, plotW, plotH);
+
+      // Grid lines & Ticks
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = gridColor;
+
+      // X-Ticks
+      ctx.fillStyle = textAxis;
+      ctx.font = '9px "JetBrains Mono", monospace';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+
+      const formatTickLabel = (m, val) => {
+        if (m.type === 'log') {
+          const p = Math.round(Math.log10(val));
+          const SUPERS = { '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵' };
+          return `10${SUPERS[p] !== undefined ? SUPERS[p] : '^' + p}`;
+        }
+        return `${val}`;
+      };
+
+      mX.ticks.forEach(tickVal => {
+        const xPos = valToPx(tickVal, cfg.x, w, h, true);
+        if (xPos >= padL && xPos <= padL + plotW) {
+          ctx.beginPath();
+          ctx.moveTo(xPos, padT);
+          ctx.lineTo(xPos, padT + plotH);
+          ctx.stroke();
+
+          ctx.fillText(formatTickLabel(mX, tickVal), xPos, padT + plotH + 4);
+        }
+      });
+
+      // Y-Ticks
+      ctx.textAlign = 'right';
+      ctx.textBaseline = 'middle';
+      mY.ticks.forEach(tickVal => {
+        const yPos = valToPx(tickVal, cfg.y, w, h, false);
+        if (yPos >= padT && yPos <= padT + plotH) {
+          ctx.beginPath();
+          ctx.moveTo(padL, yPos);
+          ctx.lineTo(padL + plotW, yPos);
+          ctx.stroke();
+
+          ctx.fillText(formatTickLabel(mY, tickVal), padL - 4, yPos);
+        }
+      });
+
+      // Axis Border
+      ctx.strokeStyle = axisColor;
+      ctx.strokeRect(padL, padT, plotW, plotH);
+
+      // Note: Axis title labels are rendered via interactive HTML pill buttons
+      // on each plot's margin edges for crystal-clear readability and clickability.
+
+      // Master Plot Rendering
+      if (isMaster) {
+        const gate0 = state.gates[0];
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(padL, padT, plotW, plotH);
+        ctx.clip(); // Hard stop strictly at the plot area boundary
+
+        state.events.forEach((ev, idx) => {
+          const px = valToPx(ev.cd45, 'cd45', w, h, true);
+          const py = valToPx(ev.ssc, 'ssc', w, h, false);
+
+          let color = colors[ev.pop] || colors.gran;
+          let radius = 1.35;
+
+          if (gate0) {
+            const inGate = isEventInGate(ev, gate0, cfg);
+            if (inGate) {
+              radius = 1.6;
+            } else {
+              color = isDark ? 'rgba(100, 116, 139, 0.22)' : 'rgba(203, 213, 225, 0.4)';
+              radius = 1.05;
+            }
+          }
+
+          ctx.fillStyle = color;
+          ctx.beginPath();
+          ctx.arc(px, py, radius, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        ctx.restore();
+
+        // Draw Gate 1 overlay if active, otherwise draw the 5 clickable default population gates
+        if (gate0) {
+          drawGateOverlay(ctx, 0, w, h, padL, padT, plotW, plotH, isDark);
+        } else {
+          drawDefaultGatesOverlay(ctx, w, h, padL, padT, plotW, plotH, isDark);
+        }
+        return;
+      }
+
+      // Secondary Plots (Plots 1..5): only populate if Master Gate is present
+      if (!state.gates[0] || state.plotEvents[plotIdx].length === 0) {
+        return;
+      }
+
+      // Clear quadrant lines at 10^1 (X=10, Y=10)
+      const quadXVal = (mX.type === 'log') ? 10 : (mX.min + mX.max) / 2;
+      const quadYVal = (mY.type === 'log') ? 10 : (mY.min + mY.max) / 2;
+      const qx = valToPx(quadXVal, cfg.x, w, h, true);
+      const qy = valToPx(quadYVal, cfg.y, w, h, false);
+
+      ctx.save();
+      ctx.strokeStyle = quadLineColor;
+      ctx.lineWidth = 1.25;
+      ctx.setLineDash([4, 4]);
+
+      ctx.beginPath();
+      ctx.moveTo(qx, padT);
+      ctx.lineTo(qx, padT + plotH);
+      ctx.moveTo(padL, qy);
+      ctx.lineTo(padL + plotW, qy);
+      ctx.stroke();
+      ctx.restore();
+
+      // Render visible events with inherited phenotypic cluster colors
+      let q1 = 0, q2 = 0, q3 = 0, q4 = 0;
+      let totalPlotted = 0;
+
+      const eventsToPlot = state.plotEvents[plotIdx];
+      const gateThisPlot = state.gates[plotIdx];
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(padL, padT, plotW, plotH);
+      ctx.clip(); // Hard stop strictly at the plot area boundary
+
+      eventsToPlot.forEach(idx => {
+        const ev = state.events[idx];
+        const valX = ev[cfg.x] || 0.3;
+        const valY = ev[cfg.y] || 0.3;
+
+        const px = valToPx(valX, cfg.x, w, h, true);
+        const py = valToPx(valY, cfg.y, w, h, false);
+
+        totalPlotted++;
+
+        if (valX >= quadXVal && valY >= quadYVal) q2++;
+        else if (valX < quadXVal && valY >= quadYVal) q1++;
+        else if (valX < quadXVal && valY < quadYVal) q3++;
+        else q4++;
+
+        let color = colors[ev.pop] || colors.lymph;
+        let radius = 1.45;
+
+        if (gateThisPlot) {
+          const inGate = isEventInGate(ev, gateThisPlot, cfg);
+          if (!inGate) {
+            color = isDark ? 'rgba(100, 116, 139, 0.22)' : 'rgba(203, 213, 225, 0.4)';
+            radius = 1.05;
+          }
+        }
+
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.arc(px, py, radius, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      ctx.restore();
+
+      // Draw Gate Overlay for this plot if one was drawn
+      drawGateOverlay(ctx, plotIdx, w, h, padL, padT, plotW, plotH, isDark);
+
+      // --- INCREASED FONT SIZE FOR QUADRANT EVENT PERCENTAGES (12px bold) ---
+      if (totalPlotted > 0) {
+        const p1 = ((q1 / totalPlotted) * 100).toFixed(1);
+        const p2 = ((q2 / totalPlotted) * 100).toFixed(1);
+        const p3 = ((q3 / totalPlotted) * 100).toFixed(1);
+        const p4 = ((q4 / totalPlotted) * 100).toFixed(1);
+
+        const drawCornerBadge = (text, x, y, alignX, alignY) => {
+          ctx.save();
+          // Increased font from 9px to 12px
+          ctx.font = 'bold 12px "JetBrains Mono", monospace';
+          const textW = ctx.measureText(text).width;
+          const bgPadX = 6, bgPadY = 3;
+          const boxW = textW + bgPadX * 2;
+          const boxH = 18;
+
+          const boxX = (alignX === 'right') ? x - boxW : x;
+          const boxY = (alignY === 'bottom') ? y - boxH : y;
+
+          ctx.fillStyle = isDark ? 'rgba(24, 25, 30, 0.90)' : 'rgba(255, 255, 255, 0.92)';
+          ctx.strokeStyle = isDark ? '#4A4F63' : '#CBD5E1';
+          ctx.lineWidth = 1.2;
+          ctx.fillRect(boxX, boxY, boxW, boxH);
+          ctx.strokeRect(boxX, boxY, boxW, boxH);
+
+          ctx.fillStyle = isDark ? '#EFE1CE' : '#1E293B';
+          ctx.textAlign = 'left';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(text, boxX + bgPadX, boxY + boxH / 2);
+          ctx.restore();
+        };
+
+        // Top-Left: Q1 (-/+)
+        drawCornerBadge(`Q1: ${p1}%`, padL + 5, padT + 5, 'left', 'top');
+        // Top-Right: Q2 (+/+)
+        drawCornerBadge(`Q2: ${p2}%`, padL + plotW - 5, padT + 5, 'right', 'top');
+        // Bottom-Left: Q3 (-/-)
+        drawCornerBadge(`Q3: ${p3}%`, padL + 5, padT + plotH - 5, 'left', 'bottom');
+        // Bottom-Right: Q4 (+/-)
+        drawCornerBadge(`Q4: ${p4}%`, padL + plotW - 5, padT + plotH - 5, 'right', 'bottom');
+      }
+    }
+
+    let _measureCtx = null;
+    function getTextWidth(text, font = 'bold 13px Roboto, sans-serif') {
+      if (!_measureCtx) {
+        const c = document.createElement('canvas');
+        _measureCtx = c.getContext('2d');
+      }
+      _measureCtx.font = font;
+      return _measureCtx.measureText(text).width;
+    }
+
+    function getDefaultGateStats(g) {
+      if (state.defaultGateStats && state.defaultGateStats[g.id]) {
+        return state.defaultGateStats[g.id];
+      }
+      const totalEvents = state.events.length;
+      if (totalEvents === 0) return { count: 0, pct: '0.0' };
+      const cfg = state.plots[0];
+      let count = 0;
+      for (let i = 0; i < totalEvents; i++) {
+        if (isEventInGate(state.events[i], g, cfg)) {
+          count++;
+        }
+      }
+      const pct = ((count / totalEvents) * 100).toFixed(1);
+      const res = { count, pct };
+      if (!state.defaultGateStats) state.defaultGateStats = {};
+      state.defaultGateStats[g.id] = res;
+      return res;
+    }
+
+    function getCustomGateStats(plotIdx) {
+      const g = state.gates[plotIdx];
+      if (!g) return { count: 0, total: 0, pct: '0.0' };
+      if (plotIdx === 0) {
+        const total = state.events.length;
+        const count = state.plotEvents[1] ? state.plotEvents[1].length : 0;
+        const pct = total > 0 ? ((count / total) * 100).toFixed(1) : '0.0';
+        return { count, total, pct };
+      } else {
+        const parentTotal = state.plotEvents[plotIdx] ? state.plotEvents[plotIdx].length : 0;
+        let count = 0;
+        if (plotIdx < 5 && state.plotEvents[plotIdx + 1]) {
+          count = state.plotEvents[plotIdx + 1].length;
+        } else if (parentTotal > 0) {
+          const cfg = state.plots[plotIdx];
+          count = state.plotEvents[plotIdx].filter(idx => isEventInGate(state.events[idx], g, cfg)).length;
+        }
+        const pct = parentTotal > 0 ? ((count / parentTotal) * 100).toFixed(1) : '0.0';
+        return { count, total: parentTotal, pct };
+      }
+    }
+
+    // Calculate badge bounding box for custom gate hit testing & rendering
+    function calcCustomGateBadgeRect(plotIdx, width, height) {
+      const g = state.gates[plotIdx];
+      if (!g) return null;
+      const cfg = state.plots[plotIdx];
+      const padL = 50, padR = 12, padT = 12, padB = 38;
+      const plotW = width - padL - padR;
+      const plotH = height - padT - padB;
+      const cxPx = valToPx(g.cx, cfg.x, width, height, true);
+      const cyPx = valToPx(g.cy, cfg.y, width, height, false);
+
+      const mX = MARKERS[cfg.x];
+      const mY = MARKERS[cfg.y];
+      let rxPx = 15;
+      if (mX.type === 'log') {
+        const rVal = Math.pow(10, Math.log10(g.cx) + g.rxLog);
+        rxPx = Math.abs(valToPx(rVal, cfg.x, width, height, true) - cxPx);
+      } else {
+        rxPx = Math.abs(valToPx(g.cx + g.rx, cfg.x, width, height, true) - cxPx);
+      }
+
+      let ryPx = 15;
+      if (mY.type === 'log') {
+        const rVal = Math.pow(10, Math.log10(g.cy) + g.ryLog);
+        ryPx = Math.abs(valToPx(rVal, cfg.y, width, height, false) - cyPx);
+      } else {
+        ryPx = Math.abs(valToPx(g.cy + g.ry, cfg.y, width, height, false) - cyPx);
+      }
+
+      const st = getCustomGateStats(plotIdx);
+      let baseLabel, hoverText, bw, bh;
+      if (plotIdx === 0) {
+        baseLabel = `${st.pct}%`;
+        hoverText = '✕ Delete';
+        const font = 'bold 12px Roboto, sans-serif';
+        const maxTw = Math.max(getTextWidth(baseLabel, font), getTextWidth(hoverText, font));
+        bw = Math.ceil(maxTw) + 12;
+        bh = 20;
+      } else {
+        const displayName = g.name || `Gate ${plotIdx + 1}`;
+        baseLabel = `${displayName} | ${st.pct}%`;
+        hoverText = `✕ Delete ${displayName}`;
+        const font = 'bold 13px Roboto, sans-serif';
+        const maxTw = Math.max(getTextWidth(baseLabel, font), getTextWidth(hoverText, font));
+        bw = Math.ceil(maxTw) + 18;
+        bh = 22;
+      }
+
+      let bx;
+      if (plotIdx === 0 && (g.id === 'neg' || g.id === 'blast')) {
+        bx = cxPx - rxPx * 0.25 - bw;
+      } else if (plotIdx === 0 && (g.id === 'lymph' || g.id === 'mono' || g.id === 'gran')) {
+        bx = cxPx + rxPx * 0.25;
+      } else {
+        bx = cxPx - bw / 2;
+      }
+      bx = clamp(bx, padL + 2, padL + plotW - bw - 2);
+      let by = cyPx - ryPx - bh - 2;
+      if (by < padT + 2) {
+        by = cyPx + ryPx + 2;
+      }
+      return { x: bx, y: by, w: bw, h: bh, baseLabel, hoverText };
+    }
+
+    // Helper: Draw Gate Outline with Hover-to-Delete functionality
+    function drawGateOverlay(ctx, plotIdx, w, h, padL, padT, plotW, plotH, isDark) {
+      const g = state.gates[plotIdx];
+      if (!g) return;
+
+      const cfg = state.plots[plotIdx];
+      const mX = MARKERS[cfg.x];
+      const mY = MARKERS[cfg.y];
+
+      const cxPx = valToPx(g.cx, cfg.x, w, h, true);
+      const cyPx = valToPx(g.cy, cfg.y, w, h, false);
+
+      let rxPx = 15;
+      if (mX.type === 'log') {
+        const rVal = Math.pow(10, Math.log10(g.cx) + g.rxLog);
+        rxPx = Math.abs(valToPx(rVal, cfg.x, w, h, true) - cxPx);
+      } else {
+        rxPx = Math.abs(valToPx(g.cx + g.rx, cfg.x, w, h, true) - cxPx);
+      }
+
+      let ryPx = 15;
+      if (mY.type === 'log') {
+        const rVal = Math.pow(10, Math.log10(g.cy) + g.ryLog);
+        ryPx = Math.abs(valToPx(rVal, cfg.y, w, h, false) - cyPx);
+      } else {
+        ryPx = Math.abs(valToPx(g.cy + g.ry, cfg.y, w, h, false) - cyPx);
+      }
+
+      // Check if this gate is currently hovered
+      const isHovered = (state.hoveredDeleteGate === plotIdx);
+      const gateColor = g.colorDark && isDark ? g.colorDark : (g.colorLight || (isDark ? '#F0ABFC' : '#D946EF'));
+
+      ctx.save();
+      ctx.strokeStyle = isHovered ? '#EF4444' : gateColor;
+      ctx.lineWidth = isHovered ? 2.6 : 2;
+      ctx.setLineDash(isHovered ? [] : [5, 3]);
+      ctx.fillStyle = isHovered 
+        ? 'rgba(239, 68, 68, 0.18)' 
+        : (isDark ? 'rgba(240, 171, 252, 0.12)' : 'rgba(217, 70, 239, 0.10)');
+
+      ctx.beginPath();
+      ctx.ellipse(cxPx, cyPx, rxPx, ryPx, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+
+      // Styled Rounded Badge for active/custom gate
+      const b = calcCustomGateBadgeRect(plotIdx, w, h);
+      if (b) {
+        ctx.setLineDash([]);
+        ctx.beginPath();
+        ctx.roundRect(b.x, b.y, b.w, b.h, 4);
+
+        if (isHovered) {
+          ctx.fillStyle = '#EF4444';
+          ctx.fill();
+          ctx.fillStyle = '#FFFFFF';
+          ctx.font = plotIdx === 0 ? 'bold 12px Roboto, sans-serif' : 'bold 13px Roboto, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(b.hoverText, b.x + b.w / 2, b.y + b.h / 2);
+        } else {
+          ctx.fillStyle = isDark ? 'rgba(24, 25, 30, 0.92)' : 'rgba(255, 255, 255, 0.92)';
+          ctx.fill();
+          ctx.strokeStyle = gateColor;
+          ctx.lineWidth = 1.2;
+          ctx.stroke();
+          ctx.fillStyle = gateColor;
+          ctx.font = plotIdx === 0 ? 'bold 12px Roboto, sans-serif' : 'bold 13px Roboto, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(b.baseLabel, b.x + b.w / 2, b.y + b.h / 2);
+        }
+      }
+
+      ctx.restore();
+    }
+
+    // Calculate badge bounding box for default gate hit testing & rendering
+    function calcGateBadgeRect(g, cfg, width, height) {
+      const padL = 50, padR = 12, padT = 12, padB = 38;
+      const plotW = width - padL - padR;
+      const plotH = height - padT - padB;
+      const cxPx = valToPx(g.cx, cfg.x, width, height, true);
+      const cyPx = valToPx(g.cy, cfg.y, width, height, false);
+
+      const mX = MARKERS[cfg.x];
+      const mY = MARKERS[cfg.y];
+      let rxPx = 15;
+      if (mX.type === 'log') {
+        const rVal = Math.pow(10, Math.log10(g.cx) + g.rxLog);
+        rxPx = Math.abs(valToPx(rVal, cfg.x, width, height, true) - cxPx);
+      } else {
+        rxPx = Math.abs(valToPx(g.cx + g.rx, cfg.x, width, height, true) - cxPx);
+      }
+
+      let ryPx = 15;
+      if (mY.type === 'log') {
+        const rVal = Math.pow(10, Math.log10(g.cy) + g.ryLog);
+        ryPx = Math.abs(valToPx(rVal, cfg.y, width, height, false) - cyPx);
+      } else {
+        ryPx = Math.abs(valToPx(g.cy + g.ry, cfg.y, width, height, false) - cyPx);
+      }
+
+      const st = getDefaultGateStats(g);
+      const text = `${st.pct}%`;
+      const font = 'bold 12px Roboto, sans-serif';
+      const tw = getTextWidth(text, font);
+      const bw = Math.ceil(tw) + 12;
+      const bh = 20;
+
+      // Positioning:
+      // Offset top-right for lymphs, monos, grans
+      // Offset top-left for 45 neg and 45 dim
+      let bx;
+      const isTopLeft = (g.id === 'neg' || g.id === 'blast');
+      if (isTopLeft) {
+        bx = cxPx - rxPx * 0.25 - bw;
+      } else {
+        bx = cxPx + rxPx * 0.25;
+      }
+      bx = clamp(bx, padL + 2, padL + plotW - bw - 2);
+
+      let by = cyPx - ryPx - bh - 2;
+      if (by < padT + 2) {
+        by = cyPx + ryPx + 2;
+      }
+      return { x: bx, y: by, w: bw, h: bh };
+    }
+
+    // Helper: Draw the 5 clickable default population gates on Plot 1 (Master Gate: CD45 vs SSC)
+    function drawDefaultGatesOverlay(ctx, w, h, padL, padT, plotW, plotH, isDark) {
+      const cfg = state.plots[0];
+      const mX = MARKERS[cfg.x];
+      const mY = MARKERS[cfg.y];
+
+      // Draw subtle top prompt banner
+      ctx.save();
+      ctx.font = '500 11px Roboto, sans-serif';
+      ctx.textAlign = 'right';
+      ctx.textBaseline = 'top';
+      ctx.fillStyle = isDark ? '#94A3B8' : '#64748B';
+      ctx.fillText('💡 Click a gate to filter plots, or drag to draw custom', padL + plotW - 4, padT + 4);
+      ctx.restore();
+
+      DEFAULT_MASTER_GATES.forEach(g => {
+        const cxPx = valToPx(g.cx, cfg.x, w, h, true);
+        const cyPx = valToPx(g.cy, cfg.y, w, h, false);
+
+        let rxPx = 15;
+        if (mX.type === 'log') {
+          const rVal = Math.pow(10, Math.log10(g.cx) + g.rxLog);
+          rxPx = Math.abs(valToPx(rVal, cfg.x, w, h, true) - cxPx);
+        } else {
+          rxPx = Math.abs(valToPx(g.cx + g.rx, cfg.x, w, h, true) - cxPx);
+        }
+
+        let ryPx = 15;
+        if (mY.type === 'log') {
+          const rVal = Math.pow(10, Math.log10(g.cy) + g.ryLog);
+          ryPx = Math.abs(valToPx(rVal, cfg.y, w, h, false) - cyPx);
+        } else {
+          ryPx = Math.abs(valToPx(g.cy + g.ry, cfg.y, w, h, false) - cyPx);
+        }
+
+        const isHovered = (state.hoveredDefaultGate === g.id);
+        const gateColor = isDark ? g.colorDark : g.colorLight;
+
+        ctx.save();
+        ctx.strokeStyle = gateColor;
+        ctx.lineWidth = isHovered ? 2.6 : 1.6;
+        ctx.setLineDash(isHovered ? [4, 2] : [5, 4]);
+
+        // Translucent fill
+        ctx.fillStyle = isHovered 
+          ? (isDark ? 'rgba(255, 255, 255, 0.16)' : 'rgba(0, 0, 0, 0.08)')
+          : (isDark ? 'rgba(255, 255, 255, 0.04)' : 'rgba(0, 0, 0, 0.02)');
+
+        ctx.beginPath();
+        ctx.ellipse(cxPx, cyPx, rxPx, ryPx, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+
+        // Label Badge (Compact, percent-only)
+        const st = getDefaultGateStats(g);
+        const labelText = `${st.pct}%`;
+        const b = calcGateBadgeRect(g, cfg, w, h);
+
+        ctx.setLineDash([]);
+        ctx.beginPath();
+        ctx.roundRect(b.x, b.y, b.w, b.h, 4);
+
+        if (isHovered) {
+          ctx.fillStyle = gateColor;
+          ctx.fill();
+          ctx.fillStyle = '#FFFFFF';
+        } else {
+          ctx.fillStyle = isDark ? 'rgba(24, 25, 30, 0.92)' : 'rgba(255, 255, 255, 0.92)';
+          ctx.fill();
+          ctx.strokeStyle = gateColor;
+          ctx.lineWidth = 1.2;
+          ctx.stroke();
+          ctx.fillStyle = gateColor;
+        }
+
+        ctx.font = 'bold 12px Roboto, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(labelText, b.x + b.w / 2, b.y + b.h / 2);
+
+        ctx.restore();
+      });
+    }
+
+    // Detect which default gate (if any) is under point (px, py)
+    function getDefaultGateAtPoint(px, py, width, height) {
+      if (state.gates[0] !== null) return null;
+      const cfg = state.plots[0];
+      const mX = MARKERS[cfg.x];
+      const mY = MARKERS[cfg.y];
+
+      // Check badges first
+      for (let i = DEFAULT_MASTER_GATES.length - 1; i >= 0; i--) {
+        const g = DEFAULT_MASTER_GATES[i];
+        const b = calcGateBadgeRect(g, cfg, width, height);
+        if (px >= b.x && px <= b.x + b.w && py >= b.y && py <= b.y + b.h) {
+          return g;
+        }
+      }
+
+      // Check ellipses
+      for (let i = DEFAULT_MASTER_GATES.length - 1; i >= 0; i--) {
+        const g = DEFAULT_MASTER_GATES[i];
+        const cxPx = valToPx(g.cx, cfg.x, width, height, true);
+        const cyPx = valToPx(g.cy, cfg.y, width, height, false);
+
+        let rxPx = 15;
+        if (mX.type === 'log') {
+          const rVal = Math.pow(10, Math.log10(g.cx) + g.rxLog);
+          rxPx = Math.abs(valToPx(rVal, cfg.x, width, height, true) - cxPx);
+        } else {
+          rxPx = Math.abs(valToPx(g.cx + g.rx, cfg.x, width, height, true) - cxPx);
+        }
+
+        let ryPx = 15;
+        if (mY.type === 'log') {
+          const rVal = Math.pow(10, Math.log10(g.cy) + g.ryLog);
+          ryPx = Math.abs(valToPx(rVal, cfg.y, width, height, false) - cyPx);
+        } else {
+          ryPx = Math.abs(valToPx(g.cy + g.ry, cfg.y, width, height, false) - cyPx);
+        }
+
+        const dx = (px - cxPx) / rxPx;
+        const dy = (py - cyPx) / ryPx;
+        if ((dx * dx + dy * dy) <= 1.0) {
+          return g;
+        }
+      }
+      return null;
+    }
+
+    // Activate a selected default gate
+    function selectDefaultGate(defaultGate) {
+      state.gates[0] = {
+        id: defaultGate.id,
+        cx: defaultGate.cx,
+        cy: defaultGate.cy,
+        rxLog: defaultGate.rxLog,
+        rx: defaultGate.rx,
+        ryLog: defaultGate.ryLog,
+        ry: defaultGate.ry,
+        name: defaultGate.name,
+        pop: defaultGate.pop,
+        colorLight: defaultGate.colorLight,
+        colorDark: defaultGate.colorDark
+      };
+      state.hoveredDefaultGate = null;
+      state.hoveredDeleteGate = null;
+      const canvas0 = document.getElementById('canvas0');
+      if (canvas0) canvas0.style.cursor = 'crosshair';
+
+      updateWaterfallEvents();
+      renderAllPlots();
+      showToast(`Selected Gate 1: ${defaultGate.name}`);
+    }
+
+    function renderAllPlots() {
+      for (let i = 0; i < 6; i++) {
+        renderPlot(i);
+      }
+    }
+
+    // --- GATE DRAWING, DRAGGING & HOVER-TO-DELETE ON ALL PLOTS ---
+    let activeDrawingPlot = null;
+    let isMouseDown = false;
+    let hasDragged = false;
+    let dragStart = null;
+
+    // Attach event listeners to all 6 plot canvases
+    for (let i = 0; i < 6; i++) {
+      setupPlotInteraction(i);
+    }
+
+    function setupPlotInteraction(plotIdx) {
+      const canvas = document.getElementById(`canvas${plotIdx}`);
+      if (!canvas) return;
+
+      canvas.addEventListener('mousedown', (e) => {
+        // Can only draw on plot 0, or on secondary plots if they have events
+        if (plotIdx > 0 && (!state.gates[0] || state.plotEvents[plotIdx].length === 0)) return;
+
+        const rect = canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        // If user clicks on the hovered delete gate/badge, delete it!
+        if (state.hoveredDeleteGate === plotIdx) {
+          deleteGateCascade(plotIdx);
+          return;
+        }
+
+        const padL = 50, padR = 12, padT = 12, padB = 38;
+        if (x < padL || x > rect.width - padR || y < padT || y > rect.height - padB) return;
+
+        isMouseDown = true;
+        hasDragged = false;
+        activeDrawingPlot = plotIdx;
+        dragStart = { x, y, clientX: e.clientX, clientY: e.clientY };
+      });
+
+      canvas.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        // If not actively drawing, check for hover over gate boundary/label to trigger delete availability
+        if (!isMouseDown) {
+          if (plotIdx === 0 && state.gates[0] === null) {
+            const hitGate = getDefaultGateAtPoint(x, y, rect.width, rect.height);
+            const newHoverId = hitGate ? hitGate.id : null;
+            if (state.hoveredDefaultGate !== newHoverId) {
+              state.hoveredDefaultGate = newHoverId;
+              canvas.style.cursor = hitGate ? 'pointer' : 'crosshair';
+              renderPlot(0);
+            }
+          } else {
+            checkGateHover(plotIdx, x, y, rect.width, rect.height);
+          }
+        }
+      });
+
+      canvas.addEventListener('mouseleave', () => {
+        if (!isMouseDown) {
+          if (plotIdx === 0 && state.gates[0] === null) {
+            if (state.hoveredDefaultGate !== null) {
+              state.hoveredDefaultGate = null;
+              canvas.style.cursor = 'crosshair';
+              renderPlot(0);
+            }
+          } else if (state.hoveredDeleteGate === plotIdx) {
+            state.hoveredDeleteGate = null;
+            canvas.style.cursor = 'crosshair';
+            renderPlot(plotIdx);
+          }
+        }
+      });
+    }
+
+    // Window-level mousemove & mouseup for drawing
+    window.addEventListener('mousemove', (e) => {
+      if (!isMouseDown || !dragStart || activeDrawingPlot === null) return;
+
+      const dist = Math.hypot(e.clientX - dragStart.clientX, e.clientY - dragStart.clientY);
+      if (dist > 5) {
+        hasDragged = true;
+      }
+      if (!hasDragged) return;
+
+      const plotIdx = activeDrawingPlot;
+      const canvas = document.getElementById(`canvas${plotIdx}`);
+      const rect = canvas.getBoundingClientRect();
+      const currentX = clamp(e.clientX - rect.left, 44, rect.width - 12);
+      const currentY = clamp(e.clientY - rect.top, 12, rect.height - 34);
+
+      const cxPx = (dragStart.x + currentX) / 2;
+      const cyPx = (dragStart.y + currentY) / 2;
+      const rxPx = Math.max(10, Math.abs(currentX - dragStart.x) / 2);
+      const ryPx = Math.max(10, Math.abs(currentY - dragStart.y) / 2);
+
+      const cfg = state.plots[plotIdx];
+      const mX = MARKERS[cfg.x];
+      const mY = MARKERS[cfg.y];
+
+      const cxVal = pxToVal(cxPx, cfg.x, rect.width, rect.height, true);
+      const cyVal = pxToVal(cyPx, cfg.y, rect.width, rect.height, false);
+
+      let rxLog = 0.2, rx = 20;
+      if (mX.type === 'log') {
+        const rVal = pxToVal(cxPx + rxPx, cfg.x, rect.width, rect.height, true);
+        rxLog = Math.max(0.1, Math.abs(Math.log10(rVal) - Math.log10(cxVal)));
+      } else {
+        const rVal = pxToVal(cxPx + rxPx, cfg.x, rect.width, rect.height, true);
+        rx = Math.max(15, Math.abs(rVal - cxVal));
+      }
+
+      let ryLog = 0.2, ry = 20;
+      if (mY.type === 'log') {
+        const rVal = pxToVal(cyPx - ryPx, cfg.y, rect.width, rect.height, false);
+        ryLog = Math.max(0.1, Math.abs(Math.log10(rVal) - Math.log10(cyVal)));
+      } else {
+        const rVal = pxToVal(cyPx - ryPx, cfg.y, rect.width, rect.height, false);
+        ry = Math.max(15, Math.abs(rVal - cyVal));
+      }
+
+      state.gates[plotIdx] = {
+        cx: cxVal,
+        cy: cyVal,
+        rxLog,
+        rx,
+        ryLog,
+        ry
+      };
+
+      updateWaterfallEvents();
+      renderAllPlots();
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (isMouseDown) {
+        if (activeDrawingPlot === 0 && !hasDragged && state.gates[0] === null && dragStart) {
+          const canvas0 = document.getElementById('canvas0');
+          if (canvas0) {
+            const rect = canvas0.getBoundingClientRect();
+            const clickX = dragStart.clientX - rect.left;
+            const clickY = dragStart.clientY - rect.top;
+            const hitGate = getDefaultGateAtPoint(clickX, clickY, rect.width, rect.height);
+            if (hitGate) {
+              selectDefaultGate(hitGate);
+            }
+          }
+        }
+        isMouseDown = false;
+        hasDragged = false;
+        activeDrawingPlot = null;
+        dragStart = null;
+      }
+    });
+
+    // Check if cursor is hovering over a gate boundary or its top label
+    function checkGateHover(plotIdx, x, y, width, height) {
+      const g = state.gates[plotIdx];
+      const canvas = document.getElementById(`canvas${plotIdx}`);
+      if (!g || !canvas) return;
+
+      const cfg = state.plots[plotIdx];
+      const mX = MARKERS[cfg.x];
+      const mY = MARKERS[cfg.y];
+
+      const cxPx = valToPx(g.cx, cfg.x, width, height, true);
+      const cyPx = valToPx(g.cy, cfg.y, width, height, false);
+
+      let rxPx = 15;
+      if (mX.type === 'log') {
+        const rVal = Math.pow(10, Math.log10(g.cx) + g.rxLog);
+        rxPx = Math.abs(valToPx(rVal, cfg.x, width, height, true) - cxPx);
+      } else {
+        rxPx = Math.abs(valToPx(g.cx + g.rx, cfg.x, width, height, true) - cxPx);
+      }
+
+      let ryPx = 15;
+      if (mY.type === 'log') {
+        const rVal = Math.pow(10, Math.log10(g.cy) + g.ryLog);
+        ryPx = Math.abs(valToPx(rVal, cfg.y, width, height, false) - cyPx);
+      } else {
+        ryPx = Math.abs(valToPx(g.cy + g.ry, cfg.y, width, height, false) - cyPx);
+      }
+
+      // Check distance to ellipse border or top label
+      const dxNorm = (x - cxPx) / rxPx;
+      const dyNorm = (y - cyPx) / ryPx;
+      const distFromCenter = Math.sqrt(dxNorm * dxNorm + dyNorm * dyNorm);
+      const isNearBorder = (distFromCenter >= 0.75 && distFromCenter <= 1.25);
+
+      // Check top badge area using exact calculated badge rect
+      const b = calcCustomGateBadgeRect(plotIdx, width, height);
+      const isOverTopBadge = (b && x >= b.x && x <= b.x + b.w && y >= b.y && y <= b.y + b.h);
+
+      if (isNearBorder || isOverTopBadge) {
+        if (state.hoveredDeleteGate !== plotIdx) {
+          state.hoveredDeleteGate = plotIdx;
+          canvas.style.cursor = 'pointer';
+          renderPlot(plotIdx);
+        }
+      } else {
+        if (state.hoveredDeleteGate === plotIdx) {
+          state.hoveredDeleteGate = null;
+          canvas.style.cursor = 'crosshair';
+          renderPlot(plotIdx);
+        }
+      }
+    }
+
+    // Cascade deletion: deleting gate k clears gate k and all downstream gates (k..5)
+    function deleteGateCascade(plotIdx) {
+      for (let i = plotIdx; i < 6; i++) {
+        state.gates[i] = null;
+      }
+      state.hoveredDeleteGate = null;
+      state.hoveredDefaultGate = null;
+      const canvas = document.getElementById(`canvas${plotIdx}`);
+      if (canvas) canvas.style.cursor = 'crosshair';
+
+      updateWaterfallEvents();
+      renderAllPlots();
+    }
+
+    // Reset All Gates Button
+    document.getElementById('btnResetGate').addEventListener('click', () => {
+      deleteGateCascade(0);
+    });
+
+    // --- TOAST NOTIFICATION HELPER ---
+    let toastTimer = null;
+    function showToast(msg) {
+      const toast = document.getElementById('toastNotification');
+      if (!toast) return;
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+
+    // --- AXIS PILL BUTTON CONTROLS & MARKER MODAL ---
+    let activeMarkerSelection = { plotIdx: null, axis: null };
+
+    function updateAxisPillLabels() {
+      for (let i = 1; i < 6; i++) {
+        const valX = document.getElementById(`valAxisX${i}`);
+        const valY = document.getElementById(`valAxisY${i}`);
+        const summary = document.getElementById(`axisSummary${i}`);
+
+        const cfg = state.plots[i];
+        const mX = MARKERS[cfg.x] || MARKERS.cd45;
+        const mY = MARKERS[cfg.y] || MARKERS.ssc;
+
+        if (valX) valX.textContent = mX.name;
+        if (valY) valY.textContent = mY.name;
+        if (summary) {
+          summary.textContent = `${mX.name.split(' ')[0]} vs ${mY.name.split(' ')[0]}`;
+        }
+      }
+    }
+
+    function setupAxisPills() {
+      for (let i = 1; i < 6; i++) {
+        const btnX = document.getElementById(`btnAxisX${i}`);
+        const btnY = document.getElementById(`btnAxisY${i}`);
+
+        if (btnX) {
+          btnX.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openMarkerModal(i, 'x');
+          });
+        }
+
+        if (btnY) {
+          btnY.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openMarkerModal(i, 'y');
+          });
+        }
+      }
+    }
+
+    function openMarkerModal(plotIdx, axis) {
+      activeMarkerSelection = { plotIdx, axis };
+      const markerModal = document.getElementById('markerModalBackdrop');
+      const title = document.getElementById('markerModalTitle');
+      const subtitle = document.getElementById('markerModalSubtitle');
+      const searchInput = document.getElementById('markerSearchInput');
+
+      const currentMarkerKey = state.plots[plotIdx][axis];
+      const curMarkerName = MARKERS[currentMarkerKey] ? MARKERS[currentMarkerKey].name : currentMarkerKey;
+
+      title.textContent = `Plot ${plotIdx + 1}: Select ${axis.toUpperCase()}-Axis Marker`;
+      subtitle.textContent = `Current: ${curMarkerName} — Choose a marker below or filter by name/fluorochrome:`;
+
+      searchInput.value = '';
+      renderMarkerModalChoices('');
+
+      markerModal.classList.add('open');
+      setTimeout(() => searchInput.focus(), 50);
+    }
+
+    function closeMarkerModal() {
+      document.getElementById('markerModalBackdrop').classList.remove('open');
+      activeMarkerSelection = { plotIdx: null, axis: null };
+    }
+
+    function renderMarkerModalChoices(filterText = '') {
+      const body = document.getElementById('markerModalBody');
+      body.innerHTML = '';
+      const query = filterText.trim().toLowerCase();
+
+      const currentKey = (activeMarkerSelection.plotIdx !== null && activeMarkerSelection.axis !== null)
+        ? state.plots[activeMarkerSelection.plotIdx][activeMarkerSelection.axis]
+        : null;
+
+      let totalMatches = 0;
+
+      MARKER_CATEGORIES.forEach(cat => {
+        const matchingMarkers = cat.markers.filter(key => {
+          const m = MARKERS[key];
+          if (!m) return false;
+          if (!query) return true;
+          return m.name.toLowerCase().includes(query) ||
+                 key.toLowerCase().includes(query) ||
+                 cat.name.toLowerCase().includes(query);
+        });
+
+        if (matchingMarkers.length === 0) return;
+        totalMatches += matchingMarkers.length;
+
+        const groupEl = document.createElement('div');
+        groupEl.className = 'marker-category-group';
+
+        const titleEl = document.createElement('div');
+        titleEl.className = 'marker-category-title';
+        titleEl.textContent = cat.name;
+        groupEl.appendChild(titleEl);
+
+        const gridEl = document.createElement('div');
+        gridEl.className = 'marker-grid';
+
+        matchingMarkers.forEach(key => {
+          const m = MARKERS[key];
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          const isSelected = (key === currentKey);
+          btn.className = 'marker-choice-btn' + (isSelected ? ' active' : '');
+
+          const parts = m.name.split(' ');
+          const mainName = parts[0];
+          const fluor = parts.slice(1).join(' ') || (m.type === 'linear' ? 'Linear' : 'Log');
+
+          btn.innerHTML = `
+            <span class="marker-choice-name">${mainName}</span>
+            <span class="marker-choice-fluor">${fluor} ${isSelected ? '✓' : ''}</span>
+          `;
+
+          btn.addEventListener('click', () => {
+            selectMarker(key);
+          });
+
+          gridEl.appendChild(btn);
+        });
+
+        groupEl.appendChild(gridEl);
+        body.appendChild(groupEl);
+      });
+
+      if (totalMatches === 0) {
+        body.innerHTML = `
+          <div style="text-align:center; padding:2rem 1rem; color:var(--text-muted); font-size:0.85rem;">
+            No markers found matching "<strong>${filterText}</strong>".
+          </div>
+        `;
+      }
+    }
+
+    function selectMarker(markerKey) {
+      const { plotIdx, axis } = activeMarkerSelection;
+      if (plotIdx === null || !axis) return;
+
+      state.plots[plotIdx][axis] = markerKey;
+
+      if (state.gates[plotIdx]) {
+        deleteGateCascade(plotIdx);
+      } else {
+        updateWaterfallEvents();
+        renderAllPlots();
+      }
+
+      updateAxisPillLabels();
+      closeMarkerModal();
+      showToast(`Plot ${plotIdx + 1} ${axis.toUpperCase()}-Axis: ${MARKERS[markerKey].name}`);
+    }
+
+    function setupMarkerModal() {
+      const backdrop = document.getElementById('markerModalBackdrop');
+      const closeBtn = document.getElementById('btnCloseMarkerModal');
+      const searchInput = document.getElementById('markerSearchInput');
+
+      closeBtn.addEventListener('click', closeMarkerModal);
+      backdrop.addEventListener('click', (e) => {
+        if (e.target === backdrop) closeMarkerModal();
+      });
+
+      searchInput.addEventListener('input', (e) => {
+        renderMarkerModalChoices(e.target.value);
+      });
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && backdrop.classList.contains('open')) {
+          closeMarkerModal();
+        }
+      });
+    }
+
+    // --- DIAGNOSTIC PANELS DROPDOWN ---
+    function setupPanelDropdown() {
+      const btn = document.getElementById('btnPanelDropdown');
+      const menu = document.getElementById('panelDropdownMenu');
+
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        menu.classList.toggle('open');
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!menu.contains(e.target) && e.target !== btn) {
+          menu.classList.remove('open');
+        }
+      });
+
+      menu.querySelectorAll('.panel-menu-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const panelKey = item.getAttribute('data-panel');
+          applyDiagnosticPanel(panelKey);
+          menu.classList.remove('open');
+        });
+      });
+    }
+
+    function applyDiagnosticPanel(panelKey) {
+      let panelPlots = null;
+      let panelName = '';
+
+      if (panelKey === 'case_default') {
+        const curCase = CASES[state.currentCase];
+        panelPlots = curCase.defaultPlots;
+        if (quizState.active && state.currentCase !== 'normal') {
+          const qInfo = quizState.map[state.currentCase];
+          if (qInfo && !qInfo.solved) {
+            panelName = `Case ${qInfo.caseNum} Recommended Panel`;
+          } else if (qInfo) {
+            panelName = `Case ${qInfo.caseNum}: ${curCase.name} Panel`;
+          } else {
+            panelName = `${curCase.name} Panel`;
+          }
+        } else {
+          panelName = `${curCase.name} Panel`;
+        }
+      } else if (DIFFERENTIAL_PANELS[panelKey]) {
+        panelPlots = DIFFERENTIAL_PANELS[panelKey].plots;
+        panelName = DIFFERENTIAL_PANELS[panelKey].name;
+      }
+
+      if (!panelPlots) return;
+
+      for (let i = 0; i < 5; i++) {
+        state.plots[i + 1] = { ...panelPlots[i] };
+        if (state.gates[i + 1]) {
+          state.gates[i + 1] = null;
+        }
+      }
+
+      updateAxisPillLabels();
+      updateWaterfallEvents();
+      renderAllPlots();
+      showToast(`Applied: ${panelName}`);
+    }
+
+    // --- QUIZ MODE STATE & HELPERS ---
+    const quizState = {
+      active: false,
+      cases: [],
+      map: {}
+    };
+
+    function initQuizMode() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const isQuiz = urlParams.has('quiz');
+      const btnQuizAction = document.getElementById('btnQuizAction');
+
+      if (!isQuiz) {
+        if (btnQuizAction) {
+          btnQuizAction.textContent = '? Me';
+          btnQuizAction.title = 'Test diagnostic skills in Quiz Mode';
+        }
+        return;
+      }
+
+      quizState.active = true;
+      const quizBadge = document.getElementById('quizBadge');
+      if (quizBadge) quizBadge.style.display = 'inline-block';
+
+      if (btnQuizAction) {
+        btnQuizAction.textContent = 'Interpret Results';
+        btnQuizAction.title = 'Open Case Presentation and Diagnosis Challenge';
+      }
+
+      const caseKeys = ['cll', 'mcl', 'hcl', 'aml', 'amml', 'ball', 'tall', 'pcm'];
+      // Randomize caseKeys (Fisher-Yates shuffle)
+      for (let i = caseKeys.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [caseKeys[i], caseKeys[j]] = [caseKeys[j], caseKeys[i]];
+      }
+
+      const caseSelect = document.getElementById('caseSelect');
+      if (caseSelect) {
+        caseSelect.innerHTML = '';
+        const normalOpt = document.createElement('option');
+        normalOpt.value = 'normal';
+        normalOpt.textContent = 'Normal Peripheral Blood Control';
+        normalOpt.selected = true;
+        caseSelect.appendChild(normalOpt);
+
+        quizState.cases = [];
+        quizState.map = {};
+
+        caseKeys.forEach((key, idx) => {
+          const caseNum = idx + 1;
+          const info = {
+            key,
+            caseNum,
+            solved: false,
+            wrongAttempts: []
+          };
+          quizState.cases.push(info);
+          quizState.map[key] = info;
+
+          const opt = document.createElement('option');
+          opt.value = key;
+          opt.textContent = `Case ${caseNum}: Investigate`;
+          caseSelect.appendChild(opt);
+        });
+      }
+    }
+
+    function updateDropdownCaseLabel(caseKey) {
+      const select = document.getElementById('caseSelect');
+      if (!select) return;
+      const opt = select.querySelector(`option[value="${caseKey}"]`);
+      if (!opt) return;
+
+      if (quizState.active && caseKey !== 'normal') {
+        const qInfo = quizState.map[caseKey];
+        if (qInfo) {
+          if (qInfo.solved) {
+            opt.textContent = `Case ${qInfo.caseNum}: ${CASES[caseKey].name}`;
+          } else {
+            opt.textContent = `Case ${qInfo.caseNum}: Investigate`;
+          }
+        }
+      }
+    }
+
+    // Load Case
+    function loadCase(caseKey) {
+      state.currentCase = caseKey;
+      const caseDef = CASES[caseKey];
+
+      const caseSelect = document.getElementById('caseSelect');
+      if (caseSelect && caseSelect.value !== caseKey) {
+        caseSelect.value = caseKey;
+      }
+
+      state.plots[0] = { x: 'cd45', y: 'ssc' };
+      if (caseDef.defaultPlots) {
+        for (let i = 0; i < 5; i++) {
+          state.plots[i + 1] = { ...caseDef.defaultPlots[i] };
+        }
+      }
+
+      updateAxisPillLabels();
+
+      state.events = generateEvents(caseKey);
+
+      // Clear all gates on new case
+      for (let i = 0; i < 6; i++) {
+        state.gates[i] = null;
+      }
+      state.hoveredDeleteGate = null;
+      state.hoveredDefaultGate = null;
+
+      // Update reference table highlight (mask spoilers in quiz mode until solved)
+      document.querySelectorAll('#refTableBody tr').forEach(row => {
+        const isThisCase = (row.getAttribute('data-cond') === caseKey);
+        const shouldHighlight = isThisCase && (!quizState.active || caseKey === 'normal' || (quizState.map[caseKey] && quizState.map[caseKey].solved));
+        row.classList.toggle('active-case-row', shouldHighlight);
+      });
+
+      // Update Vignette Card Title and Tag
+      const titleEl = document.getElementById('caseCardTitle');
+      const tagEl = document.getElementById('caseCategoryTag');
+      if (quizState.active && caseKey !== 'normal') {
+        const qInfo = quizState.map[caseKey];
+        if (qInfo && !qInfo.solved) {
+          titleEl.textContent = `Case ${qInfo.caseNum}: Investigate`;
+          if (tagEl) tagEl.textContent = 'Investigate';
+        } else if (qInfo && qInfo.solved) {
+          titleEl.textContent = `Case ${qInfo.caseNum}: ${caseDef.name}`;
+          if (tagEl) tagEl.textContent = 'Solved';
+        } else {
+          titleEl.textContent = caseDef.name;
+          if (tagEl) tagEl.textContent = 'Diagnostic Mode';
+        }
+      } else {
+        titleEl.textContent = caseDef.name;
+        if (tagEl) tagEl.textContent = quizState.active ? 'Control' : 'Diagnostic Mode';
+      }
+
+      document.getElementById('caseDescriptionText').textContent = caseDef.clinical;
+
+      renderQuizOptions();
+      updateWaterfallEvents();
+      renderAllPlots();
+    }
+
+    document.getElementById('caseSelect').addEventListener('change', (e) => {
+      loadCase(e.target.value);
+    });
+
+    // Quiz Options & Check
+    function renderQuizOptions() {
+      const container = document.getElementById('quizOptionsContainer');
+      const feedback = document.getElementById('quizFeedback');
+      container.innerHTML = '';
+      feedback.className = 'feedback-box';
+      feedback.style.display = 'none';
+
+      const options = [
+        { key: 'normal', label: 'Normal Control' },
+        { key: 'cll', label: 'Chronic Lymphocytic Leukemia (CLL)' },
+        { key: 'mcl', label: 'Mantle Cell Lymphoma (MCL)' },
+        { key: 'hcl', label: 'Hairy Cell Leukemia (HCL)' },
+        { key: 'aml', label: 'Acute Myeloid Leukemia (AML)' },
+        { key: 'amml', label: 'Acute Myelomonocytic Leukemia (AMML)' },
+        { key: 'ball', label: 'B-cell Acute Lymphoblastic Leukemia (B-ALL)' },
+        { key: 'tall', label: 'T-cell Acute Lymphoblastic Leukemia (T-ALL)' },
+        { key: 'pcm', label: 'Plasma Cell Myeloma (Multiple Myeloma)' }
+      ];
+
+      const caseDef = CASES[state.currentCase];
+      const qInfo = (quizState.active && state.currentCase !== 'normal') ? quizState.map[state.currentCase] : null;
+
+      options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'quiz-opt-btn';
+        btn.innerHTML = `<span>${opt.label}</span> <span>➔</span>`;
+
+        if (qInfo) {
+          if (qInfo.solved) {
+            btn.disabled = true;
+            if (opt.key === caseDef.quizCondition) {
+              btn.classList.add('correct');
+            }
+          } else {
+            if (qInfo.wrongAttempts && qInfo.wrongAttempts.includes(opt.key)) {
+              btn.classList.add('incorrect');
+              btn.disabled = true;
+            }
+          }
+        }
+
+        btn.addEventListener('click', () => {
+          checkAnswer(opt.key, btn);
+        });
+        container.appendChild(btn);
+      });
+
+      if (qInfo && qInfo.solved) {
+        feedback.className = 'feedback-box success show';
+        feedback.innerHTML = `<strong>✓ Correct!</strong> ${caseDef.explanation}`;
+      }
+    }
+
+    function checkAnswer(selectedKey, clickedBtn) {
+      const caseDef = CASES[state.currentCase];
+      const isCorrect = (selectedKey === caseDef.quizCondition);
+      const feedback = document.getElementById('quizFeedback');
+
+      if (quizState.active && state.currentCase !== 'normal') {
+        const qInfo = quizState.map[state.currentCase];
+        if (isCorrect) {
+          if (qInfo) qInfo.solved = true;
+          clickedBtn.classList.add('correct');
+          document.querySelectorAll('.quiz-opt-btn').forEach(btn => {
+            btn.disabled = true;
+          });
+          feedback.className = 'feedback-box success show';
+          feedback.innerHTML = `<strong>✓ Correct!</strong> ${caseDef.explanation}`;
+
+          // Fill in case name in dropdown
+          updateDropdownCaseLabel(state.currentCase);
+
+          // Update drawer title and tag
+          const titleEl = document.getElementById('caseCardTitle');
+          const tagEl = document.getElementById('caseCategoryTag');
+          if (titleEl && qInfo) titleEl.textContent = `Case ${qInfo.caseNum}: ${caseDef.name}`;
+          if (tagEl) tagEl.textContent = 'Solved';
+
+          // Highlight reference table row now that it is solved
+          document.querySelectorAll('#refTableBody tr').forEach(row => {
+            row.classList.toggle('active-case-row', row.getAttribute('data-cond') === state.currentCase);
+          });
+
+          showToast(`Solved: Case ${qInfo.caseNum} is ${caseDef.name}!`);
+        } else {
+          clickedBtn.classList.add('incorrect');
+          clickedBtn.disabled = true;
+          if (qInfo && !qInfo.wrongAttempts.includes(selectedKey)) {
+            qInfo.wrongAttempts.push(selectedKey);
+          }
+          feedback.className = 'feedback-box error show';
+          feedback.innerHTML = `<strong>✗ Incorrect.</strong> Review the immunophenotype markers and try again.`;
+        }
+      } else {
+        // Non-quiz mode or normal control
+        document.querySelectorAll('.quiz-opt-btn').forEach(btn => {
+          btn.disabled = true;
+        });
+
+        if (isCorrect) {
+          clickedBtn.classList.add('correct');
+          feedback.className = 'feedback-box success show';
+          feedback.innerHTML = `<strong>✓ Correct!</strong> ${caseDef.explanation}`;
+        } else {
+          clickedBtn.classList.add('incorrect');
+          feedback.className = 'feedback-box error show';
+          feedback.innerHTML = `<strong>✗ Not quite.</strong> This case is <strong>${caseDef.name}</strong>.<br>${caseDef.explanation}`;
+        }
+      }
+    }
+
+    // Drawer Toggle & View Handling
+    const drawer = document.getElementById('diagnosticDrawer');
+    const backdrop = document.getElementById('drawerBackdrop');
+
+    function openDrawer(mode = 'guide') {
+      const drawerTitle = document.getElementById('drawerTitleText');
+      const caseInfoCard = document.getElementById('caseInfoCard');
+      const quizChallengeCard = document.getElementById('quizChallengeCard');
+      const summaryComparisonSection = document.getElementById('summaryComparisonSection');
+
+      if (mode === 'challenge') {
+        if (drawerTitle) drawerTitle.textContent = 'Interpret Results';
+        if (caseInfoCard) caseInfoCard.style.display = 'block';
+        if (quizChallengeCard) quizChallengeCard.style.display = 'block';
+        if (summaryComparisonSection) summaryComparisonSection.style.display = 'none';
+      } else {
+        if (drawerTitle) drawerTitle.textContent = 'Diagnostic Guide';
+        if (caseInfoCard) caseInfoCard.style.display = 'block';
+        if (quizChallengeCard) quizChallengeCard.style.display = 'none';
+        if (summaryComparisonSection) summaryComparisonSection.style.display = 'block';
+      }
+
+      drawer.classList.add('open');
+      backdrop.classList.add('open');
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      backdrop.classList.remove('open');
+    }
+
+    const btnDiagnosticGuide = document.getElementById('btnDiagnosticGuide');
+    if (btnDiagnosticGuide) {
+      btnDiagnosticGuide.addEventListener('click', () => {
+        openDrawer('guide');
+      });
+    }
+
+    const btnQuizAction = document.getElementById('btnQuizAction');
+    if (btnQuizAction) {
+      btnQuizAction.addEventListener('click', () => {
+        if (quizState.active) {
+          openDrawer('challenge');
+        } else {
+          window.location.search = '?quiz';
+        }
+      });
+    }
+
+    const brandHeader = document.getElementById('brandHeader');
+    if (brandHeader) {
+      brandHeader.addEventListener('click', () => {
+        if (quizState.active) {
+          window.location.href = window.location.pathname;
+        }
+      });
+    }
+
+    const btnExitQuiz = document.getElementById('btnExitQuiz');
+    if (btnExitQuiz) {
+      btnExitQuiz.addEventListener('click', (e) => {
+        e.stopPropagation();
+        window.location.href = window.location.pathname;
+      });
+    }
+
+    document.getElementById('btnCloseDrawer').addEventListener('click', closeDrawer);
+    backdrop.addEventListener('click', closeDrawer);
+
+    // Theme Toggle
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const themeIcon = document.getElementById('themeIcon');
+
+    function applyTheme(theme) {
+      state.theme = theme;
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('fc-theme', theme);
+
+      if (theme === 'dark') {
+        themeIcon.innerHTML = `
+          <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        `;
+      } else {
+        themeIcon.innerHTML = `
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+        `;
+      }
+      renderAllPlots();
+    }
+
+    themeToggleBtn.addEventListener('click', () => {
+      applyTheme(state.theme === 'dark' ? 'light' : 'dark');
+    });
+
+    const savedTheme = localStorage.getItem('fc-theme');
+    if (savedTheme) {
+      applyTheme(savedTheme);
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      applyTheme('dark');
+    } else {
+      applyTheme('light');
+    }
+
+    // Auto-Resize
+    window.addEventListener('resize', () => {
+      renderAllPlots();
+    });
+
+    const resizeObserver = new ResizeObserver(() => {
+      renderAllPlots();
+    });
+    for (let i = 0; i < 6; i++) {
+      const container = document.getElementById(`container${i}`);
+      if (container) resizeObserver.observe(container);
+    }
+
+    // --- RESET TO NORMAL CONTROL ---
+    function resetToNormal() {
+      // Close side drawer and modal if open
+      closeDrawer();
+      closeMarkerModal();
+
+      // Close panel dropdown menu
+      const panelDropdownMenu = document.getElementById('panelDropdownMenu');
+      if (panelDropdownMenu) {
+        panelDropdownMenu.classList.remove('open');
+      }
+
+      // Reset case selector dropdown
+      const caseSelect = document.getElementById('caseSelect');
+      if (caseSelect) {
+        caseSelect.value = 'normal';
+        caseSelect.selectedIndex = 0;
+      }
+
+      // Load normal case (clears all gates, resets plots to normal defaults, generates fresh events, resets quiz)
+      loadCase('normal');
+    }
+
+    // --- INITIALIZATION ---
+    setupAxisPills();
+    setupMarkerModal();
+    setupPanelDropdown();
+    initQuizMode();
+    resetToNormal();
+
+    // Ensure reset on back/forward cache navigation or page restoration
+    window.addEventListener('pageshow', () => {
+      resetToNormal();
+    });
+  </script>
+</body>
+</html>
