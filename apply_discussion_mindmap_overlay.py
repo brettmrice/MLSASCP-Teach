@@ -1,7 +1,30 @@
 import os
 import re
+from datetime import datetime, timezone
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+OVERLAY_ASSET_FILES = [
+    "discussion_mindmap.css",
+    "discussion_quiz.css",
+    "discussion_mindmap.js",
+    "discussion_quiz.js"
+]
+
+def get_overlay_asset_version(shared_dir=None):
+    if not shared_dir or not os.path.exists(shared_dir):
+        return "20261019"
+    mtimes = []
+    for f in OVERLAY_ASSET_FILES:
+        p = os.path.join(shared_dir, f)
+        if os.path.isfile(p):
+            try:
+                mtimes.append(os.path.getmtime(p))
+            except OSError:
+                pass
+    if mtimes:
+        return datetime.fromtimestamp(max(mtimes), timezone.utc).strftime("%Y%m%d")
+    return "20261019"
 
 def update_discussion_file(file_path):
     with open(file_path, 'r', encoding='utf-8') as f:
@@ -9,14 +32,16 @@ def update_discussion_file(file_path):
 
     original = content
     file_dir = os.path.dirname(file_path)
-    rel_to_shared = os.path.relpath(os.path.join(ROOT_DIR, "shared"), file_dir).replace("\\", "/")
+    shared_dir = os.path.join(ROOT_DIR, "shared")
+    rel_to_shared = os.path.relpath(shared_dir, file_dir).replace("\\", "/")
+    version = get_overlay_asset_version(shared_dir)
 
-    css_mindmap = f'    <!-- Portable Discussion Mind Map Overlay -->\n    <link rel="stylesheet" href="{rel_to_shared}/discussion_mindmap.css?v=20261019">'
-    css_quiz = f'    <!-- Portable Discussion Quiz Overlay -->\n    <link rel="stylesheet" href="{rel_to_shared}/discussion_quiz.css?v=20261019">'
+    css_mindmap = f'    <!-- Portable Discussion Mind Map Overlay -->\n    <link rel="stylesheet" href="{rel_to_shared}/discussion_mindmap.css?v={version}">'
+    css_quiz = f'    <!-- Portable Discussion Quiz Overlay -->\n    <link rel="stylesheet" href="{rel_to_shared}/discussion_quiz.css?v={version}">'
 
     # Clean old links
-    content = re.sub(r'<link\s+rel="stylesheet"\s+href="[^"]*discussion_mindmap\.css(?:\?[^"]*)?">', f'<link rel="stylesheet" href="{rel_to_shared}/discussion_mindmap.css?v=20261019">', content)
-    content = re.sub(r'<link\s+rel="stylesheet"\s+href="[^"]*discussion_quiz\.css(?:\?[^"]*)?">', f'<link rel="stylesheet" href="{rel_to_shared}/discussion_quiz.css?v=20261019">', content)
+    content = re.sub(r'<link\s+rel="stylesheet"\s+href="[^"]*discussion_mindmap\.css(?:\?[^"]*)?">', f'<link rel="stylesheet" href="{rel_to_shared}/discussion_mindmap.css?v={version}">', content)
+    content = re.sub(r'<link\s+rel="stylesheet"\s+href="[^"]*discussion_quiz\.css(?:\?[^"]*)?">', f'<link rel="stylesheet" href="{rel_to_shared}/discussion_quiz.css?v={version}">', content)
 
     # Clean scripts
     content = re.sub(r'<script\s+src="[^"]*mindmaps_manifest\.js(?:\?[^"]*)?"></script>\s*', '', content)
@@ -47,10 +72,10 @@ def update_discussion_file(file_path):
     # Ensure JS scripts exist
     js_stack = (
         f'    <!-- Portable Discussion Mind Map & Navigation Overlay Engine & Data -->\n'
-        f'    <script src="{rel_to_shared}/mindmaps_manifest.js?v=20261019"></script>\n'
-        f'    <script src="{rel_to_shared}/discussions_manifest.js?v=20261019"></script>\n'
-        f'    <script src="{rel_to_shared}/discussion_mindmap.js?v=20261019"></script>\n'
-        f'    <script src="{rel_to_shared}/discussion_quiz.js?v=20261019"></script>'
+        f'    <script src="{rel_to_shared}/mindmaps_manifest.js?v={version}"></script>\n'
+        f'    <script src="{rel_to_shared}/discussions_manifest.js?v={version}"></script>\n'
+        f'    <script src="{rel_to_shared}/discussion_mindmap.js?v={version}"></script>\n'
+        f'    <script src="{rel_to_shared}/discussion_quiz.js?v={version}"></script>'
     )
 
     if '</body>' in content:

@@ -171,6 +171,16 @@ window.COURSE_MINDMAPS = [
     "rel_path_from_shared": "../Hematology/LEC/Erythrocytes/L8_Hemolytic_S1_Mind_Map.html"
   },
   {
+    "id": "13_Hemostasis_Mind_Map",
+    "title": "Hemostasis",
+    "type": "lecture",
+    "number": 13,
+    "subfolder": "LEC",
+    "raw_subfolder": "LEC",
+    "filename": "13_Hemostasis_Mind_Map.html",
+    "rel_path_from_shared": "../Hematology/LEC/13_Hemostasis_Mind_Map.html"
+  },
+  {
     "id": "L5_Iron_Heme_S1_Mind_Map",
     "title": "Iron & Heme",
     "type": "lecture",
@@ -261,6 +271,26 @@ window.COURSE_MINDMAPS = [
     "rel_path_from_shared": "../Hematology/LAB/Erythrocytes/L8_Normocytic_S1_Mind_Map.html"
   },
   {
+    "id": "15_Primary_Hemostasis_Mind_Map",
+    "title": "Primary Hemostasis",
+    "type": "lecture",
+    "number": 15,
+    "subfolder": "LEC",
+    "raw_subfolder": "LEC",
+    "filename": "15_Primary_Hemostasis_Mind_Map.html",
+    "rel_path_from_shared": "../Hematology/LEC/15_Primary_Hemostasis_Mind_Map.html"
+  },
+  {
+    "id": "15_Primary_Hemostasis_Testing_Mind_Map",
+    "title": "Primary Hemostasis Testing",
+    "type": "lab",
+    "number": 15,
+    "subfolder": "LAB",
+    "raw_subfolder": "LAB",
+    "filename": "15_Primary_Hemostasis_Testing_Mind_Map.html",
+    "rel_path_from_shared": "../Hematology/LAB/15_Primary_Hemostasis_Testing_Mind_Map.html"
+  },
+  {
     "id": "L4_RBC_Analysis_S4_Mind_Map",
     "title": "RBC Analysis",
     "type": "lecture",
@@ -269,6 +299,26 @@ window.COURSE_MINDMAPS = [
     "raw_subfolder": "Physiology",
     "filename": "L4_RBC_Analysis_S4_Mind_Map.html",
     "rel_path_from_shared": "../Hematology/LEC/Physiology/L4_RBC_Analysis_S4_Mind_Map.html"
+  },
+  {
+    "id": "14_Secondary_Hemostasis_Mind_Map",
+    "title": "Secondary Hemostasis",
+    "type": "lecture",
+    "number": 14,
+    "subfolder": "LEC",
+    "raw_subfolder": "LEC",
+    "filename": "14_Secondary_Hemostasis_Mind_Map.html",
+    "rel_path_from_shared": "../Hematology/LEC/14_Secondary_Hemostasis_Mind_Map.html"
+  },
+  {
+    "id": "14_Secondary_Hemostasis_Testing_Mind_Map",
+    "title": "Secondary Hemostasis Testing",
+    "type": "lab",
+    "number": 14,
+    "subfolder": "LAB",
+    "raw_subfolder": "LAB",
+    "filename": "14_Secondary_Hemostasis_Testing_Mind_Map.html",
+    "rel_path_from_shared": "../Hematology/LAB/14_Secondary_Hemostasis_Testing_Mind_Map.html"
   },
   {
     "id": "05_Semen_Mind_Map",
@@ -319,6 +369,26 @@ window.COURSE_MINDMAPS = [
     "raw_subfolder": "Body_Fluids",
     "filename": "03_Synovial_Mind_Map.html",
     "rel_path_from_shared": "../Body_Fluids/03_Synovial_Mind_Map.html"
+  },
+  {
+    "id": "16_Thrombophilia_Fibrinolysis_Mind_Map",
+    "title": "Thrombophilia Fibrinolysis",
+    "type": "lecture",
+    "number": 16,
+    "subfolder": "LEC",
+    "raw_subfolder": "LEC",
+    "filename": "16_Thrombophilia_Fibrinolysis_Mind_Map.html",
+    "rel_path_from_shared": "../Hematology/LEC/16_Thrombophilia_Fibrinolysis_Mind_Map.html"
+  },
+  {
+    "id": "16_Thrombophilia_Fibrinolysis_Testing_Mind_Map",
+    "title": "Thrombophilia Fibrinolysis Testing",
+    "type": "lab",
+    "number": 16,
+    "subfolder": "LAB",
+    "raw_subfolder": "LAB",
+    "filename": "16_Thrombophilia_Fibrinolysis_Testing_Mind_Map.html",
+    "rel_path_from_shared": "../Hematology/LAB/16_Thrombophilia_Fibrinolysis_Testing_Mind_Map.html"
   },
   {
     "id": "08_Vaginal-Secretions_Mind_Map",
