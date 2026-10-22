@@ -971,193 +971,283 @@
   "high_yield": true,
   "children": [
     {
-      "id": "sec-cbc",
-      "text": "CBC and Smear Evaluation",
+      "id": "mod-1",
+      "text": "Platelet Enumeration and Morphology",
       "level": 1,
       "high_yield": true,
       "children": [
         {
-          "id": "sub-counting-tech",
-          "text": "Analyzer Detection Principles",
-          "level": 2,
-          "high_yield": false,
-          "children": [
-            {
-              "id": "node-impedance",
-              "text": "Coulter Electrical Impedance",
-              "level": 3,
-              "high_yield": false,
-              "children": [
-                {
-                  "id": "leaf-aperture-pulses",
-                  "text": "Aperture Voltage Pulse Count",
-                  "level": 4,
-                  "high_yield": false
-                },
-                {
-                  "id": "leaf-aperture-size",
-                  "text": "Sizing Range 2-20 fL",
-                  "level": 4,
-                  "high_yield": false
-                }
-              ]
-            },
-            {
-              "id": "node-optical-flow",
-              "text": "Optical Light Scatter",
-              "level": 3,
-              "high_yield": false,
-              "children": [
-                {
-                  "id": "leaf-fsc",
-                  "text": "Low Angle FSC Volume",
-                  "level": 4,
-                  "high_yield": false
-                },
-                {
-                  "id": "leaf-ssc",
-                  "text": "Orthogonal SSC Granularity",
-                  "level": 4,
-                  "high_yield": false
-                },
-                {
-                  "id": "leaf-retic-plt",
-                  "text": "RNA Fluorescent Dyes",
-                  "level": 4,
-                  "high_yield": true
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "id": "sub-plt-params",
-          "text": "Automated Platelet Indices",
+          "id": "sub-1-1",
+          "text": "Automated Enumeration Principles",
           "level": 2,
           "high_yield": true,
           "children": [
             {
-              "id": "node-plt-count",
-              "text": "Platelet Reference Range",
+              "id": "node-1-1-1",
+              "text": "Electronic Impedance Modality",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "leaf-plt-ref",
-                  "text": "150-450 x 10^3/uL",
+                  "id": "node-1-1-1-1",
+                  "text": "The Coulter Principle",
                   "level": 4,
-                  "high_yield": true
-                }
-              ]
-            },
-            {
-              "id": "node-mpv",
-              "text": "Mean Platelet Volume",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "leaf-mpv-ref",
-                  "text": "7-11 fL",
-                  "level": 4,
-                  "high_yield": true
-                },
-                {
-                  "id": "leaf-high-mpv",
-                  "text": "Elevated MPV > 11 fL",
-                  "level": 4,
-                  "high_yield": true,
+                  "high_yield": false,
                   "children": [
                     {
-                      "id": "leaf-high-mpv-consump",
-                      "text": "ITP or TTP Destruction",
-                      "level": 5,
-                      "high_yield": true
-                    },
-                    {
-                      "id": "leaf-high-mpv-inherited",
-                      "text": "Bernard-Soulier Syndrome",
-                      "level": 5,
-                      "high_yield": true
-                    },
-                    {
-                      "id": "leaf-high-mpv-may",
-                      "text": "May-Hegglin Anomaly",
-                      "level": 5,
-                      "high_yield": true
-                    }
-                  ]
-                },
-                {
-                  "id": "leaf-low-mpv",
-                  "text": "Decreased MPV < 7 fL",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": [
-                    {
-                      "id": "leaf-low-mpv-aplasia",
-                      "text": "Aplastic Anemia",
+                      "id": "node-1-1-1-1-1",
+                      "text": "Aperture Electrical Resistance",
                       "level": 5,
                       "high_yield": false
                     },
                     {
-                      "id": "leaf-low-mpv-was",
-                      "text": "Wiskott-Aldrich Syndrome",
+                      "id": "node-1-1-1-1-2",
+                      "text": "Voltage Pulse Generation",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
+                },
+                {
+                  "id": "node-1-1-1-2",
+                  "text": "Pulse Signal Processing",
+                  "level": 4,
+                  "high_yield": false,
+                  "children": [
+                    {
+                      "id": "node-1-1-1-2-1",
+                      "text": "Pulse Frequency Equals Count",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-1-1-1-2-2",
+                      "text": "Pulse Amplitude Equals Volume",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
+                },
+                {
+                  "id": "node-1-1-1-3",
+                  "text": "Size Gating Thresholds",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-1-1-1-3-1",
+                      "text": "Platelet Window 2.0-20.0 fL",
                       "level": 5,
                       "high_yield": true
+                    }
+                  ]
+                },
+                {
+                  "id": "node-1-1-1-4",
+                  "text": "Automated Volume Indices",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-1-1-1-4-1",
+                      "text": "Mean Platelet Volume (MPV)",
+                      "level": 5,
+                      "high_yield": true,
+                      "children": [
+                        {
+                          "id": "node-1-1-1-4-1-1",
+                          "text": "Reference Range 7.0-11.0 fL",
+                          "level": 6,
+                          "high_yield": true
+                        }
+                      ]
+                    },
+                    {
+                      "id": "node-1-1-1-4-2",
+                      "text": "Platelet Distribution Width (PDW)",
+                      "level": 5,
+                      "high_yield": false,
+                      "children": [
+                        {
+                          "id": "node-1-1-1-4-2-1",
+                          "text": "Reflects Platelet Anisocytosis",
+                          "level": 6,
+                          "high_yield": false
+                        }
+                      ]
                     }
                   ]
                 }
               ]
             },
             {
-              "id": "node-pdw",
-              "text": "Platelet Distribution Width",
+              "id": "node-1-1-2",
+              "text": "Optical Flow Scatter",
               "level": 3,
               "high_yield": false,
               "children": [
                 {
-                  "id": "leaf-pdw-def",
-                  "text": "Platelet Volume Anisocytosis",
+                  "id": "node-1-1-2-1",
+                  "text": "Hydrodynamically Focused Laser",
                   "level": 4,
                   "high_yield": false
+                },
+                {
+                  "id": "node-1-1-2-2",
+                  "text": "Forward Scatter (FSC)",
+                  "level": 4,
+                  "high_yield": false,
+                  "children": [
+                    {
+                      "id": "node-1-1-2-2-1",
+                      "text": "Low Angle Scatter (1-5\u00b0)",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-1-1-2-2-2",
+                      "text": "Quantifies Relative Cell Size",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
+                },
+                {
+                  "id": "node-1-1-2-3",
+                  "text": "Side Scatter (SSC)",
+                  "level": 4,
+                  "high_yield": false,
+                  "children": [
+                    {
+                      "id": "node-1-1-2-3-1",
+                      "text": "Orthogonal Scatter (90\u00b0)",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-1-1-2-3-2",
+                      "text": "Reflects Internal Granularity",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
+                },
+                {
+                  "id": "node-1-1-2-4",
+                  "text": "Fluorescence RNA Staining",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-1-1-2-4-1",
+                      "text": "Oxazine or Polymethine Dyes",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-1-1-2-4-2",
+                      "text": "Quantifies Reticulated Platelets",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-1-1-2-4-3",
+                      "text": "Excludes Fragmented Erythrocytes",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
                 }
               ]
             }
           ]
         },
         {
-          "id": "sub-preanal-artifacts",
-          "text": "Smear Pre-Analytical Artifacts",
+          "id": "sub-1-2",
+          "text": "Pre-Analytical Counting Artifacts",
           "level": 2,
           "high_yield": true,
           "children": [
             {
-              "id": "node-edta-clumping",
+              "id": "node-1-2-1",
               "text": "EDTA Pseudothrombocytopenia",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "leaf-edta-mech",
-                  "text": "Cryptic GPIIb/IIIa Epitopes",
+                  "id": "node-1-2-1-1",
+                  "text": "Etiology",
                   "level": 4,
-                  "high_yield": false
+                  "high_yield": false,
+                  "children": [
+                    {
+                      "id": "node-1-2-1-1-1",
+                      "text": "In Vitro Autoantibodies",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-1-2-1-1-2",
+                      "text": "Cryptic Epitope on GPIIb/IIIa",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-1-2-1-1-3",
+                      "text": "Calcium Chelation Induction",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
                 },
                 {
-                  "id": "leaf-edta-smear",
-                  "text": "Platelet Clumps at Edge",
+                  "id": "node-1-2-1-2",
+                  "text": "Analyzer Artifacts",
                   "level": 4,
-                  "high_yield": true
+                  "high_yield": false,
+                  "children": [
+                    {
+                      "id": "node-1-2-1-2-1",
+                      "text": "Spurious Thrombocytopenia",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-1-2-1-2-2",
+                      "text": "Falsely Elevated Leukocytes",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
                 },
                 {
-                  "id": "leaf-edta-fix",
-                  "text": "Recollect in Sodium Citrate",
+                  "id": "node-1-2-1-3",
+                  "text": "Morphologic Confirmation",
                   "level": 4,
                   "high_yield": true,
                   "children": [
                     {
-                      "id": "leaf-edta-mult",
+                      "id": "node-1-2-1-3-1",
+                      "text": "Smear Feathered Edge Clumping",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
+                },
+                {
+                  "id": "node-1-2-1-4",
+                  "text": "Remediation Protocol",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-1-2-1-4-1",
+                      "text": "Sodium Citrate Redraw",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-1-2-1-4-2",
                       "text": "Multiply Count by 1.1",
                       "level": 5,
                       "high_yield": true
@@ -1167,40 +1257,1188 @@
               ]
             },
             {
-              "id": "node-satellitism",
+              "id": "node-1-2-2",
               "text": "Platelet Satellitism",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "leaf-sat-smear",
-                  "text": "Neutrophil Membrane Rosetting",
+                  "id": "node-1-2-2-1",
+                  "text": "Neutrophil Surface Rosetting",
                   "level": 4,
                   "high_yield": true
                 },
                 {
-                  "id": "leaf-sat-fix",
-                  "text": "Recollect in Sodium Citrate",
+                  "id": "node-1-2-2-2",
+                  "text": "Sodium Citrate Recollection",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-1-2-2-3",
+                  "text": "Apply 1.1 Dilution Correction",
                   "level": 4,
                   "high_yield": true
                 }
               ]
             },
             {
-              "id": "node-schisto-int",
-              "text": "Schistocyte Fragmentation Interference",
+              "id": "node-1-2-3",
+              "text": "Giant Platelet Exclusion",
               "level": 3,
-              "high_yield": true,
+              "high_yield": false,
               "children": [
                 {
-                  "id": "leaf-schisto-flag",
-                  "text": "False Impedance PLT Elevation",
+                  "id": "node-1-2-3-1",
+                  "text": "Diameter Exceeds 4.0 um",
                   "level": 4,
                   "high_yield": false
                 },
                 {
-                  "id": "leaf-schisto-res",
-                  "text": "Optical Fluorescence Verification",
+                  "id": "node-1-2-3-2",
+                  "text": "Volume Exceeds 20.0 fL",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-1-2-3-3",
+                  "text": "Aperture Rejection Flags",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-1-2-3-4",
+                  "text": "Manual Smear Estimation Required",
+                  "level": 4,
+                  "high_yield": true
+                }
+              ]
+            },
+            {
+              "id": "node-1-2-4",
+              "text": "Microcytic RBC Interference",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-1-2-4-1",
+                  "text": "Schistocytes Under 20.0 fL",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-1-2-4-2",
+                  "text": "Spurious Platelet Elevation",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-1-2-4-3",
+                  "text": "Optical Channel Resolution",
+                  "level": 4,
+                  "high_yield": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sub-1-3",
+          "text": "Quantitative Disorders Differential",
+          "level": 2,
+          "high_yield": true,
+          "children": [
+            {
+              "id": "node-1-3-1",
+              "text": "Standard Platelet Reference Interval",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-1-3-1-1",
+                  "text": "150-450 x 10^3/uL",
+                  "level": 4,
+                  "high_yield": true
+                }
+              ]
+            },
+            {
+              "id": "node-1-3-2",
+              "text": "Hyperdestructive Thrombocytopenia",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-1-3-2-1",
+                  "text": "Immune Thrombocytopenia (ITP)",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-1-3-2-2",
+                  "text": "Platelets Under 150 x 10^3/uL",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-1-3-2-3",
+                  "text": "Elevated MPV (> 11.0 fL)",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-1-3-2-4",
+                  "text": "Increased Reticulated Platelets",
+                  "level": 4,
+                  "high_yield": true
+                }
+              ]
+            },
+            {
+              "id": "node-1-3-3",
+              "text": "Hypoproliferative Thrombocytopenia",
+              "level": 3,
+              "high_yield": false,
+              "children": [
+                {
+                  "id": "node-1-3-3-1",
+                  "text": "Aplastic Anemia and MDS",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-1-3-3-2",
+                  "text": "Normal or Low MPV",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-1-3-3-3",
+                  "text": "Decreased Reticulated Platelets",
+                  "level": 4,
+                  "high_yield": false
+                }
+              ]
+            },
+            {
+              "id": "node-1-3-4",
+              "text": "Microangiopathic Hemolysis (MAHA)",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-1-3-4-1",
+                  "text": "TTP, HUS, and DIC",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-1-3-4-2",
+                  "text": "Microvascular Platelet Consumption",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-1-3-4-3",
+                  "text": "Prominent Smear Schistocytes",
+                  "level": 4,
+                  "high_yield": true
+                }
+              ]
+            },
+            {
+              "id": "node-1-3-5",
+              "text": "Microthrombocytic Syndromes",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-1-3-5-1",
+                  "text": "Wiskott-Aldrich Syndrome",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-1-3-5-2",
+                  "text": "Low MPV (< 7.0 fL)",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-1-3-5-3",
+                  "text": "Microplatelets (< 1.5 um)",
+                  "level": 4,
+                  "high_yield": true
+                }
+              ]
+            },
+            {
+              "id": "node-1-3-6",
+              "text": "Macrothrombocytic Syndromes",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-1-3-6-1",
+                  "text": "Bernard-Soulier Syndrome",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-1-3-6-2",
+                  "text": "May-Hegglin Anomaly",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-1-3-6-2-1",
+                      "text": "Neutrophil D\u00f6hle-Like Inclusions",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
+                },
+                {
+                  "id": "node-1-3-6-3",
+                  "text": "Elevated MPV (> 11.0 fL)",
+                  "level": 4,
+                  "high_yield": false
+                }
+              ]
+            },
+            {
+              "id": "node-1-3-7",
+              "text": "Clonal Thrombocytosis",
+              "level": 3,
+              "high_yield": false,
+              "children": [
+                {
+                  "id": "node-1-3-7-1",
+                  "text": "Essential Thrombocythemia",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-1-3-7-2",
+                  "text": "Platelets > 450 x 10^3/uL",
+                  "level": 4,
+                  "high_yield": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mod-2",
+      "text": "Primary Hemostasis Physiology",
+      "level": 1,
+      "high_yield": true,
+      "children": [
+        {
+          "id": "sub-2-1",
+          "text": "Hemostatic Plug Formation Phases",
+          "level": 2,
+          "high_yield": true,
+          "children": [
+            {
+              "id": "node-2-1-1",
+              "text": "Platelet Adhesion Phase",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-2-1-1-1",
+                  "text": "Subendothelial Collagen Exposure",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-2-1-1-2",
+                  "text": "High Shear Stress (> 1,000 s^-1)",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-2-1-1-3",
+                  "text": "vWF A3 Domain",
+                  "level": 4,
+                  "high_yield": false,
+                  "children": [
+                    {
+                      "id": "node-2-1-1-3-1",
+                      "text": "Collagen Binding",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
+                },
+                {
+                  "id": "node-2-1-1-4",
+                  "text": "vWF A1 Domain",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-2-1-1-4-1",
+                      "text": "Platelet GPIb/V/IX Binding",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
+                },
+                {
+                  "id": "node-2-1-1-5",
+                  "text": "Direct Low-Shear Receptors",
+                  "level": 4,
+                  "high_yield": false,
+                  "children": [
+                    {
+                      "id": "node-2-1-1-5-1",
+                      "text": "Integrin alpha2beta1 (GPIa/IIa)",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-2-1-1-5-2",
+                      "text": "Glycoprotein VI (GPVI)",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "node-2-1-2",
+              "text": "Activation and Secretion Phase",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-2-1-2-1",
+                  "text": "Phospholipase Activation",
+                  "level": 4,
+                  "high_yield": false,
+                  "children": [
+                    {
+                      "id": "node-2-1-2-1-1",
+                      "text": "Phospholipase C (PLC)",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-2-1-2-1-2",
+                      "text": "Phospholipase A2 (PLA2)",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
+                },
+                {
+                  "id": "node-2-1-2-2",
+                  "text": "Thromboxane Synthesis",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-2-1-2-2-1",
+                      "text": "Arachidonic Acid Release",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-2-1-2-2-2",
+                      "text": "Cyclooxygenase-1 (COX-1)",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-2-1-2-2-3",
+                      "text": "Thromboxane Synthase",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-2-1-2-2-4",
+                      "text": "Thromboxane A2 (TXA2)",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
+                },
+                {
+                  "id": "node-2-1-2-3",
+                  "text": "Cytoskeletal Shape Change",
+                  "level": 4,
+                  "high_yield": false,
+                  "children": [
+                    {
+                      "id": "node-2-1-2-3-1",
+                      "text": "Discoid to Spherical Transition",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-2-1-2-3-2",
+                      "text": "Filopodia Extension",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
+                },
+                {
+                  "id": "node-2-1-2-4",
+                  "text": "Granule Exocytosis",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-2-1-2-4-1",
+                      "text": "Dense (delta) Granules",
+                      "level": 5,
+                      "high_yield": true,
+                      "children": [
+                        {
+                          "id": "node-2-1-2-4-1-1",
+                          "text": "ADP and ATP",
+                          "level": 6,
+                          "high_yield": true
+                        },
+                        {
+                          "id": "node-2-1-2-4-1-2",
+                          "text": "Serotonin",
+                          "level": 6,
+                          "high_yield": false
+                        },
+                        {
+                          "id": "node-2-1-2-4-1-3",
+                          "text": "Ionized Calcium (Ca2+)",
+                          "level": 6,
+                          "high_yield": true
+                        }
+                      ]
+                    },
+                    {
+                      "id": "node-2-1-2-4-2",
+                      "text": "Alpha (alpha) Granules",
+                      "level": 5,
+                      "high_yield": true,
+                      "children": [
+                        {
+                          "id": "node-2-1-2-4-2-1",
+                          "text": "Fibrinogen and vWF",
+                          "level": 6,
+                          "high_yield": true
+                        },
+                        {
+                          "id": "node-2-1-2-4-2-2",
+                          "text": "Coagulation Factor V",
+                          "level": 6,
+                          "high_yield": false
+                        },
+                        {
+                          "id": "node-2-1-2-4-2-3",
+                          "text": "Platelet Factor 4 (PF4)",
+                          "level": 6,
+                          "high_yield": false
+                        },
+                        {
+                          "id": "node-2-1-2-4-2-4",
+                          "text": "Platelet-Derived Growth Factor",
+                          "level": 6,
+                          "high_yield": false
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "node-2-1-3",
+              "text": "Platelet Aggregation Phase",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-2-1-3-1",
+                  "text": "Receptor Stimulation",
+                  "level": 4,
+                  "high_yield": false,
+                  "children": [
+                    {
+                      "id": "node-2-1-3-1-1",
+                      "text": "ADP P2Y1 and P2Y12",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-2-1-3-1-2",
+                      "text": "TXA2 Receptors",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
+                },
+                {
+                  "id": "node-2-1-3-2",
+                  "text": "Inside-Out Signal Transduction",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-2-1-3-3",
+                  "text": "GPIIb/IIIa Activation",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-2-1-3-3-1",
+                      "text": "Integrin alphaIIbbeta3 Conformational Shift",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-2-1-3-3-2",
+                      "text": "High-Affinity Ligand State",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
+                },
+                {
+                  "id": "node-2-1-3-4",
+                  "text": "Homotypic Platelet Bridging",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-2-1-3-4-1",
+                      "text": "Divalent Fibrinogen Binding",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-2-1-3-4-2",
+                      "text": "Plasma vWF Cross-Linking",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
+                },
+                {
+                  "id": "node-2-1-3-5",
+                  "text": "Secondary Complex Assembly",
+                  "level": 4,
+                  "high_yield": false,
+                  "children": [
+                    {
+                      "id": "node-2-1-3-5-1",
+                      "text": "Membrane Phosphatidylserine Flip",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-2-1-3-5-2",
+                      "text": "Assembles Tenase and Prothrombinase",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sub-2-2",
+          "text": "Clinical Semiology Comparison",
+          "level": 2,
+          "high_yield": true,
+          "children": [
+            {
+              "id": "node-2-2-1",
+              "text": "Primary Hemostatic Defects",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-2-2-1-1",
+                  "text": "Mucocutaneous Sites",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-2-2-1-2",
+                  "text": "Hallmark Lesions",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-2-2-1-2-1",
+                      "text": "Petechiae (1-2 mm Macules)",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-2-2-1-2-2",
+                      "text": "Purpura and Ecchymoses",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
+                },
+                {
+                  "id": "node-2-2-1-3",
+                  "text": "Mucosal Manifestations",
+                  "level": 4,
+                  "high_yield": false,
+                  "children": [
+                    {
+                      "id": "node-2-2-1-3-1",
+                      "text": "Epistaxis and Menorrhagia",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-2-2-1-3-2",
+                      "text": "Gingival Bleeding",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
+                },
+                {
+                  "id": "node-2-2-1-4",
+                  "text": "Bleeding Dynamics",
+                  "level": 4,
+                  "high_yield": false,
+                  "children": [
+                    {
+                      "id": "node-2-2-1-4-1",
+                      "text": "Immediate Post-Trauma Onset",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-2-2-1-4-2",
+                      "text": "Local Pressure Effective",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "node-2-2-2",
+              "text": "Secondary Hemostatic Defects",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-2-2-2-1",
+                  "text": "Deep Anatomical Sites",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-2-2-2-2",
+                  "text": "Hallmark Lesions",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-2-2-2-2-1",
+                      "text": "Expansile Hematomas",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-2-2-2-2-2",
+                      "text": "Hemarthroses",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
+                },
+                {
+                  "id": "node-2-2-2-3",
+                  "text": "Bleeding Dynamics",
+                  "level": 4,
+                  "high_yield": false,
+                  "children": [
+                    {
+                      "id": "node-2-2-2-3-1",
+                      "text": "Delayed Onset Post-Trauma",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-2-2-2-3-2",
+                      "text": "Local Pressure Ineffective",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "node-2-2-3",
+              "text": "Screening Coagulation Benchmarks",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-2-2-3-1",
+                  "text": "Normal PT (11.0-14.0 s)",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-2-2-3-2",
+                  "text": "Normal APTT (25.0-35.0 s)",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-2-2-3-3",
+                  "text": "Diagnostic Exceptions",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-2-2-3-3-1",
+                      "text": "Severe Type 3 vWD",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-2-2-3-3-2",
+                      "text": "Type 2N vWD",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-2-2-3-3-3",
+                      "text": "Isolated Prolonged APTT",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-2-2-3-3-4",
+                      "text": "Secondary Factor VIII Deficiency",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mod-3",
+      "text": "Platelet Function Analyzer Testing",
+      "level": 1,
+      "high_yield": true,
+      "children": [
+        {
+          "id": "sub-3-1",
+          "text": "PFA Analytical Principles",
+          "level": 2,
+          "high_yield": true,
+          "children": [
+            {
+              "id": "node-3-1-1",
+              "text": "In Vitro High-Shear Dynamics",
+              "level": 3,
+              "high_yield": false,
+              "children": [
+                {
+                  "id": "node-3-1-1-1",
+                  "text": "Simulates Arteriolar Shear",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-3-1-1-2",
+                  "text": "Shear Rate 5,000-6,000 s^-1",
+                  "level": 4,
+                  "high_yield": false
+                }
+              ]
+            },
+            {
+              "id": "node-3-1-2",
+              "text": "Cartridge Aperture Architecture",
+              "level": 3,
+              "high_yield": false,
+              "children": [
+                {
+                  "id": "node-3-1-2-1",
+                  "text": "Stainless Steel Capillary",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-3-1-2-2",
+                  "text": "Microscopic 147 um Aperture",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-3-1-2-3",
+                  "text": "Nitrocellulose Membrane Matrix",
+                  "level": 4,
+                  "high_yield": false
+                }
+              ]
+            },
+            {
+              "id": "node-3-1-3",
+              "text": "Cartridge Agonist Formulations",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-3-1-3-1",
+                  "text": "Collagen / Epinephrine (CEPI)",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-3-1-3-1-1",
+                      "text": "Frontline Screening Cartridge",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-3-1-3-1-2",
+                      "text": "Reference Range 85-165 Seconds",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-3-1-3-1-3",
+                      "text": "COX-1 Dependent Activation",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
+                },
+                {
+                  "id": "node-3-1-3-2",
+                  "text": "Collagen / ADP (CADP)",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-3-1-3-2-1",
+                      "text": "Differential Secondary Cartridge",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-3-1-3-2-2",
+                      "text": "Reference Range 70-120 Seconds",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-3-1-3-2-3",
+                      "text": "Bypasses COX-1 Pathway",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "node-3-1-4",
+              "text": "Endpoint Closure Time (CT)",
+              "level": 3,
+              "high_yield": false,
+              "children": [
+                {
+                  "id": "node-3-1-4-1",
+                  "text": "Aperture Platelet Plug Occlusion",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-3-1-4-2",
+                  "text": "Pressure Sensor Drop",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-3-1-4-3",
+                  "text": "Recorded in Seconds",
+                  "level": 4,
+                  "high_yield": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sub-3-2",
+          "text": "Pre-Analytical Quality Constraints",
+          "level": 2,
+          "high_yield": true,
+          "children": [
+            {
+              "id": "node-3-2-1",
+              "text": "Specimen Requirements",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-3-2-1-1",
+                  "text": "3.2% Sodium Citrate Anticoagulant",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-3-2-1-2",
+                  "text": "Mandatory 9:1 Blood Ratio",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-3-2-1-3",
+                  "text": "Ambient Storage (18-25\u00b0C)",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-3-2-1-4",
+                  "text": "Testing Within 4 Hours",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-3-2-1-5",
+                  "text": "Refrigeration Prohibited",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-3-2-1-5-1",
+                      "text": "Prevents Platelet Cold Activation",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "node-3-2-2",
+              "text": "Mandatory Specimen Thresholds",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-3-2-2-1",
+                  "text": "Platelet Count >= 100 x 10^3/uL",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-3-2-2-2",
+                  "text": "Hematocrit >= 35%",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-3-2-2-3",
+                  "text": "Disrupted RBC Marginalization",
+                  "level": 4,
+                  "high_yield": false,
+                  "children": [
+                    {
+                      "id": "node-3-2-2-3-1",
+                      "text": "Anemia Spuriouly Prolongs CT",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sub-3-3",
+          "text": "Closure Time Pattern Interpretation",
+          "level": 2,
+          "high_yield": true,
+          "children": [
+            {
+              "id": "node-3-3-1",
+              "text": "Pattern 1: Normal",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-3-3-1-1",
+                  "text": "Normal CEPI (85-165 s)",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-3-3-1-2",
+                  "text": "CADP Omitted or Normal",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-3-3-1-3",
+                  "text": "Excludes Severe Primary Defects",
+                  "level": 4,
+                  "high_yield": true
+                }
+              ]
+            },
+            {
+              "id": "node-3-3-2",
+              "text": "Pattern 2: Drug-Induced Inhibition",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-3-3-2-1",
+                  "text": "Prolonged CEPI (> 165 s)",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-3-3-2-2",
+                  "text": "Normal CADP (70-120 s)",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-3-3-2-3",
+                  "text": "Aspirin or NSAID Ingestion",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-3-3-2-3-1",
+                      "text": "COX-1 Catalytic Blockade",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-3-3-2-3-2",
+                      "text": "Exogenous ADP Rescues Closure",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "node-3-3-3",
+              "text": "Pattern 3: Pathologic Primary Defect",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-3-3-3-1",
+                  "text": "Prolonged CEPI (> 165 s)",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-3-3-3-2",
+                  "text": "Prolonged CADP (> 120 s)",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-3-3-3-3",
+                  "text": "Differential Diagnoses",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-3-3-3-3-1",
+                      "text": "von Willebrand Disease",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-3-3-3-3-2",
+                      "text": "Bernard-Soulier Syndrome",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-3-3-3-3-3",
+                      "text": "Glanzmann Thrombasthenia",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-3-3-3-3-4",
+                      "text": "Severe Storage Pool Disease",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-3-3-3-3-5",
+                      "text": "Potent Antiplatelet Therapy",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
+                },
+                {
+                  "id": "node-3-3-3-4",
+                  "text": "Mandatory vWD Panel Reflex",
+                  "level": 4,
+                  "high_yield": true
+                }
+              ]
+            },
+            {
+              "id": "node-3-3-4",
+              "text": "Pattern 4: Technical Anomaly",
+              "level": 3,
+              "high_yield": false,
+              "children": [
+                {
+                  "id": "node-3-3-4-1",
+                  "text": "Normal CEPI + Prolonged CADP",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-3-3-4-2",
+                  "text": "Biologically Implausible Result",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-3-3-4-3",
+                  "text": "Cartridge Microclots or Bubbles",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-3-3-4-4",
+                  "text": "Recollect and Rerun Specimen",
                   "level": 4,
                   "high_yield": false
                 }
@@ -1211,52 +2449,58 @@
       ]
     },
     {
-      "id": "sec-pfa",
-      "text": "Platelet Function Analyzer",
+      "id": "mod-4",
+      "text": "von Willebrand Disease Evaluation",
       "level": 1,
       "high_yield": true,
       "children": [
         {
-          "id": "sub-pfa-principle",
-          "text": "Operating Principle",
+          "id": "sub-4-1",
+          "text": "vWF Biological Functions",
           "level": 2,
           "high_yield": true,
           "children": [
             {
-              "id": "node-shear-force",
-              "text": "High Hydrodynamic Shear",
-              "level": 3,
-              "high_yield": false,
-              "children": [
-                {
-                  "id": "leaf-shear-rate",
-                  "text": "5,000-6,000 s^-1",
-                  "level": 4,
-                  "high_yield": false
-                },
-                {
-                  "id": "leaf-aperture-pfa",
-                  "text": "147 um Micro-Aperture",
-                  "level": 4,
-                  "high_yield": false
-                }
-              ]
-            },
-            {
-              "id": "node-closure-time",
-              "text": "Closure Time Measurement",
+              "id": "node-4-1-1",
+              "text": "Primary Hemostatic Adhesion",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "leaf-ct-sec",
-                  "text": "Flow Occlusion Time (Seconds)",
+                  "id": "node-4-1-1-1",
+                  "text": "Binds Subendothelial Collagen",
                   "level": 4,
                   "high_yield": false
                 },
                 {
-                  "id": "leaf-ct-max",
-                  "text": "Non-Closing Limit > 300 s",
+                  "id": "node-4-1-1-2",
+                  "text": "Tethers Platelet GPIb/V/IX",
+                  "level": 4,
+                  "high_yield": true
+                }
+              ]
+            },
+            {
+              "id": "node-4-1-2",
+              "text": "Secondary Hemostatic Carrier",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-4-1-2-1",
+                  "text": "Stabilizes Procoagulant Factor VIII",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-4-1-2-2",
+                  "text": "Protects from Protein C",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-4-1-2-3",
+                  "text": "Extends Factor VIII Half-Life",
                   "level": 4,
                   "high_yield": false
                 }
@@ -1265,287 +2509,213 @@
           ]
         },
         {
-          "id": "sub-pfa-preanal",
-          "text": "Specimen Exclusion Rules",
+          "id": "sub-4-2",
+          "text": "Diagnostic Laboratory Panel",
           "level": 2,
           "high_yield": true,
           "children": [
             {
-              "id": "node-pfa-cutoff-plt",
-              "text": "Minimum Platelet Threshold",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "leaf-pfa-plt-limit",
-                  "text": "PLT >= 100 x 10^3/uL",
-                  "level": 4,
-                  "high_yield": true
-                }
-              ]
-            },
-            {
-              "id": "node-pfa-cutoff-hct",
-              "text": "Minimum Hematocrit Threshold",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "leaf-pfa-hct-limit",
-                  "text": "HCT >= 30%",
-                  "level": 4,
-                  "high_yield": true
-                }
-              ]
-            },
-            {
-              "id": "node-pfa-citrate",
-              "text": "Tube and Stability Criteria",
-              "level": 3,
-              "high_yield": false,
-              "children": [
-                {
-                  "id": "leaf-pfa-tube",
-                  "text": "3.2% Sodium Citrate Only",
-                  "level": 4,
-                  "high_yield": false
-                },
-                {
-                  "id": "leaf-pfa-time",
-                  "text": "Run Within 4 Hours",
-                  "level": 4,
-                  "high_yield": true
-                },
-                {
-                  "id": "leaf-pfa-temp",
-                  "text": "Store Room Temp 15-25\u00b0C",
-                  "level": 4,
-                  "high_yield": true
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "id": "sub-pfa-cartridges",
-          "text": "Cartridge System Interpretation",
-          "level": 2,
-          "high_yield": true,
-          "children": [
-            {
-              "id": "node-cepi",
-              "text": "Collagen/Epinephrine Cartridge",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "leaf-cepi-role",
-                  "text": "Initial Screening Cartridge",
-                  "level": 4,
-                  "high_yield": true
-                },
-                {
-                  "id": "leaf-cepi-sens",
-                  "text": "Aspirin and Primary Defects",
-                  "level": 4,
-                  "high_yield": true
-                }
-              ]
-            },
-            {
-              "id": "node-cadp",
-              "text": "Collagen/ADP Cartridge",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "leaf-cadp-role",
-                  "text": "Secondary Reflex Cartridge",
-                  "level": 4,
-                  "high_yield": true
-                },
-                {
-                  "id": "leaf-cadp-bypass",
-                  "text": "Bypasses COX-1 Blockade",
-                  "level": 4,
-                  "high_yield": true
-                }
-              ]
-            },
-            {
-              "id": "node-pfa-patterns",
-              "text": "Closure Time Patterns",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "leaf-pattern-1",
-                  "text": "Normal CEPI and CADP",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": [
-                    {
-                      "id": "leaf-p1-dx",
-                      "text": "Normal Primary Hemostasis",
-                      "level": 5,
-                      "high_yield": true
-                    }
-                  ]
-                },
-                {
-                  "id": "leaf-pattern-2",
-                  "text": "Prolonged CEPI / Normal CADP",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": [
-                    {
-                      "id": "leaf-p2-dx",
-                      "text": "Aspirin or NSAID Ingestion",
-                      "level": 5,
-                      "high_yield": true
-                    }
-                  ]
-                },
-                {
-                  "id": "leaf-pattern-3",
-                  "text": "Prolonged CEPI and CADP",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": [
-                    {
-                      "id": "leaf-p3-dx",
-                      "text": "vWD or Severe Thrombocytopathy",
-                      "level": 5,
-                      "high_yield": true
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "sec-vwd",
-      "text": "vWD Diagnostic Panel",
-      "level": 1,
-      "high_yield": true,
-      "children": [
-        {
-          "id": "sub-vwd-assays",
-          "text": "Tripartite Laboratory Assays",
-          "level": 2,
-          "high_yield": true,
-          "children": [
-            {
-              "id": "node-vwf-ag",
+              "id": "node-4-2-1",
               "text": "vWF Antigen (vWF:Ag)",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "leaf-ag-method",
-                  "text": "Latex Immunoassay Turbidimetry",
+                  "id": "node-4-2-1-1",
+                  "text": "Quantifies Total Protein Mass",
                   "level": 4,
                   "high_yield": false
                 },
                 {
-                  "id": "leaf-ag-ref",
-                  "text": "50-150 IU/dL",
+                  "id": "node-4-2-1-2",
+                  "text": "Latex Immunoassay or ELISA",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-4-2-1-3",
+                  "text": "Reference Range 50-150 IU/dL",
                   "level": 4,
                   "high_yield": true
                 }
               ]
             },
             {
-              "id": "node-vwf-act",
-              "text": "vWF Platelet Activity",
+              "id": "node-4-2-2",
+              "text": "vWF Activity Assays",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "leaf-act-rco",
-                  "text": "Ristocetin Cofactor Activity",
+                  "id": "node-4-2-2-1",
+                  "text": "Ristocetin Cofactor (vWF:RCo)",
                   "level": 4,
-                  "high_yield": true
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-4-2-2-1-1",
+                      "text": "Formalin-Fixed Normal Platelets",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-4-2-2-1-2",
+                      "text": "Ristocetin (1.0-1.2 mg/mL)",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-4-2-2-1-3",
+                      "text": "Turbidimetric Agglutination Rate",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
                 },
                 {
-                  "id": "leaf-act-gp1bm",
-                  "text": "Recombinant Gain-of-Function GPIbM",
+                  "id": "node-4-2-2-2",
+                  "text": "Modern Recombinant GPIb Assays",
                   "level": 4,
-                  "high_yield": false
+                  "high_yield": false,
+                  "children": [
+                    {
+                      "id": "node-4-2-2-2-1",
+                      "text": "vWF:GPIbM Gain-of-Function",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-4-2-2-2-2",
+                      "text": "vWF:GPIbR Monoclonal Antibody",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
                 },
                 {
-                  "id": "leaf-act-ref",
-                  "text": "50-150 IU/dL",
+                  "id": "node-4-2-2-3",
+                  "text": "Reference Range 50-150 IU/dL",
                   "level": 4,
                   "high_yield": true
                 }
               ]
             },
             {
-              "id": "node-fviii-act",
-              "text": "Factor VIII Coagulant Activity",
+              "id": "node-4-2-3",
+              "text": "Factor VIII Activity (FVIII:C)",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "leaf-f8-method",
-                  "text": "One-Stage Modified aPTT",
+                  "id": "node-4-2-3-1",
+                  "text": "One-Stage Clotting Assay",
                   "level": 4,
                   "high_yield": false
                 },
                 {
-                  "id": "leaf-f8-ref",
-                  "text": "50-150%",
+                  "id": "node-4-2-3-2",
+                  "text": "Factor VIII-Deficient Substrate",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-4-2-3-3",
+                  "text": "Reference Range 50-150%",
                   "level": 4,
                   "high_yield": true
+                }
+              ]
+            },
+            {
+              "id": "node-4-2-4",
+              "text": "Activity to Antigen Ratio",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-4-2-4-1",
+                  "text": "Formula vWF:Activity / vWF:Ag",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-4-2-4-2",
+                  "text": "Ratio >= 0.7 (Concordant)",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-4-2-4-2-1",
+                      "text": "Normal or Type 1 vWD",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
+                },
+                {
+                  "id": "node-4-2-4-3",
+                  "text": "Ratio < 0.7 (Discordant)",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-4-2-4-3-1",
+                      "text": "Qualitative Type 2 vWD",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
                 }
               ]
             }
           ]
         },
         {
-          "id": "sub-vwd-classification",
-          "text": "Diagnostic Ratio and Typing",
+          "id": "sub-4-3",
+          "text": "vWD Subtype Classification",
           "level": 2,
           "high_yield": true,
           "children": [
             {
-              "id": "node-act-ag-ratio",
-              "text": "Activity to Antigen Ratio",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "leaf-ratio-quant",
-                  "text": "Ratio >= 0.7 Quantitative",
-                  "level": 4,
-                  "high_yield": true
-                },
-                {
-                  "id": "leaf-ratio-qual",
-                  "text": "Ratio < 0.7 Qualitative",
-                  "level": 4,
-                  "high_yield": true
-                }
-              ]
-            },
-            {
-              "id": "node-type-1",
+              "id": "node-4-3-1",
               "text": "Type 1 vWD",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "leaf-t1-def",
+                  "id": "node-4-3-1-1",
                   "text": "Partial Quantitative Deficiency",
                   "level": 4,
                   "high_yield": true
                 },
                 {
-                  "id": "leaf-t1-multi",
+                  "id": "node-4-3-1-2",
+                  "text": "Proportionate Decreases",
+                  "level": 4,
+                  "high_yield": false,
+                  "children": [
+                    {
+                      "id": "node-4-3-1-2-1",
+                      "text": "vWF:Ag < 50 IU/dL",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-4-3-1-2-2",
+                      "text": "vWF:Activity < 50 IU/dL",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
+                },
+                {
+                  "id": "node-4-3-1-3",
+                  "text": "Activity:Ag Ratio >= 0.7",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-4-3-1-4",
                   "text": "Normal Multimer Distribution",
                   "level": 4,
                   "high_yield": true
@@ -1553,86 +2723,88 @@
               ]
             },
             {
-              "id": "node-type-2",
-              "text": "Type 2 vWD Subtypes",
+              "id": "node-4-3-2",
+              "text": "Type 2A vWD",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "leaf-t2a",
-                  "text": "Type 2A Variant",
+                  "id": "node-4-3-2-1",
+                  "text": "Qualitative Multimer Assembly Defect",
                   "level": 4,
-                  "high_yield": true,
-                  "children": [
-                    {
-                      "id": "leaf-t2a-loss",
-                      "text": "Loss of HMW/IMW Multimers",
-                      "level": 5,
-                      "high_yield": true
-                    }
-                  ]
+                  "high_yield": false
                 },
                 {
-                  "id": "leaf-t2b",
-                  "text": "Type 2B Variant",
+                  "id": "node-4-3-2-2",
+                  "text": "Markedly Reduced vWF:Activity",
                   "level": 4,
-                  "high_yield": true,
-                  "children": [
-                    {
-                      "id": "leaf-t2b-gof",
-                      "text": "Gain-of-Function A1 Domain",
-                      "level": 5,
-                      "high_yield": false
-                    },
-                    {
-                      "id": "leaf-t2b-ripa",
-                      "text": "Low-Dose RIPA Hyper-Responsive",
-                      "level": 5,
-                      "high_yield": true
-                    },
-                    {
-                      "id": "leaf-t2b-plt",
-                      "text": "Intermittent Thrombocytopenia",
-                      "level": 5,
-                      "high_yield": true
-                    }
-                  ]
+                  "high_yield": false
                 },
                 {
-                  "id": "leaf-t2m",
-                  "text": "Type 2M Variant",
+                  "id": "node-4-3-2-3",
+                  "text": "Activity:Ag Ratio < 0.7",
                   "level": 4,
-                  "high_yield": true,
-                  "children": [
-                    {
-                      "id": "leaf-t2m-multi",
-                      "text": "Normal Multimers Present",
-                      "level": 5,
-                      "high_yield": true
-                    },
-                    {
-                      "id": "leaf-t2m-bind",
-                      "text": "Impaired GPIb Receptor Binding",
-                      "level": 5,
-                      "high_yield": false
-                    }
-                  ]
+                  "high_yield": true
                 },
                 {
-                  "id": "leaf-t2n",
-                  "text": "Type 2N Normandy Variant",
+                  "id": "node-4-3-2-4",
+                  "text": "Absence of HMW Multimers",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-4-3-2-5",
+                  "text": "Absence of IMW Multimers",
+                  "level": 4,
+                  "high_yield": true
+                }
+              ]
+            },
+            {
+              "id": "node-4-3-3",
+              "text": "Type 2B vWD",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-4-3-3-1",
+                  "text": "Gain-of-Function A1 Mutation",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-4-3-3-2",
+                  "text": "Spontaneous Platelet Binding",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-4-3-3-3",
+                  "text": "Selective Loss of HMW Multimers",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-4-3-3-4",
+                  "text": "Mild Thrombocytopenia",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-4-3-3-5",
+                  "text": "Hyperactive Low-Dose RIPA",
                   "level": 4,
                   "high_yield": true,
                   "children": [
                     {
-                      "id": "leaf-t2n-f8",
-                      "text": "Defective FVIII Binding",
+                      "id": "node-4-3-3-5-1",
+                      "text": "Ristocetin <= 0.5 mg/mL",
                       "level": 5,
                       "high_yield": true
                     },
                     {
-                      "id": "leaf-t2n-mimic",
-                      "text": "Mimics Hemophilia A",
+                      "id": "node-4-3-3-5-2",
+                      "text": "Differentiates from Type 2A",
                       "level": 5,
                       "high_yield": true
                     }
@@ -1641,28 +2813,152 @@
               ]
             },
             {
-              "id": "node-type-3",
+              "id": "node-4-3-4",
+              "text": "Type 2M vWD",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-4-3-4-1",
+                  "text": "Qualitative GPIb Binding Defect",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-4-3-4-2",
+                  "text": "Activity:Ag Ratio < 0.7",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-4-3-4-3",
+                  "text": "Normal Multimer Ladder Present",
+                  "level": 4,
+                  "high_yield": true
+                }
+              ]
+            },
+            {
+              "id": "node-4-3-5",
+              "text": "Type 2N vWD (Normandy)",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-4-3-5-1",
+                  "text": "Mutated FVIII Binding Site",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-4-3-5-2",
+                  "text": "Normal vWF:Ag and Activity",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-4-3-5-3",
+                  "text": "Activity:Ag Ratio >= 0.7",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-4-3-5-4",
+                  "text": "Markedly Low FVIII (< 10-40%)",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-4-3-5-5",
+                  "text": "Mimics Mild Hemophilia A",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-4-3-5-6",
+                  "text": "Autosomal Inheritance Pattern",
+                  "level": 4,
+                  "high_yield": true
+                }
+              ]
+            },
+            {
+              "id": "node-4-3-6",
               "text": "Type 3 vWD",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "leaf-t3-def",
-                  "text": "Severe Total vWF Absence",
+                  "id": "node-4-3-6-1",
+                  "text": "Complete Quantitative Absence",
                   "level": 4,
                   "high_yield": true
                 },
                 {
-                  "id": "leaf-t3-levels",
-                  "text": "Undetectable vWF < 5 IU/dL",
+                  "id": "node-4-3-6-2",
+                  "text": "Undetectable vWF (< 5 IU/dL)",
                   "level": 4,
                   "high_yield": true
                 },
                 {
-                  "id": "leaf-t3-f8",
-                  "text": "Marked Factor VIII Deficiency",
+                  "id": "node-4-3-6-3",
+                  "text": "Severe FVIII Deficiency (< 10%)",
                   "level": 4,
                   "high_yield": true
+                },
+                {
+                  "id": "node-4-3-6-4",
+                  "text": "Markedly Prolonged APTT",
+                  "level": 4,
+                  "high_yield": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sub-4-4",
+          "text": "Confounding Clinical Variables",
+          "level": 2,
+          "high_yield": false,
+          "children": [
+            {
+              "id": "node-4-4-1",
+              "text": "Acute Phase Reactant Spikes",
+              "level": 3,
+              "high_yield": false,
+              "children": [
+                {
+                  "id": "node-4-4-1-1",
+                  "text": "Inflammation, Stress, and Pregnancy",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-4-4-1-2",
+                  "text": "Falsely Normalizes Type 1",
+                  "level": 4,
+                  "high_yield": true
+                }
+              ]
+            },
+            {
+              "id": "node-4-4-2",
+              "text": "ABO Blood Group Influence",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-4-4-2-1",
+                  "text": "Group O Baseline 25-30% Lower",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-4-4-2-2",
+                  "text": "Accelerated Hepatic Clearance",
+                  "level": 4,
+                  "high_yield": false
                 }
               ]
             }
@@ -1671,159 +2967,279 @@
       ]
     },
     {
-      "id": "sec-lta",
+      "id": "mod-5",
       "text": "Light Transmission Aggregometry",
       "level": 1,
       "high_yield": true,
       "children": [
         {
-          "id": "sub-lta-method",
-          "text": "Methodology and Calibration",
+          "id": "sub-5-1",
+          "text": "LTA Methodological Principles",
           "level": 2,
           "high_yield": true,
           "children": [
             {
-              "id": "node-centrifugation",
-              "text": "Differential Centrifugation",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "leaf-prp-spin",
-                  "text": "PRP Soft Spin 150-200g",
-                  "level": 4,
-                  "high_yield": false
-                },
-                {
-                  "id": "leaf-ppp-spin",
-                  "text": "PPP Hard Spin > 1500g",
-                  "level": 4,
-                  "high_yield": false
-                }
-              ]
-            },
-            {
-              "id": "node-optical-calib",
-              "text": "Spectrophotometric Baseline",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "leaf-prp-zero",
-                  "text": "Turbid PRP 0% Transmittance",
-                  "level": 4,
-                  "high_yield": true
-                },
-                {
-                  "id": "leaf-ppp-hundred",
-                  "text": "Clear PPP 100% Transmittance",
-                  "level": 4,
-                  "high_yield": true
-                }
-              ]
-            },
-            {
-              "id": "node-testing-temp",
-              "text": "Environmental Control",
+              "id": "node-5-1-1",
+              "text": "Born Turbidimetric Bioassay",
               "level": 3,
               "high_yield": false,
               "children": [
                 {
-                  "id": "leaf-cuvette-temp",
-                  "text": "Constant 37\u00b0C Heating Block",
+                  "id": "node-5-1-1-1",
+                  "text": "Gold Standard Thrombocytopathy Assay",
+                  "level": 4,
+                  "high_yield": true
+                }
+              ]
+            },
+            {
+              "id": "node-5-1-2",
+              "text": "Differential Centrifugation",
+              "level": 3,
+              "high_yield": false,
+              "children": [
+                {
+                  "id": "node-5-1-2-1",
+                  "text": "Platelet-Rich Plasma (PRP)",
+                  "level": 4,
+                  "high_yield": false,
+                  "children": [
+                    {
+                      "id": "node-5-1-2-1-1",
+                      "text": "Low Speed Spin (150-200 x g)",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-5-1-2-1-2",
+                      "text": "Platelet Target 200-300 x 10^3/uL",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
+                },
+                {
+                  "id": "node-5-1-2-2",
+                  "text": "Platelet-Poor Plasma (PPP)",
+                  "level": 4,
+                  "high_yield": false,
+                  "children": [
+                    {
+                      "id": "node-5-1-2-2-1",
+                      "text": "High Speed Spin (> 1,500 x g)",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "node-5-1-3",
+              "text": "Spectrophotometric Baseline Calibration",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-5-1-3-1",
+                  "text": "0% Baseline Set with PRP",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-5-1-3-2",
+                  "text": "100% Baseline Set with PPP",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-5-1-3-3",
+                  "text": "Thermostatic Block at 37\u00b0C",
                   "level": 4,
                   "high_yield": false
                 },
                 {
-                  "id": "leaf-cuvette-stir",
-                  "text": "Magnetic Stirring 1,000 RPM",
+                  "id": "node-5-1-3-4",
+                  "text": "Stirring Rate 800-1,000 RPM",
                   "level": 4,
                   "high_yield": false
+                }
+              ]
+            },
+            {
+              "id": "node-5-1-4",
+              "text": "Aggregation Wave Tracing Phases",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-5-1-4-1",
+                  "text": "Initial Shape Change",
+                  "level": 4,
+                  "high_yield": false,
+                  "children": [
+                    {
+                      "id": "node-5-1-4-1-1",
+                      "text": "Tracing Dips Below 0%",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
+                },
+                {
+                  "id": "node-5-1-4-2",
+                  "text": "Primary Wave (1\u00b0 Aggregation)",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-5-1-4-2-1",
+                      "text": "Direct Exogenous Agonist Response",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-5-1-4-2-2",
+                      "text": "Reversible Micro-Aggregates",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
+                },
+                {
+                  "id": "node-5-1-4-3",
+                  "text": "Secondary Wave (2\u00b0 Aggregation)",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-5-1-4-3-1",
+                      "text": "Dense Granule ADP Release",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-5-1-4-3-2",
+                      "text": "Endogenous TXA2 Generation",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-5-1-4-3-3",
+                      "text": "Irreversible Macro-Aggregation",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
                 }
               ]
             }
           ]
         },
         {
-          "id": "sub-lta-agonists",
-          "text": "Agonist Biochemical Cascades",
+          "id": "sub-5-2",
+          "text": "Agonist Action Mechanisms",
           "level": 2,
           "high_yield": true,
           "children": [
             {
-              "id": "node-ag-adp",
-              "text": "Adenosine Diphosphate",
+              "id": "node-5-2-1",
+              "text": "Adenosine Diphosphate (ADP)",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "leaf-adp-rec",
-                  "text": "P2Y1 and P2Y12 Receptors",
+                  "id": "node-5-2-1-1",
+                  "text": "Weak Physiological Agonist",
                   "level": 4,
                   "high_yield": false
                 },
                 {
-                  "id": "leaf-adp-trace",
-                  "text": "Classic Biphasic Wave",
+                  "id": "node-5-2-1-2",
+                  "text": "Purinergic Receptors",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-5-2-1-2-1",
+                      "text": "P2Y1 Mediates Shape Change",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-5-2-1-2-2",
+                      "text": "P2Y12 Drives Granule Release",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
+                },
+                {
+                  "id": "node-5-2-1-3",
+                  "text": "Classic Biphasic Wave Tracing",
                   "level": 4,
                   "high_yield": true
                 }
               ]
             },
             {
-              "id": "node-ag-epi",
+              "id": "node-5-2-2",
               "text": "Epinephrine",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "leaf-epi-rec",
-                  "text": "Alpha-2A Adrenergic Receptors",
+                  "id": "node-5-2-2-1",
+                  "text": "Weak Physiological Agonist",
                   "level": 4,
                   "high_yield": false
                 },
                 {
-                  "id": "leaf-epi-trace",
-                  "text": "Biphasic Without Shape Change",
+                  "id": "node-5-2-2-2",
+                  "text": "alpha2-Adrenergic Receptor",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-5-2-2-3",
+                  "text": "Lacks Initial Shape Change",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-5-2-2-4",
+                  "text": "Produces Biphasic Wave Tracing",
                   "level": 4,
                   "high_yield": true
                 }
               ]
             },
             {
-              "id": "node-ag-coll",
+              "id": "node-5-2-3",
               "text": "Collagen",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "leaf-coll-rec",
-                  "text": "GPVI and Alpha2Beta1 Integrin",
+                  "id": "node-5-2-3-1",
+                  "text": "Strong Physiological Agonist",
                   "level": 4,
                   "high_yield": false
                 },
                 {
-                  "id": "leaf-coll-lag",
-                  "text": "Single Wave 30-60s Lag",
+                  "id": "node-5-2-3-2",
+                  "text": "GPVI and alpha2beta1 Receptors",
                   "level": 4,
-                  "high_yield": true
-                }
-              ]
-            },
-            {
-              "id": "node-ag-aa",
-              "text": "Arachidonic Acid",
-              "level": 3,
-              "high_yield": true,
-              "children": [
+                  "high_yield": false
+                },
                 {
-                  "id": "leaf-aa-path",
-                  "text": "Direct COX-1 Substrate",
+                  "id": "node-5-2-3-3",
+                  "text": "Characteristic 1-2 Minute Lag",
                   "level": 4,
                   "high_yield": true
                 },
                 {
-                  "id": "leaf-aa-trace",
+                  "id": "node-5-2-3-4",
                   "text": "Single Irreversible Wave",
                   "level": 4,
                   "high_yield": true
@@ -1831,20 +3247,114 @@
               ]
             },
             {
-              "id": "node-ag-risto",
-              "text": "Ristocetin",
+              "id": "node-5-2-4",
+              "text": "Arachidonic Acid (AA)",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "leaf-risto-mech",
-                  "text": "vWF and GPIb Agglutination",
+                  "id": "node-5-2-4-1",
+                  "text": "Strong Physiological Agonist",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-5-2-4-2",
+                  "text": "Assesses COX-1 Pathway Integrity",
                   "level": 4,
                   "high_yield": true
                 },
                 {
-                  "id": "leaf-risto-noact",
-                  "text": "Active Without Platelet Viability",
+                  "id": "node-5-2-4-3",
+                  "text": "Rapid Single Irreversible Wave",
+                  "level": 4,
+                  "high_yield": true
+                }
+              ]
+            },
+            {
+              "id": "node-5-2-5",
+              "text": "Ristocetin (1.2 mg/mL)",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-5-2-5-1",
+                  "text": "Non-Physiological Agglutinating Agent",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-5-2-5-2",
+                  "text": "Induces vWF-GPIb Binding",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-5-2-5-3",
+                  "text": "Independent of Metabolic Secretion",
+                  "level": 4,
+                  "high_yield": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sub-5-3",
+          "text": "Pre-Analytical Quality Standards",
+          "level": 2,
+          "high_yield": false,
+          "children": [
+            {
+              "id": "node-5-3-1",
+              "text": "Platelet Count Threshold",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-5-3-1-1",
+                  "text": "PRP >= 100 x 10^3/uL",
+                  "level": 4,
+                  "high_yield": true
+                }
+              ]
+            },
+            {
+              "id": "node-5-3-2",
+              "text": "Medication Washout Requirements",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-5-3-2-1",
+                  "text": "Aspirin Abstinence (7-10 Days)",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-5-3-2-2",
+                  "text": "NSAID Abstinence (>= 48 Hours)",
+                  "level": 4,
+                  "high_yield": true
+                }
+              ]
+            },
+            {
+              "id": "node-5-3-3",
+              "text": "Temperature and Testing Limits",
+              "level": 3,
+              "high_yield": false,
+              "children": [
+                {
+                  "id": "node-5-3-3-1",
+                  "text": "Ambient Storage (18-25\u00b0C)",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-5-3-3-2",
+                  "text": "Testing Within 4 Hours",
                   "level": 4,
                   "high_yield": false
                 }
@@ -1855,46 +3365,102 @@
       ]
     },
     {
-      "id": "sec-disorders",
-      "text": "LTA Differential Diagnosis",
+      "id": "mod-6",
+      "text": "Confirmatory Thrombocytopathy Testing",
       "level": 1,
       "high_yield": true,
       "children": [
         {
-          "id": "sub-gt",
+          "id": "sub-6-1",
           "text": "Glanzmann Thrombasthenia",
           "level": 2,
           "high_yield": true,
           "children": [
             {
-              "id": "node-gt-genetics",
-              "text": "Defective GPIIb/IIIa Complex",
+              "id": "node-6-1-1",
+              "text": "Molecular Defect",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "leaf-gt-markers",
-                  "text": "CD41 and CD61 Deficient",
-                  "level": 4,
-                  "high_yield": true
-                }
-              ]
-            },
-            {
-              "id": "node-gt-trace",
-              "text": "LTA Profile Signature",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "leaf-gt-absent",
-                  "text": "Absent ADP Epi Collagen AA",
+                  "id": "node-6-1-1-1",
+                  "text": "Integrin alphaIIbbeta3 Complex",
                   "level": 4,
                   "high_yield": true
                 },
                 {
-                  "id": "leaf-gt-risto",
+                  "id": "node-6-1-1-2",
+                  "text": "GPIIb/IIIa Deficiency",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-6-1-1-3",
+                  "text": "Autosomal Recessive Inheritance",
+                  "level": 4,
+                  "high_yield": false
+                }
+              ]
+            },
+            {
+              "id": "node-6-1-2",
+              "text": "LTA Tracing Profile",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-6-1-2-1",
+                  "text": "Absent Response to ADP",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-6-1-2-2",
+                  "text": "Absent Response to Epinephrine",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-6-1-2-3",
+                  "text": "Absent Response to Collagen",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-6-1-2-4",
+                  "text": "Absent Response to AA",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-6-1-2-5",
                   "text": "Normal Ristocetin Agglutination",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-6-1-2-6",
+                  "text": "Shape Change Remains Intact",
+                  "level": 4,
+                  "high_yield": false
+                }
+              ]
+            },
+            {
+              "id": "node-6-1-3",
+              "text": "Confirmatory Flow Cytometry",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-6-1-3-1",
+                  "text": "Deficient CD41 (GPIIb)",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-6-1-3-2",
+                  "text": "Deficient CD61 (GPIIIa)",
                   "level": 4,
                   "high_yield": true
                 }
@@ -1903,106 +3469,204 @@
           ]
         },
         {
-          "id": "sub-bss",
+          "id": "sub-6-2",
           "text": "Bernard-Soulier Syndrome",
           "level": 2,
           "high_yield": true,
           "children": [
             {
-              "id": "node-bss-genetics",
-              "text": "Defective GPIb/IX/V Complex",
+              "id": "node-6-2-1",
+              "text": "Molecular Defect",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "leaf-bss-markers",
-                  "text": "CD42b and CD42a Deficient",
+                  "id": "node-6-2-1-1",
+                  "text": "GPIb/V/IX Receptor Complex",
                   "level": 4,
                   "high_yield": true
                 },
                 {
-                  "id": "leaf-bss-smear",
-                  "text": "Giant Platelets with Thrombocytopenia",
+                  "id": "node-6-2-1-2",
+                  "text": "Autosomal Recessive Inheritance",
+                  "level": 4,
+                  "high_yield": false
+                }
+              ]
+            },
+            {
+              "id": "node-6-2-2",
+              "text": "Baseline Smear and CBC",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-6-2-2-1",
+                  "text": "Mild to Moderate Thrombocytopenia",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-6-2-2-2",
+                  "text": "Giant Platelets (> 4.0 um)",
                   "level": 4,
                   "high_yield": true
                 }
               ]
             },
             {
-              "id": "node-bss-trace",
-              "text": "LTA Profile Signature",
+              "id": "node-6-2-3",
+              "text": "LTA Tracing Profile",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "leaf-bss-normal",
-                  "text": "Normal ADP Epi Collagen AA",
+                  "id": "node-6-2-3-1",
+                  "text": "Normal Response to ADP",
                   "level": 4,
                   "high_yield": true
                 },
                 {
-                  "id": "leaf-bss-absent",
+                  "id": "node-6-2-3-2",
+                  "text": "Normal Response to Epinephrine",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-6-2-3-3",
+                  "text": "Normal Response to Collagen",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-6-2-3-4",
+                  "text": "Normal Response to AA",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-6-2-3-5",
                   "text": "Absent Ristocetin Agglutination",
                   "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-6-2-3-5-1",
+                      "text": "Normal Plasma Fails Correction",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "node-6-2-4",
+              "text": "Confirmatory Flow Cytometry",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-6-2-4-1",
+                  "text": "Deficient CD42b (GPIba)",
+                  "level": 4,
                   "high_yield": true
                 },
                 {
-                  "id": "leaf-bss-mixing",
-                  "text": "Not Corrected by Plasma",
+                  "id": "node-6-2-4-2",
+                  "text": "Deficient CD42a (GPIX)",
                   "level": 4,
-                  "high_yield": true
+                  "high_yield": false
                 }
               ]
             }
           ]
         },
         {
-          "id": "sub-storage-pool",
+          "id": "sub-6-3",
           "text": "Dense Granule Deficiency",
           "level": 2,
           "high_yield": true,
           "children": [
             {
-              "id": "node-spd-path",
-              "text": "Depleted Dense Granule Contents",
+              "id": "node-6-3-1",
+              "text": "Storage Pool Disease Pathology",
               "level": 3,
               "high_yield": false,
               "children": [
                 {
-                  "id": "leaf-spd-contents",
-                  "text": "Deficient ADP Serotonin Calcium",
+                  "id": "node-6-3-1-1",
+                  "text": "Quantitative delta-Granule Depletion",
                   "level": 4,
                   "high_yield": false
                 },
                 {
-                  "id": "leaf-spd-em",
-                  "text": "Confirmed by Electron Microscopy",
+                  "id": "node-6-3-1-2",
+                  "text": "Absent Endogenous ADP Pool",
                   "level": 4,
-                  "high_yield": true
+                  "high_yield": false
                 }
               ]
             },
             {
-              "id": "node-spd-trace",
-              "text": "LTA Profile Signature",
+              "id": "node-6-3-2",
+              "text": "LTA Tracing Profile",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "leaf-spd-secondary",
-                  "text": "Absent ADP/Epi Secondary Wave",
-                  "level": 4,
-                  "high_yield": true
-                },
-                {
-                  "id": "leaf-spd-coll",
-                  "text": "Markedly Impaired Collagen",
+                  "id": "node-6-3-2-1",
+                  "text": "Primary Wave Present",
                   "level": 4,
                   "high_yield": false
                 },
                 {
-                  "id": "leaf-spd-risto",
+                  "id": "node-6-3-2-2",
+                  "text": "Absent ADP Secondary Wave",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-6-3-2-3",
+                  "text": "Absent Epinephrine Secondary Wave",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-6-3-2-4",
+                  "text": "Blunted Collagen Aggregation",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-6-3-2-5",
+                  "text": "Normal Arachidonic Acid Response",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-6-3-2-6",
                   "text": "Normal Ristocetin Agglutination",
+                  "level": 4,
+                  "high_yield": false
+                }
+              ]
+            },
+            {
+              "id": "node-6-3-3",
+              "text": "Confirmatory Imaging",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-6-3-3-1",
+                  "text": "Transmission Electron Microscopy (TEM)",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-6-3-3-2",
+                  "text": "Direct Dense Body Visualization",
                   "level": 4,
                   "high_yield": false
                 }
@@ -2011,46 +3675,84 @@
           ]
         },
         {
-          "id": "sub-aspirin-lta",
-          "text": "Cyclooxygenase Inhibition",
+          "id": "sub-6-4",
+          "text": "Aspirin and COX-1 Inhibition",
           "level": 2,
           "high_yield": true,
           "children": [
             {
-              "id": "node-asp-mech",
-              "text": "Aspirin Acetylates COX-1",
+              "id": "node-6-4-1",
+              "text": "Pharmacologic Mechanism",
               "level": 3,
               "high_yield": false,
               "children": [
                 {
-                  "id": "leaf-asp-txa2",
-                  "text": "Blocked Thromboxane A2 Production",
+                  "id": "node-6-4-1-1",
+                  "text": "Aspirin Acetylates Serine-529",
                   "level": 4,
                   "high_yield": false
-                }
-              ]
-            },
-            {
-              "id": "node-asp-trace",
-              "text": "LTA Profile Signature",
-              "level": 3,
-              "high_yield": true,
-              "children": [
+                },
                 {
-                  "id": "leaf-asp-aa",
-                  "text": "Flat-Line Arachidonic Acid",
+                  "id": "node-6-4-1-2",
+                  "text": "Irreversible COX-1 Inactivation",
                   "level": 4,
                   "high_yield": true
                 },
                 {
-                  "id": "leaf-asp-epi",
+                  "id": "node-6-4-1-3",
+                  "text": "Blocks TXA2 Biosynthesis",
+                  "level": 4,
+                  "high_yield": true
+                }
+              ]
+            },
+            {
+              "id": "node-6-4-2",
+              "text": "LTA Tracing Profile",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-6-4-2-1",
+                  "text": "Primary Wave Present",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-6-4-2-2",
+                  "text": "Absent ADP Secondary Wave",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-6-4-2-3",
                   "text": "Absent Epinephrine Secondary Wave",
                   "level": 4,
                   "high_yield": true
                 },
                 {
-                  "id": "leaf-asp-risto",
-                  "text": "Normal Ristocetin Response",
+                  "id": "node-6-4-2-4",
+                  "text": "Blunted Collagen Aggregation",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-6-4-2-5",
+                  "text": "Completely Absent AA Response",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-6-4-2-5-1",
+                      "text": "Differentiates from Storage Pool",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
+                },
+                {
+                  "id": "node-6-4-2-6",
+                  "text": "Normal Ristocetin Agglutination",
                   "level": 4,
                   "high_yield": false
                 }
@@ -2061,94 +3763,312 @@
       ]
     },
     {
-      "id": "sec-algorithm",
-      "text": "Diagnostic Reflex Cascade",
+      "id": "mod-7",
+      "text": "Diagnostic Reflex Algorithm",
       "level": 1,
       "high_yield": true,
       "children": [
         {
-          "id": "sub-step1",
-          "text": "Step 1: Quantitative Review",
+          "id": "sub-7-1",
+          "text": "Tier 1: Frontline Screening",
           "level": 2,
           "high_yield": true,
           "children": [
             {
-              "id": "node-s1-cbc",
-              "text": "CBC and Smear Evaluation",
+              "id": "node-7-1-1",
+              "text": "Complete Blood Count and MPV",
               "level": 3,
               "high_yield": true
             },
             {
-              "id": "node-s1-ruleout",
-              "text": "Exclude Severe Thrombocytopenia",
+              "id": "node-7-1-2",
+              "text": "Peripheral Blood Smear Review",
               "level": 3,
-              "high_yield": true
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-7-1-2-1",
+                  "text": "Platelet Clumping Observed",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-7-1-2-1-1",
+                      "text": "Redraw in Sodium Citrate",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-7-1-2-1-2",
+                      "text": "Multiply Count by 1.1",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
+                },
+                {
+                  "id": "node-7-1-2-2",
+                  "text": "True Thrombocytopenia Verified",
+                  "level": 4,
+                  "high_yield": false,
+                  "children": [
+                    {
+                      "id": "node-7-1-2-2-1",
+                      "text": "Evaluate Bone Marrow / MAHA",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "node-7-1-3",
+              "text": "PFA-100/200 Functional Screen",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-7-1-3-1",
+                  "text": "Normal CEPI and CADP",
+                  "level": 4,
+                  "high_yield": false,
+                  "children": [
+                    {
+                      "id": "node-7-1-3-1-1",
+                      "text": "Severe Defect Excluded",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
+                },
+                {
+                  "id": "node-7-1-3-2",
+                  "text": "Prolonged CEPI / Normal CADP",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-7-1-3-2-1",
+                      "text": "Evaluate Drug History (Aspirin)",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
+                },
+                {
+                  "id": "node-7-1-3-3",
+                  "text": "Prolonged CEPI / Prolonged CADP",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-7-1-3-3-1",
+                      "text": "Trigger Tier 2 Reflex",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
+                }
+              ]
             }
           ]
         },
         {
-          "id": "sub-step2",
-          "text": "Step 2: Functional Screen",
+          "id": "sub-7-2",
+          "text": "Tier 2: Coagulation Factor Bench",
           "level": 2,
           "high_yield": true,
           "children": [
             {
-              "id": "node-s2-pfa",
-              "text": "PFA-100/200 Screening Cartridges",
+              "id": "node-7-2-1",
+              "text": "von Willebrand Disease Panel",
               "level": 3,
-              "high_yield": true
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-7-2-1-1",
+                  "text": "Order vWF:Ag, vWF:Act, FVIII",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-7-2-1-2",
+                  "text": "Calculate Activity:Antigen Ratio",
+                  "level": 4,
+                  "high_yield": true
+                }
+              ]
             },
             {
-              "id": "node-s2-cepi-cadp",
-              "text": "CEPI Followed by CADP",
+              "id": "node-7-2-2",
+              "text": "vWD Panel Branch Points",
               "level": 3,
-              "high_yield": true
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-7-2-2-1",
+                  "text": "Discordant Ratio (< 0.7)",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-7-2-2-1-1",
+                      "text": "Reflex Multimer Gel Electrophoresis",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-7-2-2-1-2",
+                      "text": "Reflex Low-Dose RIPA",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
+                },
+                {
+                  "id": "node-7-2-2-2",
+                  "text": "Concordant Decrease (>= 0.7)",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-7-2-2-2-1",
+                      "text": "Diagnose Type 1 vWD",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
+                },
+                {
+                  "id": "node-7-2-2-3",
+                  "text": "Completely Normal vWD Panel",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-7-2-2-3-1",
+                      "text": "Trigger Tier 3 Thrombocytopathy",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
+                }
+              ]
             }
           ]
         },
         {
-          "id": "sub-step3",
-          "text": "Step 3: vWD Tripartite Panel",
+          "id": "sub-7-3",
+          "text": "Tier 3: Specialized Confirmatory Testing",
           "level": 2,
           "high_yield": true,
           "children": [
             {
-              "id": "node-s3-trigger",
-              "text": "Triggered by Dual-Prolonged PFA",
+              "id": "node-7-3-1",
+              "text": "Light Transmission Aggregometry (LTA)",
               "level": 3,
-              "high_yield": true
-            },
-            {
-              "id": "node-s3-panel",
-              "text": "vWF:Ag, Activity, and FVIII",
-              "level": 3,
-              "high_yield": true
-            }
-          ]
-        },
-        {
-          "id": "sub-step4",
-          "text": "Step 4: Specialized Pathway",
-          "level": 2,
-          "high_yield": true,
-          "children": [
-            {
-              "id": "node-s4-lta",
-              "text": "Light Transmission Aggregometry",
-              "level": 3,
-              "high_yield": true
-            },
-            {
-              "id": "node-s4-flow",
-              "text": "Platelet Surface Flow Cytometry",
-              "level": 3,
-              "high_yield": true
-            },
-            {
-              "id": "node-s4-em",
-              "text": "Granule Electron Microscopy",
-              "level": 3,
-              "high_yield": false
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-7-3-1-1",
+                  "text": "Absent Ristocetin Only",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-7-3-1-1-1",
+                      "text": "Reflex Platelet Flow Cytometry",
+                      "level": 5,
+                      "high_yield": true,
+                      "children": [
+                        {
+                          "id": "node-7-3-1-1-1-1",
+                          "text": "Confirm Absent CD42b",
+                          "level": 6,
+                          "high_yield": true
+                        },
+                        {
+                          "id": "node-7-3-1-1-1-2",
+                          "text": "Diagnose Bernard-Soulier Syndrome",
+                          "level": 6,
+                          "high_yield": true
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "node-7-3-1-2",
+                  "text": "Absent Physiological Agonists",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-7-3-1-2-1",
+                      "text": "Reflex Platelet Flow Cytometry",
+                      "level": 5,
+                      "high_yield": true,
+                      "children": [
+                        {
+                          "id": "node-7-3-1-2-1-1",
+                          "text": "Confirm Absent CD41/CD61",
+                          "level": 6,
+                          "high_yield": true
+                        },
+                        {
+                          "id": "node-7-3-1-2-1-2",
+                          "text": "Diagnose Glanzmann Thrombasthenia",
+                          "level": 6,
+                          "high_yield": true
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "node-7-3-1-3",
+                  "text": "Loss of Secondary Waves",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-7-3-1-3-1",
+                      "text": "Normal Arachidonic Acid Response",
+                      "level": 5,
+                      "high_yield": true,
+                      "children": [
+                        {
+                          "id": "node-7-3-1-3-1-1",
+                          "text": "Reflex Electron Microscopy (TEM)",
+                          "level": 6,
+                          "high_yield": true
+                        },
+                        {
+                          "id": "node-7-3-1-3-1-2",
+                          "text": "Confirm Storage Pool Deficiency",
+                          "level": 6,
+                          "high_yield": true
+                        }
+                      ]
+                    },
+                    {
+                      "id": "node-7-3-1-3-2",
+                      "text": "Absent Arachidonic Acid Response",
+                      "level": 5,
+                      "high_yield": true,
+                      "children": [
+                        {
+                          "id": "node-7-3-1-3-2-1",
+                          "text": "Confirm COX-1 Drug Blockade",
+                          "level": 6,
+                          "high_yield": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
             }
           ]
         }

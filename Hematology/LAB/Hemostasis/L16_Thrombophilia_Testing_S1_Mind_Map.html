@@ -971,189 +971,334 @@
   "high_yield": true,
   "children": [
     {
-      "id": "sec-1",
-      "text": "D-Dimer and Viscoelastic Testing",
+      "id": "sec-preanalytical",
+      "text": "Pre-Analytical & Clot Profiling",
       "level": 1,
       "high_yield": true,
       "children": [
         {
-          "id": "sub-1-1",
-          "text": "D-Dimer Formation",
+          "id": "sub-preanalytical-citrate",
+          "text": "Citrate Specimen Requirements",
           "level": 2,
           "high_yield": true,
           "children": [
             {
-              "id": "node-1-1-1",
-              "text": "Fibrin Monomer Polymerization",
-              "level": 3,
-              "high_yield": false,
-              "children": [
-                {
-                  "id": "node-1-1-1-1",
-                  "text": "Thrombin Cleaves Fibrinopeptides",
-                  "level": 4,
-                  "high_yield": false,
-                  "children": []
-                }
-              ]
-            },
-            {
-              "id": "node-1-1-2",
-              "text": "Factor XIIIa Cross-Linking",
+              "id": "node-tube-specs",
+              "text": "3.2% Sodium Citrate",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "node-1-1-2-1",
-                  "text": "Isopeptide D-Domain Bonds",
+                  "id": "node-tube-molarity",
+                  "text": "0.109 M Concentration",
                   "level": 4,
-                  "high_yield": true,
-                  "children": []
-                }
-              ]
-            },
-            {
-              "id": "node-1-1-3",
-              "text": "Plasmin Digestion",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "node-1-1-3-1",
-                  "text": "Cleaves Insoluble Fibrin Mesh",
-                  "level": 4,
-                  "high_yield": false,
-                  "children": []
+                  "high_yield": false
                 },
                 {
-                  "id": "node-1-1-3-2",
-                  "text": "Retains Covalent D-D Bonds",
+                  "id": "node-tube-chelation",
+                  "text": "Chelates Ionized Calcium",
                   "level": 4,
-                  "high_yield": true,
-                  "children": []
+                  "high_yield": false
                 }
               ]
             },
             {
-              "id": "node-1-1-4",
-              "text": "Secondary Fibrinolysis Specificity",
+              "id": "node-ratio-req",
+              "text": "9:1 Blood-to-Anticoagulant Ratio",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "node-1-1-4-1",
-                  "text": "D-Dimer vs FDPs",
+                  "id": "node-underfilled-rejection",
+                  "text": "Reject Underfilled <90%",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-excess-citrate-artifact",
+                  "text": "Excess Citrate Prolongs Clotting",
+                  "level": 4,
+                  "high_yield": false
+                }
+              ]
+            },
+            {
+              "id": "node-hct-adjustment",
+              "text": "High-Hematocrit Citrate Adjustment",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-hct-threshold",
+                  "text": "Applies When HCT >55%",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-polycythemia-cause",
+                  "text": "Depleted Relative Plasma Volume",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-citrate-formula",
+                  "text": "CLSI Adjustment Formula",
+                  "level": 4,
+                  "high_yield": true
+                }
+              ]
+            },
+            {
+              "id": "node-ppp-processing",
+              "text": "Platelet-Poor Plasma Protocol",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-double-spin",
+                  "text": "Double Centrifugation Protocol",
                   "level": 4,
                   "high_yield": true,
-                  "children": []
+                  "children": [
+                    {
+                      "id": "node-spin-force",
+                      "text": ">=2500 x g",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-spin-duration",
+                      "text": "15 Minutes Each Cycle",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
+                },
+                {
+                  "id": "node-residual-plt",
+                  "text": "Platelet Count <10 x 10^3/uL",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-plt-freeze-thaw",
+                  "text": "Prevents Membrane Phospholipid Interference",
+                  "level": 4,
+                  "high_yield": true
+                }
+              ]
+            },
+            {
+              "id": "node-temp-handling",
+              "text": "Temperature Storage Rules",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-ambient-temp",
+                  "text": "Store at 18-25 C",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-no-refrigeration",
+                  "text": "Prohibit 2-8 C Storage",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-fvii-activation",
+                      "text": "Cold Activates Factor VII",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-plt-lysis",
+                      "text": "Destroys Platelet Integrity",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
+                },
+                {
+                  "id": "node-frozen-storage",
+                  "text": "Freeze at -70 C",
+                  "level": 4,
+                  "high_yield": false
                 }
               ]
             }
           ]
         },
         {
-          "id": "sub-1-2",
-          "text": "D-Dimer Laboratory Methodology",
+          "id": "sub-ddimer",
+          "text": "D-Dimer Testing",
           "level": 2,
           "high_yield": true,
           "children": [
             {
-              "id": "node-1-2-1",
-              "text": "Latex-Enhanced Immunoturbidimetry",
+              "id": "node-ddimer-formation",
+              "text": "Fibrin Degradation Mechanism",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "node-1-2-1-1",
-                  "text": "Monoclonal D-D Epitope Antibodies",
+                  "id": "node-thrombin-fibrin",
+                  "text": "Thrombin Cleaves Fibrinopeptides",
                   "level": 4,
-                  "high_yield": false,
-                  "children": []
+                  "high_yield": false
                 },
                 {
-                  "id": "node-1-2-1-2",
-                  "text": "Turbidimetric Light Scatter Detection",
+                  "id": "node-fxiii-crosslink",
+                  "text": "Factor XIIIa Cross-Linking",
                   "level": 4,
-                  "high_yield": false,
-                  "children": []
+                  "high_yield": true
+                },
+                {
+                  "id": "node-plasmin-cleave",
+                  "text": "Plasmin Cleaves Fibrin Network",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-neoepitope",
+                  "text": "Cross-Linked D-Dimer Neoepitope",
+                  "level": 4,
+                  "high_yield": false
                 }
               ]
             },
             {
-              "id": "node-1-2-2",
-              "text": "Reporting Units",
+              "id": "node-assay-principle",
+              "text": "Latex Immunoturbidimetry",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "node-1-2-2-1",
+                  "id": "node-monoclonal-beads",
+                  "text": "Monoclonal Coated Microparticles",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-photometric-absorbance",
+                  "text": "Turbidity Directly Proportional",
+                  "level": 4,
+                  "high_yield": false
+                }
+              ]
+            },
+            {
+              "id": "node-reporting-units",
+              "text": "Reporting Units & Conversions",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-feu-unit",
                   "text": "Fibrinogen Equivalent Units (FEU)",
                   "level": 4,
                   "high_yield": true,
-                  "children": []
+                  "children": [
+                    {
+                      "id": "node-feu-cutoff",
+                      "text": "Standard Cutoff <500 ng/mL",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
                 },
                 {
-                  "id": "node-1-2-2-2",
+                  "id": "node-ddu-unit",
                   "text": "D-Dimer Units (D-DU)",
                   "level": 4,
                   "high_yield": true,
-                  "children": []
+                  "children": [
+                    {
+                      "id": "node-ddu-cutoff",
+                      "text": "Standard Cutoff <250 ng/mL",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
                 },
                 {
-                  "id": "node-1-2-2-3",
-                  "text": "1.0 FEU = 0.5 D-DU",
+                  "id": "node-unit-formula",
+                  "text": "FEU Equals 2x D-DU",
                   "level": 4,
-                  "high_yield": true,
-                  "children": []
+                  "high_yield": true
                 }
               ]
             },
             {
-              "id": "node-1-2-3",
-              "text": "Diagnostic Cut-Offs",
+              "id": "node-age-adjusted",
+              "text": "Age-Adjusted Thresholds",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "node-1-2-3-1",
-                  "text": "< 500 ng/mL FEU",
+                  "id": "node-age-formula",
+                  "text": "Age x 10 ng/mL FEU",
                   "level": 4,
-                  "high_yield": true,
-                  "children": []
+                  "high_yield": true
                 },
                 {
-                  "id": "node-1-2-3-2",
-                  "text": "< 250 ng/mL D-DU",
+                  "id": "node-age-criteria",
+                  "text": "Applies to Age >50",
                   "level": 4,
-                  "high_yield": true,
-                  "children": []
+                  "high_yield": true
                 },
                 {
-                  "id": "node-1-2-3-3",
-                  "text": "High NPV > 98%",
+                  "id": "node-specificity-gain",
+                  "text": "Reduces False Positives",
                   "level": 4,
-                  "high_yield": true,
-                  "children": []
-                },
+                  "high_yield": false
+                }
+              ]
+            },
+            {
+              "id": "node-clinical-utility",
+              "text": "Clinical Applications",
+              "level": 3,
+              "high_yield": true,
+              "children": [
                 {
-                  "id": "node-1-2-3-4",
-                  "text": "Age-Adjusted Cut-Off Formula",
+                  "id": "node-vte-exclusion",
+                  "text": "Acute VTE Exclusion",
                   "level": 4,
                   "high_yield": true,
                   "children": [
                     {
-                      "id": "node-1-2-3-4-1",
-                      "text": "Age > 50 Years",
+                      "id": "node-npv",
+                      "text": "Negative Predictive Value >98%",
                       "level": 5,
-                      "high_yield": true,
-                      "children": []
+                      "high_yield": true
                     },
                     {
-                      "id": "node-1-2-3-4-2",
-                      "text": "Age x 10 ng/mL FEU",
+                      "id": "node-low-pretest",
+                      "text": "Low Pre-Test Probability",
                       "level": 5,
-                      "high_yield": true,
-                      "children": []
+                      "high_yield": false
+                    }
+                  ]
+                },
+                {
+                  "id": "node-dic-marker",
+                  "text": "Consumptive Coagulopathy Marker",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-dic-comparison",
+                      "text": "Markedly Elevated in DIC",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-schistocyte-assoc",
+                      "text": "Correlates with Microangiopathic Schistocytes",
+                      "level": 5,
+                      "high_yield": true
                     }
                   ]
                 }
@@ -1162,197 +1307,182 @@
           ]
         },
         {
-          "id": "sub-1-3",
-          "text": "Thromboelastography (TEG)",
+          "id": "sub-viscoelastic",
+          "text": "Viscoelastic Clot Profiling",
           "level": 2,
           "high_yield": true,
           "children": [
             {
-              "id": "node-1-3-1",
-              "text": "R Reaction Time",
+              "id": "node-teg-parameters",
+              "text": "Thromboelastography (TEG) Parameters",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "node-1-3-1-1",
-                  "text": "Clot Initiation Kinetics",
-                  "level": 4,
-                  "high_yield": false,
-                  "children": []
-                },
-                {
-                  "id": "node-1-3-1-2",
-                  "text": "Evaluates Coagulation Factor Activity",
+                  "id": "node-r-time",
+                  "text": "R Time (Reaction Time)",
                   "level": 4,
                   "high_yield": true,
-                  "children": []
+                  "children": [
+                    {
+                      "id": "node-r-path",
+                      "text": "Enzymatic Thrombin Generation",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-r-tx",
+                      "text": "Guides FFP Transfusion",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
                 },
                 {
-                  "id": "node-1-3-1-3",
-                  "text": "Prolonged R Indicates FFP",
+                  "id": "node-k-time",
+                  "text": "K Time",
                   "level": 4,
                   "high_yield": true,
-                  "children": []
+                  "children": [
+                    {
+                      "id": "node-k-path",
+                      "text": "Clot Propagation Speed",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-k-tx",
+                      "text": "Guides Cryoprecipitate Transfusion",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
+                },
+                {
+                  "id": "node-alpha-angle",
+                  "text": "Alpha Angle",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-alpha-path",
+                      "text": "Fibrin Build-Up Rate",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-alpha-tx",
+                      "text": "Guides Cryoprecipitate Transfusion",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
+                },
+                {
+                  "id": "node-ma",
+                  "text": "Maximum Amplitude (MA)",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-ma-plt",
+                      "text": "80% Platelet Dependent",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-ma-fib",
+                      "text": "20% Fibrinogen Dependent",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-ma-tx",
+                      "text": "Guides Platelet Transfusion",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
+                },
+                {
+                  "id": "node-ly30",
+                  "text": "LY30 Parameter",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-ly30-path",
+                      "text": "Measures Clot Lysis",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-ly30-threshold",
+                      "text": "Hyperfibrinolysis When >7.5%",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-ly30-tx",
+                      "text": "Guides Antifibrinolytic (TXA)",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
                 }
               ]
             },
             {
-              "id": "node-1-3-2",
-              "text": "K Time and Alpha-Angle",
+              "id": "node-teg-cartridges",
+              "text": "Specialized Cartridge Assays",
               "level": 3,
-              "high_yield": true,
+              "high_yield": false,
               "children": [
                 {
-                  "id": "node-1-3-2-1",
-                  "text": "Clot Amplification Kinetics",
+                  "id": "node-heparinase-cup",
+                  "text": "Heparinase Cartridge",
                   "level": 4,
-                  "high_yield": false,
-                  "children": []
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-neutralize-heparin",
+                      "text": "Degrades Heparin In Vitro",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-heparin-differentiation",
+                      "text": "Normalizes Prolonged R-Time",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
                 },
                 {
-                  "id": "node-1-3-2-2",
-                  "text": "Evaluates Fibrinogen Function",
+                  "id": "node-rapid-teg",
+                  "text": "RapidTEG Assay",
                   "level": 4,
-                  "high_yield": true,
-                  "children": []
+                  "high_yield": false
                 },
                 {
-                  "id": "node-1-3-2-3",
-                  "text": "Abnormal Indicates Cryoprecipitate",
+                  "id": "node-functional-fib",
+                  "text": "Functional Fibrinogen (FF)",
                   "level": 4,
                   "high_yield": true,
-                  "children": []
-                }
-              ]
-            },
-            {
-              "id": "node-1-3-3",
-              "text": "Maximum Amplitude (MA)",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "node-1-3-3-1",
-                  "text": "Peak Dynamic Clot Strength",
-                  "level": 4,
-                  "high_yield": false,
-                  "children": []
-                },
-                {
-                  "id": "node-1-3-3-2",
-                  "text": "80% Platelet Dependent",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-1-3-3-3",
-                  "text": "Decreased MA Indicates Platelets",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                }
-              ]
-            },
-            {
-              "id": "node-1-3-4",
-              "text": "LY30 Parameter",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "node-1-3-4-1",
-                  "text": "Clot Lysis at 30 Minutes",
-                  "level": 4,
-                  "high_yield": false,
-                  "children": []
-                },
-                {
-                  "id": "node-1-3-4-2",
-                  "text": "> 7.5% Indicates Hyperfibrinolysis",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-1-3-4-3",
-                  "text": "Administer Tranexamic Acid (TXA)",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "id": "sub-1-4",
-          "text": "Differential Smear Morphology",
-          "level": 2,
-          "high_yield": true,
-          "children": [
-            {
-              "id": "node-1-4-1",
-              "text": "Disseminated Intravascular Coagulation",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "node-1-4-1-1",
-                  "text": "Schistocytes on Peripheral Smear",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-1-4-1-2",
-                  "text": "Thrombocytopenia < 50x10^3/uL",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-1-4-1-3",
-                  "text": "Hypofibrinogenemia < 100 mg/dL",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-1-4-1-4",
-                  "text": "Prolonged PT and aPTT",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                }
-              ]
-            },
-            {
-              "id": "node-1-4-2",
-              "text": "Uncomplicated Acute VTE",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "node-1-4-2-1",
-                  "text": "Elevated D-Dimer",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-1-4-2-2",
-                  "text": "Normal Smear Morphology",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-1-4-2-3",
-                  "text": "Normal PT and aPTT",
-                  "level": 4,
-                  "high_yield": false,
-                  "children": []
+                  "children": [
+                    {
+                      "id": "node-block-gpiib",
+                      "text": "Inhibits Platelet Function",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-isolated-fib-strength",
+                      "text": "Isolates Fibrinogen Contribution",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
                 }
               ]
             }
@@ -1361,376 +1491,520 @@
       ]
     },
     {
-      "id": "sec-2",
-      "text": "Natural Anticoagulant System Assays",
+      "id": "sec-natural-anticoagulants",
+      "text": "Natural Inhibitors & Genetics",
       "level": 1,
       "high_yield": true,
       "children": [
         {
-          "id": "sub-2-1",
-          "text": "Antithrombin (AT) Assay",
+          "id": "sub-antithrombin",
+          "text": "Antithrombin (AT)",
           "level": 2,
           "high_yield": true,
           "children": [
             {
-              "id": "node-2-1-1",
-              "text": "Biochemical Function",
-              "level": 3,
-              "high_yield": false,
-              "children": [
-                {
-                  "id": "node-2-1-1-1",
-                  "text": "Serpin Neutralizing Serine Proteases",
-                  "level": 4,
-                  "high_yield": false,
-                  "children": []
-                },
-                {
-                  "id": "node-2-1-1-2",
-                  "text": "Inactivates IIa and Xa",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-2-1-1-3",
-                  "text": "Heparin Accelerates 1000-Fold",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                }
-              ]
-            },
-            {
-              "id": "node-2-1-2",
-              "text": "Functional Chromogenic Assay",
+              "id": "node-at-physio",
+              "text": "Antithrombin Physiology",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "node-2-1-2-1",
-                  "text": "Incubate with Excess Factor Xa",
+                  "id": "node-serpin-class",
+                  "text": "Serine Protease Inhibitor",
                   "level": 4,
-                  "high_yield": false,
-                  "children": []
+                  "high_yield": false
                 },
                 {
-                  "id": "node-2-1-2-2",
+                  "id": "node-at-targets",
+                  "text": "Neutralizes IIa, Xa, IXa",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-heparin-potentiation",
+                  "text": "Heparin Increases Kinetics >1000-fold",
+                  "level": 4,
+                  "high_yield": true
+                }
+              ]
+            },
+            {
+              "id": "node-at-assay",
+              "text": "Two-Stage Chromogenic Assay",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-at-stage1",
+                  "text": "Incubation with Excess FXa",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-at-stage2",
                   "text": "Residual FXa Cleaves Substrate",
                   "level": 4,
-                  "high_yield": false,
-                  "children": []
+                  "high_yield": false
                 },
                 {
-                  "id": "node-2-1-2-3",
-                  "text": "Releases p-Nitroaniline at 405nm",
-                  "level": 4,
-                  "high_yield": false,
-                  "children": []
-                },
-                {
-                  "id": "node-2-1-2-4",
-                  "text": "Activity Inversely Proportional to Absorbance",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                }
-              ]
-            },
-            {
-              "id": "node-2-1-3",
-              "text": "Reference Range and Interferences",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "node-2-1-3-1",
-                  "text": "Reference Interval: 80-120%",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-2-1-3-2",
-                  "text": "DOACs Cause False Elevation",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "id": "sub-2-2",
-          "text": "Protein C Assay",
-          "level": 2,
-          "high_yield": true,
-          "children": [
-            {
-              "id": "node-2-2-1",
-              "text": "In Vivo Activation",
-              "level": 3,
-              "high_yield": false,
-              "children": [
-                {
-                  "id": "node-2-2-1-1",
-                  "text": "Thrombin-Thrombomodulin Endothelial Complex",
-                  "level": 4,
-                  "high_yield": false,
-                  "children": []
-                },
-                {
-                  "id": "node-2-2-1-2",
-                  "text": "Inactivates Factors Va and VIIIa",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                }
-              ]
-            },
-            {
-              "id": "node-2-2-2",
-              "text": "Functional Chromogenic Assay",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "node-2-2-2-1",
-                  "text": "Protac Snake Venom Activation",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-2-2-2-2",
-                  "text": "APC Cleaves Chromogenic Substrate",
-                  "level": 4,
-                  "high_yield": false,
-                  "children": []
-                },
-                {
-                  "id": "node-2-2-2-3",
-                  "text": "Activity Directly Proportional to Absorbance",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                }
-              ]
-            },
-            {
-              "id": "node-2-2-3",
-              "text": "Reference Interval: 70-140%",
-              "level": 3,
-              "high_yield": true,
-              "children": []
-            }
-          ]
-        },
-        {
-          "id": "sub-2-3",
-          "text": "Protein S Assay",
-          "level": 2,
-          "high_yield": true,
-          "children": [
-            {
-              "id": "node-2-3-1",
-              "text": "Circulating Fractions",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "node-2-3-1-1",
-                  "text": "Free Protein S 40%",
+                  "id": "node-at-readout",
+                  "text": "Inverse Optical Relationship",
                   "level": 4,
                   "high_yield": true,
                   "children": [
                     {
-                      "id": "node-2-3-1-1-1",
-                      "text": "Functionally Active APC Cofactor",
+                      "id": "node-at-od",
+                      "text": "Low AT Yields High OD",
                       "level": 5,
-                      "high_yield": true,
-                      "children": []
-                    }
-                  ]
-                },
-                {
-                  "id": "node-2-3-1-2",
-                  "text": "Bound Protein S 60%",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": [
-                    {
-                      "id": "node-2-3-1-2-1",
-                      "text": "Complexed to C4b-Binding Protein",
-                      "level": 5,
-                      "high_yield": false,
-                      "children": []
+                      "high_yield": true
                     },
                     {
-                      "id": "node-2-3-1-2-2",
-                      "text": "Functionally Inactive in Hemostasis",
+                      "id": "node-at-wavelength",
+                      "text": "Measured at 405 nm",
                       "level": 5,
-                      "high_yield": false,
-                      "children": []
+                      "high_yield": false
                     }
                   ]
+                },
+                {
+                  "id": "node-at-ref-range",
+                  "text": "Reference Range 80-120%",
+                  "level": 4,
+                  "high_yield": true
                 }
               ]
             },
             {
-              "id": "node-2-3-2",
-              "text": "Clot-Based Functional Assay",
+              "id": "node-at-deficiency",
+              "text": "Antithrombin Deficiencies",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "node-2-3-2-1",
-                  "text": "Protein S-Deficient Plasma Substrate",
-                  "level": 4,
-                  "high_yield": false,
-                  "children": []
-                },
-                {
-                  "id": "node-2-3-2-2",
-                  "text": "APC Prolongs Clotting Time",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-2-3-2-3",
-                  "text": "Clot Extension Directly Proportional",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                }
-              ]
-            },
-            {
-              "id": "node-2-3-3",
-              "text": "Reference Interval: 60-130%",
-              "level": 3,
-              "high_yield": true,
-              "children": []
-            }
-          ]
-        },
-        {
-          "id": "sub-2-4",
-          "text": "Deficiency Classifications and Pearls",
-          "level": 2,
-          "high_yield": true,
-          "children": [
-            {
-              "id": "node-2-4-1",
-              "text": "Inherited Subtype Patterns",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "node-2-4-1-1",
-                  "text": "Type I Quantitative Deficiency",
+                  "id": "node-at-type1",
+                  "text": "Type I Quantitative Defect",
                   "level": 4,
                   "high_yield": true,
                   "children": [
                     {
-                      "id": "node-2-4-1-1-1",
-                      "text": "Decreased Activity and Antigen",
+                      "id": "node-at-type1-profile",
+                      "text": "Low Activity & Low Antigen",
                       "level": 5,
-                      "high_yield": true,
-                      "children": []
+                      "high_yield": true
                     }
                   ]
                 },
                 {
-                  "id": "node-2-4-1-2",
-                  "text": "Type II Qualitative Deficiency",
+                  "id": "node-at-type2",
+                  "text": "Type II Qualitative Defect",
                   "level": 4,
                   "high_yield": true,
                   "children": [
                     {
-                      "id": "node-2-4-1-2-1",
-                      "text": "Decreased Activity Normal Antigen",
+                      "id": "node-at-type2-profile",
+                      "text": "Low Activity & Normal Antigen",
                       "level": 5,
-                      "high_yield": true,
-                      "children": []
-                    }
-                  ]
-                },
-                {
-                  "id": "node-2-4-1-3",
-                  "text": "Type III Protein S Deficiency",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": [
-                    {
-                      "id": "node-2-4-1-3-1",
-                      "text": "Decreased Free PS Antigen",
-                      "level": 5,
-                      "high_yield": true,
-                      "children": []
+                      "high_yield": true
                     },
                     {
-                      "id": "node-2-4-1-3-2",
-                      "text": "Normal Total PS Antigen",
+                      "id": "node-at-type2-subtypes",
+                      "text": "Reactive vs Heparin-Binding Sites",
                       "level": 5,
-                      "high_yield": true,
-                      "children": []
+                      "high_yield": false
+                    }
+                  ]
+                },
+                {
+                  "id": "node-at-acquired",
+                  "text": "Acquired Antithrombin Deficiency",
+                  "level": 4,
+                  "high_yield": false,
+                  "children": [
+                    {
+                      "id": "node-nephrotic-loss",
+                      "text": "Nephrotic Syndrome Urinary Loss",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-liver-failure",
+                      "text": "Impaired Hepatic Synthesis",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-dic-consumption",
+                      "text": "Acute Consumption in DIC",
+                      "level": 5,
+                      "high_yield": true
                     }
                   ]
                 }
               ]
             },
             {
-              "id": "node-2-4-2",
-              "text": "Warfarin Skin Necrosis Mechanism",
+              "id": "node-at-interference",
+              "text": "DOAC Assay Interference",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "node-2-4-2-1",
-                  "text": "Short Protein C Half-Life",
+                  "id": "node-fxa-inhibit-reagent",
+                  "text": "Direct FXa Inhibitors Neutralize Reagent",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-false-high-at",
+                  "text": "Causes False High AT Activity",
+                  "level": 4,
+                  "high_yield": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sub-pc-ps",
+          "text": "Protein C & Protein S",
+          "level": 2,
+          "high_yield": true,
+          "children": [
+            {
+              "id": "node-pc-pathway",
+              "text": "Anticoagulant Pathway Physiology",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-tm-binding",
+                  "text": "Thrombin Binds Endothelial Thrombomodulin",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-apc-activation",
+                  "text": "Activates Protein C",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-ps-cofactor",
+                  "text": "Protein S Acts as Cofactor",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-fva-fviiia-cleavage",
+                  "text": "Inactivates Factors Va & VIIIa",
+                  "level": 4,
+                  "high_yield": true
+                }
+              ]
+            },
+            {
+              "id": "node-pc-testing",
+              "text": "Protein C Functional Assay",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-protac-activator",
+                  "text": "Snake Venom Activator (Protac)",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-pc-chromogenic",
+                  "text": "Chromogenic Cleavage at 405nm",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-pc-range",
+                  "text": "Reference Range 70-140%",
+                  "level": 4,
+                  "high_yield": false
+                }
+              ]
+            },
+            {
+              "id": "node-ps-testing",
+              "text": "Protein S Functional Assay",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-ps-clot-based",
+                  "text": "Clot-Based Clotting Time Prolongation",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-ps-range",
+                  "text": "Reference Range 60-130%",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-ps-fractions",
+                  "text": "Circulating Protein S Distribution",
                   "level": 4,
                   "high_yield": true,
                   "children": [
                     {
-                      "id": "node-2-4-2-1-1",
-                      "text": "t1/2 Approximately 6 Hours",
+                      "id": "node-ps-free",
+                      "text": "40% Active Free Form",
                       "level": 5,
-                      "high_yield": true,
-                      "children": []
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-ps-bound",
+                      "text": "60% Inactive Bound Form",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-c4bp-binding",
+                      "text": "Bound to C4b-Binding Protein",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "node-pc-ps-subtyping",
+              "text": "Congenital Deficiency Subtypes",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-pc-type1",
+                  "text": "Protein C Type I (Quantitative)",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-pc-type2",
+                  "text": "Protein C Type II (Qualitative)",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-ps-type1",
+                  "text": "Protein S Type I (Quantitative)",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-ps-type2",
+                  "text": "Protein S Type II (Qualitative)",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-ps-type3",
+                  "text": "Protein S Type III (Distributional)",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-type3-profile",
+                      "text": "Low Free & Normal Total",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "node-pc-ps-pearls",
+              "text": "Clinical Pearls & Pitfalls",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-purpura-fulminans",
+                  "text": "Neonatal Purpura Fulminans",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-homozygous-def",
+                      "text": "Homozygous Deficiency Complication",
+                      "level": 5,
+                      "high_yield": true
                     }
                   ]
                 },
                 {
-                  "id": "node-2-4-2-2",
-                  "text": "Temporary Prothrombotic Window",
+                  "id": "node-warfarin-pc-drop",
+                  "text": "Warfarin Causes Transient Hypercoagulability",
                   "level": 4,
                   "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-2-4-2-3",
-                  "text": "Requires Heparin Bridging Therapy",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
+                  "children": [
+                    {
+                      "id": "node-short-t12",
+                      "text": "Short Protein C Half-Life (~8h)",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-necrosis-risk",
+                      "text": "Warfarin-Induced Skin Necrosis",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
                 }
               ]
-            },
+            }
+          ]
+        },
+        {
+          "id": "sub-apcr-genetics",
+          "text": "APCR & Inherited Mutations",
+          "level": 2,
+          "high_yield": true,
+          "children": [
             {
-              "id": "node-2-4-3",
-              "text": "Testing Deferral Window",
+              "id": "node-fvl-mutation",
+              "text": "Factor V Leiden (FVL)",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "node-2-4-3-1",
-                  "text": "Defer 2-4 Weeks Post-Warfarin",
+                  "id": "node-fvl-genetics",
+                  "text": "F5 1691G>A Point Mutation",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-fvl-amino-acid",
+                  "text": "Arg506Gln (R506Q) Substitution",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-apc-cleavage-loss",
+                  "text": "Destroys APC Cleavage Site",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-persistent-thrombin",
+                  "text": "Persistent Thrombin Generation",
+                  "level": 4,
+                  "high_yield": false
+                }
+              ]
+            },
+            {
+              "id": "node-apcr-assay",
+              "text": "Clot-Based APCR Screening",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-apcr-principle",
+                  "text": "Dual aPTT with/without APC",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-apcr-ratio-calc",
+                  "text": "APC Resistance Ratio Calculation",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-apcr-cutoff",
+                  "text": "Abnormal Resistance Ratio <2.0",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-apcr-dilution",
+                  "text": "Pre-Dilute in FV-Deficient Plasma",
+                  "level": 4,
+                  "high_yield": false
+                }
+              ]
+            },
+            {
+              "id": "node-prothrombin-mutation",
+              "text": "Prothrombin G20210A Mutation",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-f2-mutation",
+                  "text": "F2 20210G>A Point Mutation",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-f2-utr",
+                  "text": "Resides in 3' UTR",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-hyperprothrombinemia",
+                  "text": "Elevated Circulating Prothrombin Antigen",
+                  "level": 4,
+                  "high_yield": true
+                }
+              ]
+            },
+            {
+              "id": "node-molecular-methods",
+              "text": "Definitive Molecular PCR",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-pcr-specimen",
+                  "text": "EDTA Whole Blood Specimen",
                   "level": 4,
                   "high_yield": true,
-                  "children": []
+                  "children": [
+                    {
+                      "id": "node-reject-heparin",
+                      "text": "Reject Heparinized Samples",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
+                },
+                {
+                  "id": "node-melt-curve",
+                  "text": "Melt Curve Analysis (Tm)",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-wt-peak",
+                      "text": "Wild-Type Single High Tm",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-het-peaks",
+                      "text": "Heterozygous Dual Tm Peaks",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-homo-peak",
+                      "text": "Homozygous Single Low Tm",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
                 }
               ]
             }
@@ -1739,871 +2013,304 @@
       ]
     },
     {
-      "id": "sec-3",
-      "text": "Genetic Thrombophilias",
+      "id": "sec-immune-thrombophilias",
+      "text": "Acquired Immune Thrombophilias",
       "level": 1,
       "high_yield": true,
       "children": [
         {
-          "id": "sub-3-1",
-          "text": "APC Resistance Screening",
+          "id": "sub-lupus-anticoagulant",
+          "text": "Lupus Anticoagulant (LA)",
           "level": 2,
           "high_yield": true,
           "children": [
             {
-              "id": "node-3-1-1",
-              "text": "Modified aPTT Clot-Based Ratio",
+              "id": "node-la-paradox",
+              "text": "In Vitro vs In Vivo Paradox",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "node-3-1-1-1",
-                  "text": "Time With Exogenous APC",
+                  "id": "node-in-vitro",
+                  "text": "Prolonged Clotting Times In Vitro",
                   "level": 4,
-                  "high_yield": false,
-                  "children": []
+                  "high_yield": true
                 },
                 {
-                  "id": "node-3-1-1-2",
-                  "text": "Divided By Baseline Time",
+                  "id": "node-in-vivo",
+                  "text": "Severe Thrombotic Risk In Vivo",
                   "level": 4,
-                  "high_yield": false,
-                  "children": []
+                  "high_yield": true
+                },
+                {
+                  "id": "node-antibody-targets",
+                  "text": "Antiphospholipid-Protein Autoantibodies",
+                  "level": 4,
+                  "high_yield": false
                 }
               ]
             },
             {
-              "id": "node-3-1-2",
-              "text": "Ratio Interpretation",
+              "id": "node-isth-framework",
+              "text": "ISTH Multi-Step Algorithm",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "node-3-1-2-1",
-                  "text": "Normal Ratio >= 2.0",
+                  "id": "node-step1-screen",
+                  "text": "Step 1: Prolonged Screening Test",
                   "level": 4,
                   "high_yield": true,
-                  "children": []
+                  "children": [
+                    {
+                      "id": "node-screen-drvvt",
+                      "text": "dRVVT Screen (Low Phospholipid)",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-screen-aptt",
+                      "text": "LA-Sensitive aPTT Reagent",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
                 },
                 {
-                  "id": "node-3-1-2-2",
-                  "text": "Abnormal Resistant Ratio < 2.0",
+                  "id": "node-step2-mix",
+                  "text": "Step 2: 1:1 Mixing Study",
                   "level": 4,
                   "high_yield": true,
-                  "children": []
+                  "children": [
+                    {
+                      "id": "node-mix-npp",
+                      "text": "Mix with Normal Plasma",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-mix-fail",
+                      "text": "Failure to Correct (Inhibitor)",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
+                },
+                {
+                  "id": "node-step3-confirm",
+                  "text": "Step 3: Confirmatory Neutralization",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-excess-pl",
+                      "text": "Add Excess Phospholipids",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-hexagonal-pl",
+                      "text": "Hexagonal Phase Phosphatidylethanolamine",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-normalized-ratio",
+                      "text": "Normalized Ratio >1.20 Confirms",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
+                },
+                {
+                  "id": "node-step4-exclude",
+                  "text": "Step 4: Exclude Specific Inhibitors",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-exclude-fviii",
+                      "text": "Rule Out Factor VIII Inhibitors",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-exclude-anticoag",
+                      "text": "Rule Out Heparin/DOAC Effects",
+                      "level": 5,
+                      "high_yield": false
+                    }
+                  ]
                 }
               ]
             },
             {
-              "id": "node-3-1-3",
-              "text": "Anticoagulant Invalidation",
+              "id": "node-aps-criteria",
+              "text": "Antiphospholipid Syndrome Criteria",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "node-3-1-3-1",
-                  "text": "Heparin and DOACs Interfere",
+                  "id": "node-repeat-12w",
+                  "text": "Retest at >=12 Weeks",
                   "level": 4,
-                  "high_yield": true,
-                  "children": []
+                  "high_yield": true
+                },
+                {
+                  "id": "node-transient-causes",
+                  "text": "Rules Out Transient Infection",
+                  "level": 4,
+                  "high_yield": false
                 }
               ]
             }
           ]
         },
         {
-          "id": "sub-3-2",
-          "text": "Factor V Leiden (F5)",
+          "id": "sub-hit",
+          "text": "Heparin-Induced Thrombocytopenia",
           "level": 2,
           "high_yield": true,
           "children": [
             {
-              "id": "node-3-2-1",
-              "text": "Molecular Defect",
+              "id": "node-hit-pathophys",
+              "text": "HIT Type II Pathophysiology",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "node-3-2-1-1",
-                  "text": "Point Mutation c.1691G>A",
+                  "id": "node-pf4-release",
+                  "text": "Platelet Factor 4 (PF4) Release",
                   "level": 4,
-                  "high_yield": true,
-                  "children": []
+                  "high_yield": false
                 },
                 {
-                  "id": "node-3-2-1-2",
-                  "text": "Codon Substitution R506Q",
+                  "id": "node-h-pf4-complex",
+                  "text": "Heparin-PF4 Macromolecular Complexes",
                   "level": 4,
-                  "high_yield": true,
-                  "children": []
+                  "high_yield": true
                 },
                 {
-                  "id": "node-3-2-1-3",
-                  "text": "Glutamine Replaces Arginine",
-                  "level": 4,
-                  "high_yield": false,
-                  "children": []
-                }
-              ]
-            },
-            {
-              "id": "node-3-2-2",
-              "text": "Pathophysiology",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "node-3-2-2-1",
-                  "text": "Loss of APC Cleavage Site",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-3-2-2-2",
-                  "text": "Sustained Thrombin Generation",
-                  "level": 4,
-                  "high_yield": false,
-                  "children": []
-                }
-              ]
-            },
-            {
-              "id": "node-3-2-3",
-              "text": "VTE Lifetime Risk",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "node-3-2-3-1",
-                  "text": "Heterozygous 5-7 Fold Increase",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-3-2-3-2",
-                  "text": "Homozygous 50-80 Fold Increase",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "id": "sub-3-3",
-          "text": "Prothrombin G20210A (F2)",
-          "level": 2,
-          "high_yield": true,
-          "children": [
-            {
-              "id": "node-3-3-1",
-              "text": "Molecular Defect",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "node-3-3-1-1",
-                  "text": "c.20210G>A Point Mutation",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-3-3-1-2",
-                  "text": "3' Untranslated Region (UTR)",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                }
-              ]
-            },
-            {
-              "id": "node-3-3-2",
-              "text": "Pathophysiology",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "node-3-3-2-1",
-                  "text": "Increased mRNA Polyadenylation Stability",
-                  "level": 4,
-                  "high_yield": false,
-                  "children": []
-                },
-                {
-                  "id": "node-3-3-2-2",
-                  "text": "Plasma Hyperprothrombinemia 120-150%",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-3-3-2-3",
-                  "text": "Normal Baseline PT and aPTT",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                }
-              ]
-            },
-            {
-              "id": "node-3-3-3",
-              "text": "Heterozygous VTE Risk 2-3 Fold",
-              "level": 3,
-              "high_yield": true,
-              "children": []
-            }
-          ]
-        },
-        {
-          "id": "sub-3-4",
-          "text": "Molecular Pre-Analytical Requisites",
-          "level": 2,
-          "high_yield": true,
-          "children": [
-            {
-              "id": "node-3-4-1",
-              "text": "K2-EDTA Lavender Tube Required",
-              "level": 3,
-              "high_yield": true,
-              "children": []
-            },
-            {
-              "id": "node-3-4-2",
-              "text": "Sodium Heparin Tubes Unacceptable",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "node-3-4-2-1",
-                  "text": "Heparin Inhibits Taq Polymerase",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "sec-4",
-      "text": "Lupus Anticoagulant Diagnostic Pathway",
-      "level": 1,
-      "high_yield": true,
-      "children": [
-        {
-          "id": "sub-4-1",
-          "text": "Lupus Anticoagulant Paradox",
-          "level": 2,
-          "high_yield": true,
-          "children": [
-            {
-              "id": "node-4-1-1",
-              "text": "In Vitro Clot Prolongation",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "node-4-1-1-1",
-                  "text": "Binds Reagent Phospholipids",
-                  "level": 4,
-                  "high_yield": false,
-                  "children": []
-                }
-              ]
-            },
-            {
-              "id": "node-4-1-2",
-              "text": "In Vivo Thrombotic Risk",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "node-4-1-2-1",
-                  "text": "Arterial and Venous Thrombosis",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-4-1-2-2",
-                  "text": "Recurrent Pregnancy Losses",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "id": "sub-4-2",
-          "text": "Step 1: Phospholipid Screening",
-          "level": 2,
-          "high_yield": true,
-          "children": [
-            {
-              "id": "node-4-2-1",
-              "text": "dRVVT Screen Assay",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "node-4-2-1-1",
-                  "text": "Direct Factor X Activation",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-4-2-1-2",
-                  "text": "Bypasses Contact Factor Deficiencies",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-4-2-1-3",
-                  "text": "Low Limiting Phospholipid Reagent",
-                  "level": 4,
-                  "high_yield": false,
-                  "children": []
-                }
-              ]
-            },
-            {
-              "id": "node-4-2-2",
-              "text": "LA-Sensitive aPTT Assay",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "node-4-2-2-1",
-                  "text": "Silica Activator Low Phospholipid",
-                  "level": 4,
-                  "high_yield": false,
-                  "children": []
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "id": "sub-4-3",
-          "text": "Step 2: 1:1 Mixing Study",
-          "level": 2,
-          "high_yield": true,
-          "children": [
-            {
-              "id": "node-4-3-1",
-              "text": "Equal Patient and Pooled Plasma",
-              "level": 3,
-              "high_yield": false,
-              "children": []
-            },
-            {
-              "id": "node-4-3-2",
-              "text": "Mixing Interpretation",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "node-4-3-2-1",
-                  "text": "Correction Indicates Factor Deficiency",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-4-3-2-2",
-                  "text": "Non-Correction Confirms Circulating Inhibitor",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "id": "sub-4-4",
-          "text": "Step 3: Phospholipid Confirmation",
-          "level": 2,
-          "high_yield": true,
-          "children": [
-            {
-              "id": "node-4-4-1",
-              "text": "dRVVT Confirm Reagent",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "node-4-4-1-1",
-                  "text": "High Excess Bilayer Phospholipids",
-                  "level": 4,
-                  "high_yield": false,
-                  "children": []
-                },
-                {
-                  "id": "node-4-4-1-2",
-                  "text": "Saturates and Neutralizes Antibodies",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-4-4-1-3",
-                  "text": "Significant Clotting Time Shortening",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                }
-              ]
-            },
-            {
-              "id": "node-4-4-2",
-              "text": "Normalized Ratio Calculation",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "node-4-4-2-1",
-                  "text": "Screen Ratio Divided By Confirm",
-                  "level": 4,
-                  "high_yield": false,
-                  "children": []
-                },
-                {
-                  "id": "node-4-4-2-2",
-                  "text": "Positive Cut-Off Ratio > 1.20",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "id": "sub-4-5",
-          "text": "Differential and Quality Assurance",
-          "level": 2,
-          "high_yield": true,
-          "children": [
-            {
-              "id": "node-4-5-1",
-              "text": "Lupus vs Factor VIII Inhibitor",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "node-4-5-1-1",
-                  "text": "LA Presents with Thrombosis",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-4-5-1-2",
-                  "text": "FVIII Inhibitor Causes Severe Bleeding",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-4-5-1-3",
-                  "text": "FVIII Inhibitor Phospholipid Negative",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-4-5-1-4",
-                  "text": "Bethesda Assay Positive in FVIII",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                }
-              ]
-            },
-            {
-              "id": "node-4-5-2",
-              "text": "Double-Centrifuged Platelet-Poor Plasma",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "node-4-5-2-1",
-                  "text": "Residual Platelets < 10x10^3/uL",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-4-5-2-2",
-                  "text": "Prevents Freeze-Thaw Membrane Lysis",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-4-5-2-3",
-                  "text": "Prevents False Negative Screens",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                }
-              ]
-            },
-            {
-              "id": "node-4-5-3",
-              "text": "Twelve-Week Confirmation Rule",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "node-4-5-3-1",
-                  "text": "Repeat Testing After 12 Weeks",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-4-5-3-2",
-                  "text": "Excludes Transient Viral Antiphospholipids",
-                  "level": 4,
-                  "high_yield": false,
-                  "children": []
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "sec-5",
-      "text": "Heparin-Induced Thrombocytopenia Testing",
-      "level": 1,
-      "high_yield": true,
-      "children": [
-        {
-          "id": "sub-5-1",
-          "text": "HIT Pathophysiology",
-          "level": 2,
-          "high_yield": true,
-          "children": [
-            {
-              "id": "node-5-1-1",
-              "text": "PF4-Heparin Complex Formation",
-              "level": 3,
-              "high_yield": false,
-              "children": [
-                {
-                  "id": "node-5-1-1-1",
-                  "text": "Chemokine CXCL4 Positively Charged",
-                  "level": 4,
-                  "high_yield": false,
-                  "children": []
-                },
-                {
-                  "id": "node-5-1-1-2",
-                  "text": "UFH Greater Risk Than LMWH",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                }
-              ]
-            },
-            {
-              "id": "node-5-1-2",
-              "text": "Platelet Fc-Gamma-RIIa Cross-Linking",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "node-5-1-2-1",
+                  "id": "node-hit-igg",
                   "text": "Pathogenic Anti-H-PF4 IgG",
                   "level": 4,
-                  "high_yield": true,
-                  "children": []
+                  "high_yield": true
                 },
                 {
-                  "id": "node-5-1-2-2",
-                  "text": "Widespread Platelet Activation",
+                  "id": "node-cd32-crosslink",
+                  "text": "FcgammaRIIa (CD32) Receptor Cross-Linking",
                   "level": 4,
-                  "high_yield": false,
-                  "children": []
+                  "high_yield": true
                 },
                 {
-                  "id": "node-5-1-2-3",
-                  "text": "Procoagulant Microparticle Shedding",
+                  "id": "node-hit-thrombosis",
+                  "text": "Massive Thrombin & Platelet Activation",
                   "level": 4,
-                  "high_yield": false,
-                  "children": []
+                  "high_yield": true
                 }
               ]
             },
             {
-              "id": "node-5-1-3",
-              "text": "Clinical Outcomes",
+              "id": "node-hit-clinical",
+              "text": "Clinical Presentation & 4Ts",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "node-5-1-3-1",
-                  "text": "Paradoxical Arterial Venous Thrombosis",
+                  "id": "node-plt-drop",
+                  "text": "Platelet Drop >50% Baseline",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-hit-timing",
+                  "text": "Onset Days 5-10 Post-Exposure",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-4t-score",
+                  "text": "4Ts Pre-Test Probability Score",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-hit-tx-switch",
+                  "text": "Switch to Non-Heparin Anticoagulant",
                   "level": 4,
                   "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-5-1-3-2",
-                  "text": "Consumptive Thrombocytopenia > 50% Drop",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "id": "sub-5-2",
-          "text": "4Ts Pre-Test Probability Score",
-          "level": 2,
-          "high_yield": true,
-          "children": [
-            {
-              "id": "node-5-2-1",
-              "text": "Four Clinical Parameters",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "node-5-2-1-1",
-                  "text": "Thrombocytopenia Magnitude",
-                  "level": 4,
-                  "high_yield": false,
-                  "children": []
-                },
-                {
-                  "id": "node-5-2-1-2",
-                  "text": "Timing Days 5-10 Onset",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-5-2-1-3",
-                  "text": "Thrombosis Sequelae Presence",
-                  "level": 4,
-                  "high_yield": false,
-                  "children": []
-                },
-                {
-                  "id": "node-5-2-1-4",
-                  "text": "oTher Causes Excluded",
-                  "level": 4,
-                  "high_yield": false,
-                  "children": []
-                }
-              ]
-            },
-            {
-              "id": "node-5-2-2",
-              "text": "Risk Scoring Strata",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "node-5-2-2-1",
-                  "text": "Low Score 0-3 Points",
-                  "level": 4,
-                  "high_yield": false,
                   "children": [
                     {
-                      "id": "node-5-2-2-1-1",
-                      "text": "Discontinue HIT Workup",
+                      "id": "node-argatroban",
+                      "text": "Administer Direct Thrombin Inhibitor",
                       "level": 5,
-                      "high_yield": false,
-                      "children": []
+                      "high_yield": true
                     }
                   ]
-                },
-                {
-                  "id": "node-5-2-2-2",
-                  "text": "Intermediate Score 4-5 Points",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": [
-                    {
-                      "id": "node-5-2-2-2-1",
-                      "text": "Stop Heparin Order Workup",
-                      "level": 5,
-                      "high_yield": true,
-                      "children": []
-                    }
-                  ]
-                },
-                {
-                  "id": "node-5-2-2-3",
-                  "text": "High Score 6-8 Points",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "id": "sub-5-3",
-          "text": "Stage 1: PF4 Immunoassay (ELISA)",
-          "level": 2,
-          "high_yield": true,
-          "children": [
-            {
-              "id": "node-5-3-1",
-              "text": "Methodology Principle",
-              "level": 3,
-              "high_yield": false,
-              "children": [
-                {
-                  "id": "node-5-3-1-1",
-                  "text": "Solid-Phase Recombinant PF4-Heparin Wells",
-                  "level": 4,
-                  "high_yield": false,
-                  "children": []
-                },
-                {
-                  "id": "node-5-3-1-2",
-                  "text": "Spectrophotometric OD at 450nm",
-                  "level": 4,
-                  "high_yield": false,
-                  "children": []
                 }
               ]
             },
             {
-              "id": "node-5-3-2",
-              "text": "Optical Density Interpretation",
+              "id": "node-hit-laboratory",
+              "text": "HIT Diagnostic Assays",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "node-5-3-2-1",
-                  "text": "OD < 0.400 Units Negative",
+                  "id": "node-elisa-screen",
+                  "text": "PF4/Heparin Immunoassay (ELISA)",
                   "level": 4,
                   "high_yield": true,
                   "children": [
                     {
-                      "id": "node-5-3-2-1-1",
-                      "text": "Rules Out HIT NPV > 99%",
+                      "id": "node-elisa-sens",
+                      "text": "High Sensitivity / Modest Specificity",
                       "level": 5,
-                      "high_yield": true,
-                      "children": []
-                    }
-                  ]
-                },
-                {
-                  "id": "node-5-3-2-2",
-                  "text": "OD 0.400-1.000 Intermediate Positive",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-5-3-2-3",
-                  "text": "OD > 1.000 Strong Positive",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                }
-              ]
-            },
-            {
-              "id": "node-5-3-3",
-              "text": "High Sensitivity Low Specificity",
-              "level": 3,
-              "high_yield": true,
-              "children": []
-            }
-          ]
-        },
-        {
-          "id": "sub-5-4",
-          "text": "Stage 2: Serotonin Release Assay",
-          "level": 2,
-          "high_yield": true,
-          "children": [
-            {
-              "id": "node-5-4-1",
-              "text": "Gold Standard Functional Test",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "node-5-4-1-1",
-                  "text": "14C-Serotonin Labeled Donor Platelets",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-5-4-1-2",
-                  "text": "Heat-Inactivated Patient Serum",
-                  "level": 4,
-                  "high_yield": false,
-                  "children": []
-                }
-              ]
-            },
-            {
-              "id": "node-5-4-2",
-              "text": "Heparin Concentration Conditions",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "node-5-4-2-1",
-                  "text": "Low Heparin 0.1-0.2 IU/mL",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": [
-                    {
-                      "id": "node-5-4-2-1-1",
-                      "text": "Diagnostic Release > 20%",
-                      "level": 5,
-                      "high_yield": true,
-                      "children": []
-                    }
-                  ]
-                },
-                {
-                  "id": "node-5-4-2-2",
-                  "text": "High Heparin 100 IU/mL",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": [
-                    {
-                      "id": "node-5-4-2-2-1",
-                      "text": "Displaces PF4 Suppressing Release",
-                      "level": 5,
-                      "high_yield": true,
-                      "children": []
+                      "high_yield": false
                     },
                     {
-                      "id": "node-5-4-2-2-2",
-                      "text": "Diagnostic Suppression < 20%",
+                      "id": "node-elisa-neg",
+                      "text": "Negative When OD <0.400",
                       "level": 5,
-                      "high_yield": true,
-                      "children": []
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-elisa-pos",
+                      "text": "High Positive When OD >1.000",
+                      "level": 5,
+                      "high_yield": true
+                    }
+                  ]
+                },
+                {
+                  "id": "node-sra-gold",
+                  "text": "Serotonin Release Assay (SRA)",
+                  "level": 4,
+                  "high_yield": true,
+                  "children": [
+                    {
+                      "id": "node-sra-standard",
+                      "text": "Gold Standard Functional Test",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-c14-serotonin",
+                      "text": "Measures 14C-Serotonin Donor Release",
+                      "level": 5,
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-sra-low-dose",
+                      "text": ">20% Release at 0.1-0.3 IU/mL",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-sra-high-dose",
+                      "text": ">50% Inhibition at 100 IU/mL",
+                      "level": 5,
+                      "high_yield": true
                     }
                   ]
                 }
@@ -2614,445 +2321,416 @@
       ]
     },
     {
-      "id": "sec-6",
-      "text": "Anticoagulant and Antiplatelet Monitoring",
+      "id": "sec-antithrombotic-monitoring",
+      "text": "Antithrombotic Monitoring",
       "level": 1,
       "high_yield": true,
       "children": [
         {
-          "id": "sub-6-1",
-          "text": "Warfarin Monitoring",
+          "id": "sub-warfarin",
+          "text": "Vitamin K Antagonists (Warfarin)",
           "level": 2,
           "high_yield": true,
           "children": [
             {
-              "id": "node-6-1-1",
-              "text": "Biochemical Mechanism",
-              "level": 3,
-              "high_yield": false,
-              "children": [
-                {
-                  "id": "node-6-1-1-1",
-                  "text": "Inhibits Hepatic VKORC1 Enzyme",
-                  "level": 4,
-                  "high_yield": false,
-                  "children": []
-                },
-                {
-                  "id": "node-6-1-1-2",
-                  "text": "Blocks Factors II VII IX X",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-6-1-1-3",
-                  "text": "Factor VII Early Reduction",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                }
-              ]
-            },
-            {
-              "id": "node-6-1-2",
-              "text": "PT / INR Assay Standardization",
+              "id": "node-vka-mech",
+              "text": "Mechanism of Action",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "node-6-1-2-1",
-                  "text": "Patient PT Over Mean Normal",
+                  "id": "node-vkorc1",
+                  "text": "Inhibits VKORC1 Enzyme",
                   "level": 4,
-                  "high_yield": false,
-                  "children": []
+                  "high_yield": true
                 },
                 {
-                  "id": "node-6-1-2-2",
-                  "text": "Raised to Power of ISI",
+                  "id": "node-gamma-carboxylation",
+                  "text": "Halts Gamma-Carboxylation of Factors",
                   "level": 4,
-                  "high_yield": true,
-                  "children": []
+                  "high_yield": true
                 },
                 {
-                  "id": "node-6-1-2-3",
-                  "text": "Standard Target INR 2.0-3.0",
+                  "id": "node-vka-factors",
+                  "text": "Depletes II, VII, IX, X",
                   "level": 4,
-                  "high_yield": true,
-                  "children": []
+                  "high_yield": true
                 },
                 {
-                  "id": "node-6-1-2-4",
-                  "text": "Mechanical Valve INR 2.5-3.5",
+                  "id": "node-fvii-decline",
+                  "text": "Factor VII Declines First",
                   "level": 4,
-                  "high_yield": true,
-                  "children": []
+                  "high_yield": true
+                }
+              ]
+            },
+            {
+              "id": "node-inr-calc",
+              "text": "PT / INR Standardization",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-inr-formula",
+                  "text": "INR Formula (PT/MNPT)^ISI",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-mnpt",
+                  "text": "Mean Normal Prothrombin Time",
+                  "level": 4,
+                  "high_yield": false
+                },
+                {
+                  "id": "node-isi",
+                  "text": "International Sensitivity Index",
+                  "level": 4,
+                  "high_yield": true
+                }
+              ]
+            },
+            {
+              "id": "node-inr-targets",
+              "text": "Therapeutic Target Ranges",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-standard-vte",
+                  "text": "INR 2.0-3.0 (Routine VTE/AFib)",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-valve-target",
+                  "text": "INR 2.5-3.5 (Mechanical Valves)",
+                  "level": 4,
+                  "high_yield": true
                 }
               ]
             }
           ]
         },
         {
-          "id": "sub-6-2",
-          "text": "Heparin Therapy Monitoring",
+          "id": "sub-heparins",
+          "text": "Heparin Monitoring (UFH vs LMWH)",
           "level": 2,
           "high_yield": true,
           "children": [
             {
-              "id": "node-6-2-1",
-              "text": "Unfractionated Heparin (UFH)",
+              "id": "node-ufh-lmwh-mech",
+              "text": "Anticoagulant Mechanisms",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "node-6-2-1-1",
-                  "text": "Equal IIa and Xa Inhibition",
+                  "id": "node-pentasaccharide",
+                  "text": "Allosteric Pentasaccharide AT Activation",
                   "level": 4,
-                  "high_yield": false,
-                  "children": []
+                  "high_yield": false
                 },
                 {
-                  "id": "node-6-2-1-2",
-                  "text": "Monitored via aPTT Assay",
+                  "id": "node-ufh-ratio",
+                  "text": "UFH: 1:1 Anti-Xa to Anti-IIa",
                   "level": 4,
-                  "high_yield": true,
-                  "children": []
+                  "high_yield": true
                 },
                 {
-                  "id": "node-6-2-1-3",
-                  "text": "UFH Anti-Xa 0.3-0.7 IU/mL",
+                  "id": "node-lmwh-ratio",
+                  "text": "LMWH: 2:1-4:1 Anti-Xa to Anti-IIa",
                   "level": 4,
-                  "high_yield": true,
-                  "children": []
+                  "high_yield": true
                 }
               ]
             },
             {
-              "id": "node-6-2-2",
-              "text": "Low-Molecular-Weight Heparin (LMWH)",
+              "id": "node-anti-xa-assay",
+              "text": "Chromogenic Anti-Xa Assay",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "node-6-2-2-1",
-                  "text": "Anti-Xa Greater Than Anti-IIa",
+                  "id": "node-anti-xa-mech",
+                  "text": "Measures Residual FXa Cleavage",
                   "level": 4,
-                  "high_yield": false,
-                  "children": []
+                  "high_yield": false
                 },
                 {
-                  "id": "node-6-2-2-2",
-                  "text": "Does Not Prolong aPTT",
+                  "id": "node-anti-xa-optical",
+                  "text": "Inverse Optical Density at 405nm",
                   "level": 4,
-                  "high_yield": true,
-                  "children": []
+                  "high_yield": true
                 },
                 {
-                  "id": "node-6-2-2-3",
-                  "text": "LMWH-Calibrated Anti-Xa Assay",
+                  "id": "node-ufh-target",
+                  "text": "UFH Target 0.3-0.7 IU/mL",
                   "level": 4,
-                  "high_yield": true,
-                  "children": []
+                  "high_yield": true
                 },
                 {
-                  "id": "node-6-2-2-4",
-                  "text": "Peak Level Draw Timing",
+                  "id": "node-lmwh-target",
+                  "text": "LMWH Target (Peak 4-6h Post-Dose)",
                   "level": 4,
                   "high_yield": true,
                   "children": [
                     {
-                      "id": "node-6-2-2-4-1",
-                      "text": "Strictly 4 Hours Post-Dose",
+                      "id": "node-lmwh-bid",
+                      "text": "0.5-1.0 IU/mL (BID Dosing)",
                       "level": 5,
-                      "high_yield": true,
-                      "children": []
+                      "high_yield": true
                     },
                     {
-                      "id": "node-6-2-2-4-2",
-                      "text": "Target BID 0.5-1.0 IU/mL",
+                      "id": "node-lmwh-qd",
+                      "text": "1.0-2.0 IU/mL (QD Dosing)",
                       "level": 5,
-                      "high_yield": true,
-                      "children": []
-                    },
-                    {
-                      "id": "node-6-2-2-4-3",
-                      "text": "Target QD 1.0-2.0 IU/mL",
-                      "level": 5,
-                      "high_yield": true,
-                      "children": []
+                      "high_yield": false
                     }
                   ]
+                }
+              ]
+            },
+            {
+              "id": "node-heparin-resist",
+              "text": "Heparin Resistance Differentiation",
+              "level": 3,
+              "high_yield": true,
+              "children": [
+                {
+                  "id": "node-fviii-fibrinogen",
+                  "text": "Elevated FVIII Blunts aPTT",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-switch-antixa",
+                  "text": "Resolve Discrepancy with Anti-Xa",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-at-def-resist",
+                  "text": "AT Deficiency Causes True Refractoriness",
+                  "level": 4,
+                  "high_yield": false
                 }
               ]
             }
           ]
         },
         {
-          "id": "sub-6-3",
-          "text": "DOAC Laboratory Testing",
+          "id": "sub-doacs",
+          "text": "Direct Oral Anticoagulants (DOACs)",
           "level": 2,
           "high_yield": true,
           "children": [
             {
-              "id": "node-6-3-1",
-              "text": "Direct Anti-Xa Inhibitors",
+              "id": "node-direct-fxa",
+              "text": "Direct FXa Inhibitors",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "node-6-3-1-1",
-                  "text": "Rivaroxaban and Apixaban",
+                  "id": "node-fxa-drugs",
+                  "text": "Rivaroxaban, Apixaban, Edoxaban",
                   "level": 4,
-                  "high_yield": false,
-                  "children": []
+                  "high_yield": false
                 },
                 {
-                  "id": "node-6-3-1-2",
-                  "text": "Drug-Specific Calibrated Anti-Xa",
+                  "id": "node-fxa-quant",
+                  "text": "Calibrated Drug-Specific Anti-Xa",
                   "level": 4,
-                  "high_yield": true,
-                  "children": []
+                  "high_yield": true
+                },
+                {
+                  "id": "node-no-inr-fxa",
+                  "text": "Never Use or Report INR",
+                  "level": 4,
+                  "high_yield": true
                 }
               ]
             },
             {
-              "id": "node-6-3-2",
-              "text": "Direct Thrombin Inhibitors",
+              "id": "node-direct-fiia",
+              "text": "Direct Thrombin Inhibitors (Dabigatran)",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "node-6-3-2-1",
-                  "text": "Dabigatran Target",
+                  "id": "node-tt-screen",
+                  "text": "Normal Thrombin Time Rules Out",
                   "level": 4,
-                  "high_yield": false,
-                  "children": []
+                  "high_yield": true
                 },
                 {
-                  "id": "node-6-3-2-2",
+                  "id": "node-tt-extreme",
+                  "text": "Prolongs Routine TT >100s",
+                  "level": 4,
+                  "high_yield": true
+                },
+                {
+                  "id": "node-dtt-quant",
                   "text": "Dilute Thrombin Time (dTT)",
                   "level": 4,
-                  "high_yield": true,
-                  "children": []
+                  "high_yield": true
                 },
                 {
-                  "id": "node-6-3-2-3",
+                  "id": "node-ecarin-quant",
                   "text": "Ecarin Chromogenic Assay (ECA)",
                   "level": 4,
-                  "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-6-3-2-4",
-                  "text": "Normal TT Excludes Dabigatran",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
+                  "high_yield": false
                 }
               ]
             }
           ]
         },
         {
-          "id": "sub-6-4",
-          "text": "Antiplatelet Agent Monitoring",
+          "id": "sub-antiplatelet",
+          "text": "Antiplatelet Monitoring Assays",
           "level": 2,
           "high_yield": true,
           "children": [
             {
-              "id": "node-6-4-1",
-              "text": "Aspirin Therapy",
+              "id": "node-aspirin-monitor",
+              "text": "Aspirin Therapy Monitoring",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "node-6-4-1-1",
-                  "text": "Irreversible COX-1 Ser-529 Acetylation",
+                  "id": "node-cox1-inhibit",
+                  "text": "Irreversible Acetylation of COX-1",
                   "level": 4,
-                  "high_yield": false,
-                  "children": []
+                  "high_yield": true
                 },
                 {
-                  "id": "node-6-4-1-2",
-                  "text": "Blocks Thromboxane A2 Generation",
+                  "id": "node-txa2-loss",
+                  "text": "Blocks Thromboxane A2 Production",
                   "level": 4,
-                  "high_yield": true,
-                  "children": []
+                  "high_yield": false
                 },
                 {
-                  "id": "node-6-4-1-3",
-                  "text": "VerifyNow Aspirin Assay",
+                  "id": "node-verifynow-aspirin",
+                  "text": "VerifyNow Aspirin Cartridge",
                   "level": 4,
                   "high_yield": true,
                   "children": [
                     {
-                      "id": "node-6-4-1-3-1",
+                      "id": "node-aa-agonist",
                       "text": "Arachidonic Acid Agonist",
                       "level": 5,
-                      "high_yield": true,
-                      "children": []
+                      "high_yield": false
                     },
                     {
-                      "id": "node-6-4-1-3-2",
-                      "text": "Effective Response < 550 ARU",
+                      "id": "node-aru-cutoff",
+                      "text": "Therapeutic Cutoff <550 ARU",
                       "level": 5,
-                      "high_yield": true,
-                      "children": []
-                    },
-                    {
-                      "id": "node-6-4-1-3-3",
-                      "text": "Resistance >= 550 ARU",
-                      "level": 5,
-                      "high_yield": true,
-                      "children": []
+                      "high_yield": true
                     }
                   ]
+                },
+                {
+                  "id": "node-lta-aspirin",
+                  "text": "LTA: Absent AA Aggregation",
+                  "level": 4,
+                  "high_yield": true
                 }
               ]
             },
             {
-              "id": "node-6-4-2",
-              "text": "P2Y12 Receptor Antagonists",
+              "id": "node-p2y12-monitor",
+              "text": "P2Y12 Inhibitor Monitoring",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "node-6-4-2-1",
-                  "text": "Clopidogrel and Ticagrelor",
+                  "id": "node-p2y12-drugs",
+                  "text": "Clopidogrel, Prasugrel, Ticagrelor",
                   "level": 4,
-                  "high_yield": false,
-                  "children": []
+                  "high_yield": false
                 },
                 {
-                  "id": "node-6-4-2-2",
-                  "text": "Blocks ADP-Induced Aggregation",
+                  "id": "node-adp-blockade",
+                  "text": "Blocks Platelet Gi Pathway",
                   "level": 4,
-                  "high_yield": false,
-                  "children": []
+                  "high_yield": false
                 },
                 {
-                  "id": "node-6-4-2-3",
-                  "text": "VerifyNow P2Y12 Assay",
+                  "id": "node-verifynow-p2y12",
+                  "text": "VerifyNow P2Y12 Cartridge",
                   "level": 4,
                   "high_yield": true,
                   "children": [
                     {
-                      "id": "node-6-4-2-3-1",
-                      "text": "ADP and PGE1 Agonists",
+                      "id": "node-pge1-role",
+                      "text": "PGE1 Suppresses P2Y1 Noise",
                       "level": 5,
-                      "high_yield": false,
-                      "children": []
+                      "high_yield": true
                     },
                     {
-                      "id": "node-6-4-2-3-2",
-                      "text": "Effective Response < 208 PRU",
+                      "id": "node-pru-cutoff",
+                      "text": "Therapeutic Cutoff <208 PRU",
                       "level": 5,
-                      "high_yield": true,
-                      "children": []
-                    },
-                    {
-                      "id": "node-6-4-2-3-3",
-                      "text": "Resistance >= 208 PRU",
-                      "level": 5,
-                      "high_yield": true,
-                      "children": []
+                      "high_yield": true
                     }
                   ]
+                },
+                {
+                  "id": "node-lta-p2y12",
+                  "text": "LTA: Abolished ADP Secondary Wave",
+                  "level": 4,
+                  "high_yield": true
                 }
               ]
             },
             {
-              "id": "node-6-4-3",
-              "text": "Light Transmission Aggregometry (LTA)",
+              "id": "node-hpr-troubleshooting",
+              "text": "Platelet Function Troubleshooting",
               "level": 3,
               "high_yield": true,
               "children": [
                 {
-                  "id": "node-6-4-3-1",
-                  "text": "Platelet-Rich Plasma Reference Method",
-                  "level": 4,
-                  "high_yield": false,
-                  "children": []
-                },
-                {
-                  "id": "node-6-4-3-2",
-                  "text": "Absent Arachidonic Acid Aggregation",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "id": "sub-6-5",
-          "text": "Pre-Analytical Quality Assurance",
-          "level": 2,
-          "high_yield": true,
-          "children": [
-            {
-              "id": "node-6-5-1",
-              "text": "3.2% Sodium Citrate Ratio",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "node-6-5-1-1",
-                  "text": "Strict 9:1 Blood-to-Anticoagulant Ratio",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
-                },
-                {
-                  "id": "node-6-5-1-2",
-                  "text": "Reject Underfill < 90%",
+                  "id": "node-hpr-causes",
+                  "text": "High On-Treatment Platelet Reactivity",
                   "level": 4,
                   "high_yield": true,
                   "children": [
                     {
-                      "id": "node-6-5-1-2-1",
-                      "text": "Excess Citrate Binds Reagent Calcium",
+                      "id": "node-cyp2c19",
+                      "text": "CYP2C19 Loss-of-Function Polymorphisms",
                       "level": 5,
-                      "high_yield": true,
-                      "children": []
+                      "high_yield": true
                     },
                     {
-                      "id": "node-6-5-1-2-2",
-                      "text": "Artificially Prolongs Clotting Times",
+                      "id": "node-noncompliance",
+                      "text": "Patient Medication Non-Compliance",
                       "level": 5,
-                      "high_yield": true,
-                      "children": []
+                      "high_yield": false
                     }
                   ]
-                }
-              ]
-            },
-            {
-              "id": "node-6-5-2",
-              "text": "High Hematocrit Citrate Adjustment",
-              "level": 3,
-              "high_yield": true,
-              "children": [
-                {
-                  "id": "node-6-5-2-1",
-                  "text": "Required When HCT > 55%",
-                  "level": 4,
-                  "high_yield": true,
-                  "children": []
                 },
                 {
-                  "id": "node-6-5-2-2",
-                  "text": "Correction Calculation Formula",
+                  "id": "node-plt-preanalytics",
+                  "text": "Pre-Analytical Lab Restrictions",
                   "level": 4,
                   "high_yield": true,
                   "children": [
                     {
-                      "id": "node-6-5-2-2-1",
-                      "text": "C = 0.00185x(100-HCT)xV",
+                      "id": "node-ambient-rest",
+                      "text": "Rest 15-30min at Room Temp",
                       "level": 5,
-                      "high_yield": true,
-                      "children": []
+                      "high_yield": false
+                    },
+                    {
+                      "id": "node-reject-chilled",
+                      "text": "Reject Chilled / Refrigerated Samples",
+                      "level": 5,
+                      "high_yield": true
+                    },
+                    {
+                      "id": "node-reject-hemolyzed",
+                      "text": "Reject Hemolyzed (RBC ADP Lysis)",
+                      "level": 5,
+                      "high_yield": true
                     }
                   ]
                 }

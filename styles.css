@@ -143,8 +143,8 @@ header.header-shrunk .header-container {
   flex-direction: column;
 }
 
-header.header-shrunk .brand-text {
-  display: none;
+header.header-shrunk .brand-title {
+  font-size: 1.15rem;
 }
 
 /* Center 'Back to top' button in shrunk header */
@@ -191,6 +191,7 @@ header.header-shrunk .header-top-btn {
 }
 
 #themeToggleBtn,
+#headerTopBtn,
 .header-top-btn {
   background-color: var(--theme-second-color);
   color: var(--theme-first-color);
@@ -199,6 +200,7 @@ header.header-shrunk .header-top-btn {
 }
 
 #themeToggleBtn:hover,
+#headerTopBtn:hover,
 .header-top-btn:hover {
   background-color: var(--theme-first-color);
   color: var(--theme-second-color);
@@ -208,6 +210,7 @@ header.header-shrunk .header-top-btn {
 
 [data-theme="dark"] .brand:hover .brand-icon,
 [data-theme="dark"] #themeToggleBtn:hover,
+[data-theme="dark"] #headerTopBtn:hover,
 [data-theme="dark"] .header-top-btn:hover {
   border-color: var(--theme-second-color);
   box-shadow: 0 2px 14px rgba(239, 225, 206, 0.35);
