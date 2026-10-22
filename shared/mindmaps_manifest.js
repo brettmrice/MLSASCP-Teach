@@ -382,7 +382,7 @@ window.COURSE_MINDMAPS = [
   },
   {
     "id": "L16_Thrombophilia_Testing_S1_Mind_Map",
-    "title": "Thrombophilia Fibrinolysis Testing",
+    "title": "Thrombophilia Testing",
     "type": "lab",
     "number": 16,
     "subfolder": "Hemostasis",

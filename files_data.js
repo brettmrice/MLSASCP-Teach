@@ -8,7 +8,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Hematology / LAB / CBC_PBS",
-    "mtime": 1792679802.919893
+    "mtime": 1792680577.9356487
   },
   {
     "name": "L1_Manual_Counts_S1_Hemocytometer.pdf",
@@ -52,7 +52,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Hematology / LAB / CBC_PBS",
-    "mtime": 1792679802.9336157
+    "mtime": 1792680577.9507506
   },
   {
     "name": "L2_Slide_Preparation_S1_PBS_Preparation.pdf",
@@ -85,7 +85,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Hematology / LAB / CBC_PBS",
-    "mtime": 1792679802.9540818
+    "mtime": 1792680577.979257
   },
   {
     "name": "L3_Slide_Evaluation_S1_PBS_Evaluation.pdf",
@@ -129,7 +129,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Hematology / LAB / CBC_PBS",
-    "mtime": 1792679802.9692342
+    "mtime": 1792680577.994747
   },
   {
     "name": "L4_CBC_Analysis_S1_Principles.pdf",
@@ -173,7 +173,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Hematology / LAB / Erythrocytes",
-    "mtime": 1792679802.9865997
+    "mtime": 1792680578.0130813
   },
   {
     "name": "L5_Microcytic_S1_Mind_Map.html",
@@ -195,7 +195,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Hematology / LAB / Erythrocytes",
-    "mtime": 1792679803.004255
+    "mtime": 1792680578.0309563
   },
   {
     "name": "L6_Hemoglobinopathy_S1_Mind_Map.html",
@@ -217,7 +217,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Hematology / LAB / Erythrocytes",
-    "mtime": 1792679803.0198352
+    "mtime": 1792680578.047533
   },
   {
     "name": "L7_Macrocytic_S1_Mind_Map.html",
@@ -239,7 +239,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Hematology / LAB / Erythrocytes",
-    "mtime": 1792679803.0382109
+    "mtime": 1792680578.066231
   },
   {
     "name": "L8_Normocytic_S1_Mind_Map.html",
@@ -261,7 +261,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Hematology / LAB / Hemostasis",
-    "mtime": 1792679803.0526984
+    "mtime": 1792680578.082534
   },
   {
     "name": "L14_Secondary_Hemostasis_Testing_S1_Mind_Map.html",
@@ -283,7 +283,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Hematology / LAB / Hemostasis",
-    "mtime": 1792679803.0687606
+    "mtime": 1792680578.0976014
   },
   {
     "name": "L15_Primary_Hemostasis_Testing_S1_Mind_Map.html",
@@ -300,23 +300,23 @@ window.FILES_DATA = [
     "name": "L16_Thrombophilia_Testing_S0_Complete_Discussion.html",
     "title": "Thrombophilia Testing",
     "path": "Hematology/LAB/Hemostasis/L16_Thrombophilia_Testing_S0_Complete_Discussion.html",
-    "size": 360852,
+    "size": 360854,
     "sizeFormatted": "352.4 KB",
     "extension": "html",
     "type": "Discussion",
     "category": "Hematology / LAB / Hemostasis",
-    "mtime": 1792679803.0864115
+    "mtime": 1792680578.1152873
   },
   {
     "name": "L16_Thrombophilia_Testing_S1_Mind_Map.html",
-    "title": "Thrombophilia Fibrinolysis Testing",
+    "title": "Thrombophilia Testing",
     "path": "Hematology/LAB/Hemostasis/L16_Thrombophilia_Testing_S1_Mind_Map.html",
-    "size": 129227,
+    "size": 129188,
     "sizeFormatted": "126.2 KB",
     "extension": "html",
     "type": "Mind Map",
     "category": "Hematology / LAB / Hemostasis",
-    "mtime": 1792593277.562466
+    "mtime": 1792680560.0493102
   },
   {
     "name": "L10_AML_S0_Discussion.html",
@@ -327,7 +327,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Hematology / LAB / Leukocytes",
-    "mtime": 1792679803.1024795
+    "mtime": 1792680578.1318088
   },
   {
     "name": "L10_AML_S1_Mind_Map.html",
@@ -349,7 +349,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Hematology / LAB / Leukocytes",
-    "mtime": 1792679803.1177418
+    "mtime": 1792680578.1508706
   },
   {
     "name": "L11_MPN_MDS_S1_Mind_Map.html",
@@ -371,7 +371,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Hematology / LAB / Leukocytes",
-    "mtime": 1792679803.130571
+    "mtime": 1792680578.1654937
   },
   {
     "name": "L12_LACLN_S1_Mind_Map.html",
@@ -393,7 +393,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Hematology / LAB / Leukocytes",
-    "mtime": 1792679803.1469634
+    "mtime": 1792680578.1854856
   },
   {
     "name": "L13_BM_Flow_S1_Mind_Map.html",
@@ -415,7 +415,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Hematology / LAB / Leukocytes",
-    "mtime": 1792679803.1636913
+    "mtime": 1792680578.2209735
   },
   {
     "name": "L9_Benign_S1_Mind_Map.html",
@@ -437,7 +437,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Hematology / LEC / Erythrocytes",
-    "mtime": 1792679803.1818345
+    "mtime": 1792680578.252096
   },
   {
     "name": "L5_Iron_Heme_S1_Mind_Map.html",
@@ -459,7 +459,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Hematology / LEC / Erythrocytes",
-    "mtime": 1792679803.2020147
+    "mtime": 1792680578.2811804
   },
   {
     "name": "L6_Hemoglobinopathy_S1_Mind_Map.html",
@@ -514,7 +514,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Hematology / LEC / Erythrocytes",
-    "mtime": 1792679803.2200396
+    "mtime": 1792680578.3076408
   },
   {
     "name": "L7_Macros_Hypos_S4_Mind_Map.html",
@@ -536,7 +536,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Hematology / LEC / Erythrocytes",
-    "mtime": 1792679803.2420714
+    "mtime": 1792680578.3331907
   },
   {
     "name": "L8_Hemolytic_S1_Mind_Map.html",
@@ -558,7 +558,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Hematology / LEC / Hemostasis",
-    "mtime": 1792679803.2577853
+    "mtime": 1792680578.3504047
   },
   {
     "name": "L13_Hemostasis_S1_Mind_Map.html",
@@ -580,7 +580,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Hematology / LEC / Hemostasis",
-    "mtime": 1792679803.2747815
+    "mtime": 1792680578.3682456
   },
   {
     "name": "L14_Secondary_Hemostasis_S1_Mind_Map.html",
@@ -602,7 +602,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Hematology / LEC / Hemostasis",
-    "mtime": 1792679803.2896252
+    "mtime": 1792680578.3871853
   },
   {
     "name": "L15_Primary_Hemostasis_S1_Mind_Map.html",
@@ -624,7 +624,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Hematology / LEC / Hemostasis",
-    "mtime": 1792679803.3042145
+    "mtime": 1792680578.403626
   },
   {
     "name": "L16_Thrombophilia_Disorders_S1_Mind_Map.html",
@@ -646,7 +646,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Hematology / LEC / Leukocytes",
-    "mtime": 1792679803.3192897
+    "mtime": 1792680578.421743
   },
   {
     "name": "L10_AML_S1_Mind_Map.html",
@@ -668,7 +668,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Hematology / LEC / Leukocytes",
-    "mtime": 1792679803.339088
+    "mtime": 1792680578.4432628
   },
   {
     "name": "L11_MPN_MDS_S1_Mind_Map.html",
@@ -690,7 +690,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Hematology / LEC / Leukocytes",
-    "mtime": 1792679803.3552532
+    "mtime": 1792680578.4614947
   },
   {
     "name": "L12_ALL_S1_Mind_Map.html",
@@ -712,7 +712,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Hematology / LEC / Leukocytes",
-    "mtime": 1792679803.372497
+    "mtime": 1792680578.4813561
   },
   {
     "name": "L9_Benign_S1_Mind_Map.html",
@@ -734,7 +734,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Hematology / LEC / Physiology",
-    "mtime": 1792679803.3924017
+    "mtime": 1792680578.5001447
   },
   {
     "name": "L1_Hematopoiesis_S1_Blood_Composition.pdf",
@@ -789,7 +789,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Hematology / LEC / Physiology",
-    "mtime": 1792679803.4091315
+    "mtime": 1792680578.5187323
   },
   {
     "name": "L2_BCE_RBC-HGB_S1_Erythrocyte.pdf",
@@ -833,7 +833,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Hematology / LEC / Physiology",
-    "mtime": 1792679803.4263852
+    "mtime": 1792680578.5377746
   },
   {
     "name": "L3_BCE_WBC-PLT_S1_Granulocytes.pdf",
@@ -888,7 +888,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Hematology / LEC / Physiology",
-    "mtime": 1792679803.4414413
+    "mtime": 1792680578.554202
   },
   {
     "name": "L4_RBC_Analysis_S1_RBC_Indices.pdf",
@@ -943,7 +943,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Body_Fluids",
-    "mtime": 1792679803.4544055
+    "mtime": 1792680578.570026
   },
   {
     "name": "01_CSF_S1_Mind_Map.html",
@@ -965,7 +965,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Body_Fluids",
-    "mtime": 1792679803.4683218
+    "mtime": 1792680578.586144
   },
   {
     "name": "02_Serous_S1_Mind_Map.html",
@@ -987,7 +987,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Body_Fluids",
-    "mtime": 1792679803.482479
+    "mtime": 1792680578.6005113
   },
   {
     "name": "03_Synovial_S1_Mind_Map.html",
@@ -1009,7 +1009,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Body_Fluids",
-    "mtime": 1792679803.5000694
+    "mtime": 1792680578.61464
   },
   {
     "name": "04_BAL_S1_Mind_Map.html",
@@ -1031,7 +1031,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Body_Fluids",
-    "mtime": 1792679803.5140955
+    "mtime": 1792680578.6302958
   },
   {
     "name": "05_Semen_S1_Mind_Map.html",
@@ -1053,7 +1053,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Body_Fluids",
-    "mtime": 1792679803.5285244
+    "mtime": 1792680578.645788
   },
   {
     "name": "06_Amniotic_S1_Mind_Map.html",
@@ -1075,7 +1075,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Body_Fluids",
-    "mtime": 1792679803.5431755
+    "mtime": 1792680578.6590717
   },
   {
     "name": "07_Feces_S1_Mind_Map.html",
@@ -1097,7 +1097,7 @@ window.FILES_DATA = [
     "extension": "html",
     "type": "Discussion",
     "category": "Body_Fluids",
-    "mtime": 1792679803.5561807
+    "mtime": 1792680578.674343
   },
   {
     "name": "08_Vaginal-Secretions_S1_Mind_Map.html",
