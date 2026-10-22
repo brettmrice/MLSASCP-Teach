@@ -1,0 +1,3939 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <title>HCT Reader</title>
+  <link rel="icon" href="favicon.ico">
+  <meta charset="UTF-8">
+  <meta name="description" 
+        content="Virtual laboratory tool to practice measuring hematocrits from microcapillary tubes">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="flex" data-nosnippet oncontextmenu="return false;">
+
+  <div id="main"
+        class="flex">
+    
+    <!-- BEGIN - CONTAINER FOR READER -->
+    <div id="reader" class="flex">
+      <!-- BOTTOM DISK -->
+      <div id="bottom_disk" class="flex">
+        <img src="reader/bottom_disk.svg"
+              height="1000px" width="1000px"
+              alt="Bottom disk">
+      </div>
+      <!-- TOP DISK -->
+      <div id="top_disk" class="flex">
+        <img src="reader/top_disk.svg"
+              height="1000px" width="1000px"
+              alt="Top disk">
+      </div>
+      <!-- MICROCAPILLARY TUBE HOLDER -->
+      <div id="capillary_holder" class="flex">
+        <img src="reader/capillary-holder.svg"
+              height="1000px" width="1000px"
+              alt="Capillary tube holder">
+        
+        <!-- NEON GREEN ALIGNMENT INDICATOR -->
+        <div id="intersect_indicator" title="Spiral aligned with RBC meniscus"></div>
+        <div id="plasma_intersect_indicator" title="Spiral aligned with plasma meniscus (100% mark)"></div>
+        <div id="critoseal_indicator" title="Critoseal / RBC baseline interface (0% mark)"></div>
+        <div id="bottom_100_indicator" title="Bottom disc at 100% (0° mark)"></div>
+
+        <!-- ZOOM BUTTON (VISIBLE WHEN TOP DISK IS UNLOCKED OR BOTH DISKS ARE LOCKED) -->
+        <div id="zoom_button" class="zoom_btn hidden" title="Zoom in capillary reader" aria-label="Zoom capillary reader">
+          <svg class="zoom_icon_plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          <svg class="zoom_icon_minus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+        </div>
+
+        <!-- CAPILLARY TUBE SAMPLE -->
+        <div id="sample" class="flex tube_hidden">
+          <div id="critoseal" class="flex"></div>
+          <div id="blood" class="flex">
+            <div id="rbc_fraction"></div>
+            <div id="wbc_plt_fraction"></div>
+            <div id="plasma_fraction"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NOTIFICATION PROMPT (ALIGNED TO CRITOSEAL MARK) -->
+      <div id="sample_notification" class="flex">
+        <div class="notif_icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        </div>
+        <span>Select a capillary tube sample to begin</span>
+      </div>
+
+      <div id="device_name" class="flex" title="View Procedure" aria-label="View Procedure">
+        <svg class="procedure_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+          <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+          <path d="M9 12h6"></path>
+          <path d="M9 16h6"></path>
+          <path d="M9 8h6"></path>
+        </svg>
+        <div id="device_name_long" class="flex">Manual Hematocrit</div>
+        <div id="device_name_short" class="flex narrow_view">Man HCT</div>
+      </div>
+
+      <!-- SHOW ME BUTTON (VISIBLE WHEN TRAINER IS ON & STEP 4 INCOMPLETE) -->
+      <button id="show_me_btn" class="show_me_btn hidden" onclick="startShowMeDemo(event)" title="Show me how to read hematocrit" aria-label="Show me tutorial">
+        <svg class="show_me_icon" width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+          <polygon points="5 3 19 12 5 21 5 3"></polygon>
+        </svg>
+        <span>Show Me</span>
+      </button>
+
+      <!-- DONE & CHECK PILL (VISIBLE WHEN TRAINER IS OFF OR FINAL STEP IS COMPLETE) -->
+      <div id="done_check_container" class="done_check_container hidden">
+        <button id="done_check_btn" class="done_check_btn" onclick="openDoneCheckInput(event)" title="Done & Check your result" aria-label="Done and Check result">
+          <svg class="done_check_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+          <span>Done & Check</span>
+        </button>
+
+        <div id="done_check_input_card" class="done_check_input_card hidden">
+          <div class="done_check_form">
+            <div class="done_check_input_wrapper">
+              <input type="number" id="hct_result_input" class="done_check_input" placeholder="HCT" step="0.5" min="0" max="100" autocomplete="off" />
+              <span class="done_check_input_unit">%</span>
+            </div>
+            <button id="done_check_submit_btn" class="done_check_submit_btn" onclick="submitDoneCheckResult(event)" title="Check result">
+              Check
+            </button>
+            <button id="done_check_close_btn" class="done_check_close_btn" onclick="closeDoneCheckInput(event)" title="Close" aria-label="Close input">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+          <div id="done_check_feedback" class="done_check_feedback hidden"></div>
+        </div>
+      </div>
+
+      <!-- SWITCHES FOR DISK MOVEMENT (OPTION D) -->
+      
+      <!-- SWITCH - BOTTOM DISK -->
+      <div id="switch_bottom_disk"
+            class="flex disc_switch_btn state_active"
+            title="Bottom disk is ACTIVE (drag reader to rotate bottom dial)">
+        <div class="disc_switch_title">BOTTOM</div>
+        <div id="bottom_disk_icon_container" class="disc_switch_icon_box flex">
+          <svg class="disk_button_svg icon_rotate" viewBox="0 0 24 24" fill="none" stroke="#3c4048" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path>
+            <polyline points="21 3 21 8 16 8"></polyline>
+          </svg>
+        </div>
+        <div id="bottom_disk_badge" class="disc_switch_badge badge_active">ACTIVE</div>
+        <img id="bottom_disk_status" src="unlocked.svg" style="display:none;" alt="Bottom disk status">
+        <div id="switch_bottom_disk_js"></div>
+      </div>
+
+      <!-- SWITCH - TOP DISK -->
+      <div id="switch_top_disk"
+            class="flex disc_switch_btn state_fixed"
+            title="Top disk is FIXED (click to activate)">
+        <div class="disc_switch_title">TOP</div>
+        <div id="top_disk_icon_container" class="disc_switch_icon_box flex">
+          <svg class="disk_button_svg icon_fixed" viewBox="0 0 24 24" fill="#3c4048">
+            <path d="M16 3H8c-.55 0-1 .45-1 1s.45 1 1 1h1v5c0 1.66-1.34 3-3 3v2h6v6l1 1 1-1v-6h6v-2c-1.66 0-3-1.34-3-3V5h1c.55 0 1-.45 1-1s-.45-1-1-1z"/>
+          </svg>
+        </div>
+        <div id="top_disk_badge" class="disc_switch_badge badge_fixed">FIXED</div>
+        <img id="top_disk_status" src="locked.svg" style="display:none;" alt="Top disk status">
+        <div id="switch_top_disk_js"></div>
+      </div>
+
+  </div>
+  <!-- END - CONTAINER FOR READER -->
+
+</div>
+
+
+<!-- BEGIN - CONTAINER FOR SAMPLES -->
+<div id="samples"></div>
+
+  <!-- PROCEDURE MODAL -->
+  <div id="procedure_modal_backdrop" class="modal_backdrop" aria-hidden="true">
+    <div id="procedure_modal" class="modal_dialog" role="dialog" aria-labelledby="modal_title" aria-modal="true">
+      <div class="modal_header">
+        <div class="modal_title_group">
+          <h2 id="modal_title" class="modal_title">Procedure</h2>
+          <div class="modal_subtitle">Microhematocrit (Packed Cell Volume)</div>
+        </div>
+        <button id="modal_close_btn" class="modal_close_btn" title="Close" aria-label="Close modal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="modal_body">
+        <!-- SECTION 1: SPECIMEN PREPARATION & CENTRIFUGATION (COLLAPSED BY DEFAULT) -->
+        <details class="procedure_section collapsible">
+          <summary class="procedure_section_header">
+            <div class="procedure_header_left">
+              <span class="procedure_section_badge">Phase 1</span>
+              <h3 class="procedure_section_title">Specimen Preparation &amp; Centrifugation</h3>
+            </div>
+            <svg class="collapse_icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </summary>
+          <div class="procedure_section_body">
+            <ol class="procedure_list">
+              <li>
+                <strong>Mix &amp; Fill:</strong> Thoroughly invert EDTA whole blood. Fill two microcapillary tubes approximately 2/3 to 3/4 full.
+              </li>
+              <li>
+                <strong>Seal Tube:</strong> Wipe the exterior of each tube clean and seal one end with a 4 to 5 mm Critoseal clay plug.
+              </li>
+              <li>
+                <strong>Centrifuge:</strong> Load tubes into the microhematocrit centrifuge with sealed ends facing outward against the rim cushion.
+              </li>
+              <li>
+                <strong>Spin &amp; Stop:</strong> Centrifuge at ~5,000 rpm (10,000–15,000 &times; g) for 5 minutes. Allow rotor to stop naturally without manual braking.
+              </li>
+            </ol>
+          </div>
+        </details>
+
+        <!-- SECTION 2: READER OPERATION STEPS (EXPANDED BY DEFAULT) -->
+        <details class="procedure_section collapsible" open>
+          <summary class="procedure_section_header">
+            <div class="procedure_header_left">
+              <span class="procedure_section_badge badge_purple">Phase 2</span>
+              <h3 class="procedure_section_title">Reader Alignment &amp; Measurement</h3>
+            </div>
+            <svg class="collapse_icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </summary>
+          <div class="procedure_section_body">
+            <ol class="procedure_list reader_steps">
+              <li>
+                <strong>Set 0% Baseline:</strong> Place the tube in the holder with the clay / RBC interface aligned exactly on the black baseline (0% line).
+              </li>
+              <li>
+                <strong>Set Bottom Dial to 100%:</strong> Set <span class="dial_tag tag_active">BOTTOM ACTIVE</span> (<span class="dial_tag tag_fixed">TOP FIXED</span>) and rotate the bottom disc until the 100% line aligns with the vertical tube slot (0&deg;).
+              </li>
+              <li>
+                <strong>Align Plasma Meniscus (100%):</strong> Set <span class="dial_tag tag_active">TOP ACTIVE</span> (<span class="dial_tag tag_fixed">BOTTOM FIXED</span>) and rotate the spiral line until it intersects the top of the plasma meniscus.
+              </li>
+              <li>
+                <strong>Read at RBC Meniscus:</strong> Set <span class="dial_tag tag_linked">BOTH LINKED</span> and rotate both discs together until the spiral line intersects the top of the packed RBC column (RBC / buffy coat interface). <em>Exclude the buffy coat layer.</em>
+              </li>
+              <li>
+                <strong>Record Percentage:</strong> Read the hematocrit percentage (%) directly from the bottom scale at the alignment index line.
+              </li>
+            </ol>
+          </div>
+        </details>
+
+        <!-- SECTION 3: DUPLICATE VERIFICATION & REPORTING (COLLAPSED BY DEFAULT) -->
+        <details class="procedure_section collapsible">
+          <summary class="procedure_section_header">
+            <div class="procedure_header_left">
+              <span class="procedure_section_badge">Phase 3</span>
+              <h3 class="procedure_section_title">Duplicate Verification &amp; Reporting</h3>
+            </div>
+            <svg class="collapse_icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </summary>
+          <div class="procedure_section_body">
+            <ol class="procedure_list" style="counter-reset: step-counter 5;">
+              <li>
+                <strong>Verify Duplicate Agreement:</strong> Read the second duplicate tube. Results must agree within <strong>&plusmn;1.0%</strong> (&le;1.0% difference). If &gt;1.0%, repeat in duplicate.
+              </li>
+              <li>
+                <strong>Average &amp; Report:</strong> Average the acceptable duplicate values and report the final hematocrit to the nearest <strong>0.1%</strong> (or per laboratory protocol).
+              </li>
+            </ol>
+          </div>
+        </details>
+
+        <!-- CRITICAL REMINDERS -->
+        <div class="critical_reminders">
+          <div class="critical_reminders_title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+              <line x1="12" y1="9" x2="12" y2="13"/>
+              <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+            Critical Reminders &amp; Error Sources
+          </div>
+          <ul class="critical_reminders_list">
+            <li><strong>Buffy Coat:</strong> Never include the white buffy coat (WBCs/platelets) in the reading; inclusion causes falsely elevated results.</li>
+            <li><strong>Seal Integrity:</strong> Poor or loose clay sealing allows RBC leakage during spinning, resulting in falsely decreased values.</li>
+            <li><strong>Under-Centrifugation:</strong> Inadequate spin speed/time causes incomplete packing and trapped plasma, leading to falsely elevated results.</li>
+            <li><strong>Trapped Plasma:</strong> Manual spun hematocrit is typically 1% to 3% higher than automated analyzer HCT due to minute trapped plasma between cells.</li>
+          </ul>
+        </div>
+
+        <!-- QUICK MEMORY AID -->
+        <div class="memory_aid">
+          <div class="memory_aid_title">Quick Memory Aid</div>
+          <div class="memory_aid_flow">
+            <span class="step-tag">Fill</span>
+            <span class="arrow">&rarr;</span>
+            <span class="step-tag">Seal</span>
+            <span class="arrow">&rarr;</span>
+            <span class="step-tag">Spin</span>
+            <span class="arrow">&rarr;</span>
+            <span class="step-tag">Zero (0%)</span>
+            <span class="arrow">&rarr;</span>
+            <span class="step-tag">Plasma (100%)</span>
+            <span class="arrow">&rarr;</span>
+            <span class="step-tag">Read RBC</span>
+            <span class="arrow">&rarr;</span>
+            <span class="step-tag">Average &amp; Report</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div id="calc" class="flex"
+        style="position: absolute;
+                bottom: 5%;
+                width: 50px;
+                height: 50px;
+                background-color: black;"
+        onclick="adjust_height();"></div>
+  <script>
+    h = 90;
+    t = 0;
+    function adjust_height() {
+      plasma_fraction.style.height = (h - 0.5) + '%';
+      h -= 0.5;
+      reader.style.transform = 'scale(10) translateY(' + t + 'px)';
+      t += 2.5;
+    }
+  </script> -->
+
+
+</body>
+
+<script>
+  // PREVENT ALL RIGHT-CLICK ACTIONS & CONTEXT MENUS
+  window.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+  }, true);
+
+  document.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+  }, true);
+
+  window.addEventListener('auxclick', (e) => {
+    if (e.button === 2) {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    }
+  }, true);
+
+  /* DISC ROTATION / MODE SWITCHER (OPTION D) */
+  bottom_disk_locked = false;
+  top_disk_locked = true;
+
+  function updateDiscButtonUI() {
+    const botBtn = document.getElementById('switch_bottom_disk');
+    const topBtn = document.getElementById('switch_top_disk');
+    const botBadge = document.getElementById('bottom_disk_badge');
+    const topBadge = document.getElementById('top_disk_badge');
+    const botIcon = document.getElementById('bottom_disk_icon_container');
+    const topIcon = document.getElementById('top_disk_icon_container');
+    const botDisc = document.getElementById('bottom_disk');
+    const topDisc = document.getElementById('top_disk');
+
+    const botLocked = !!bottom_disk_locked;
+    const topLocked = !!top_disk_locked;
+    const bothLocked = botLocked && topLocked;
+    const isSampleLoaded = (typeof activeSampleIndex !== 'undefined' && activeSampleIndex !== -1);
+
+    const rotateIconSvg = `
+      <svg class="disk_button_svg icon_rotate" viewBox="0 0 24 24" fill="none" stroke="#3c4048" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path>
+        <polyline points="21 3 21 8 16 8"></polyline>
+      </svg>`;
+
+    const fixedPinSvg = `
+      <svg class="disk_button_svg icon_fixed" viewBox="0 0 24 24" fill="#3c4048">
+        <path d="M16 3H8c-.55 0-1 .45-1 1s.45 1 1 1h1v5c0 1.66-1.34 3-3 3v2h6v6l1 1 1-1v-6h6v-2c-1.66 0-3-1.34-3-3V5h1c.55 0 1-.45 1-1s-.45-1-1-1z"/>
+      </svg>`;
+
+    const linkedSvg = `
+      <svg class="disk_button_svg icon_linked" viewBox="0 0 24 24" fill="none" stroke="#3c4048" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+      </svg>`;
+
+    if (bothLocked) {
+      if (botBtn) {
+        botBtn.className = 'flex disc_switch_btn state_linked';
+        botBtn.setAttribute('title', 'Both disks locked together (Rotating moves both synchronously)');
+      }
+      if (topBtn) {
+        topBtn.className = 'flex disc_switch_btn state_linked';
+        topBtn.setAttribute('title', 'Both disks locked together (Rotating moves both synchronously)');
+      }
+      if (botIcon) botIcon.innerHTML = linkedSvg;
+      if (topIcon) topIcon.innerHTML = linkedSvg;
+      if (botBadge) {
+        botBadge.textContent = 'LINKED';
+        botBadge.className = 'disc_switch_badge badge_linked';
+      }
+      if (topBadge) {
+        topBadge.textContent = 'LINKED';
+        topBadge.className = 'disc_switch_badge badge_linked';
+      }
+      if (botDisc) {
+        if (isSampleLoaded) botDisc.classList.add('disc_active');
+        else botDisc.classList.remove('disc_active');
+      }
+      if (topDisc) {
+        if (isSampleLoaded) topDisc.classList.add('disc_active');
+        else topDisc.classList.remove('disc_active');
+      }
+    } else {
+      // Bottom disk state
+      if (!botLocked) {
+        if (botBtn) {
+          botBtn.className = 'flex disc_switch_btn state_active';
+          botBtn.setAttribute('title', 'Bottom disk is ACTIVE (drag reader to rotate bottom dial)');
+        }
+        if (botIcon) botIcon.innerHTML = rotateIconSvg;
+        if (botBadge) {
+          botBadge.textContent = 'ACTIVE';
+          botBadge.className = 'disc_switch_badge badge_active';
+        }
+        if (botDisc) {
+          if (isSampleLoaded) botDisc.classList.add('disc_active');
+          else botDisc.classList.remove('disc_active');
+        }
+      } else {
+        if (botBtn) {
+          botBtn.className = 'flex disc_switch_btn state_fixed';
+          botBtn.setAttribute('title', 'Bottom disk is FIXED (click to activate)');
+        }
+        if (botIcon) botIcon.innerHTML = fixedPinSvg;
+        if (botBadge) {
+          botBadge.textContent = 'FIXED';
+          botBadge.className = 'disc_switch_badge badge_fixed';
+        }
+        if (botDisc) botDisc.classList.remove('disc_active');
+      }
+
+      // Top disk state
+      if (!topLocked) {
+        if (topBtn) {
+          topBtn.className = 'flex disc_switch_btn state_active';
+          topBtn.setAttribute('title', 'Top disk is ACTIVE (drag reader to rotate top spiral)');
+        }
+        if (topIcon) topIcon.innerHTML = rotateIconSvg;
+        if (topBadge) {
+          topBadge.textContent = 'ACTIVE';
+          topBadge.className = 'disc_switch_badge badge_active';
+        }
+        if (topDisc) {
+          if (isSampleLoaded) topDisc.classList.add('disc_active');
+          else topDisc.classList.remove('disc_active');
+        }
+      } else {
+        if (topBtn) {
+          topBtn.className = 'flex disc_switch_btn state_fixed';
+          topBtn.setAttribute('title', 'Top disk is FIXED (click to activate)');
+        }
+        if (topIcon) topIcon.innerHTML = fixedPinSvg;
+        if (topBadge) {
+          topBadge.textContent = 'FIXED';
+          topBadge.className = 'disc_switch_badge badge_fixed';
+        }
+        if (topDisc) topDisc.classList.remove('disc_active');
+      }
+    }
+
+    if (typeof bottom_disk_status !== 'undefined' && bottom_disk_status) {
+      bottom_disk_status.src = botLocked ? 'locked.svg' : 'unlocked.svg';
+    }
+    if (typeof top_disk_status !== 'undefined' && top_disk_status) {
+      top_disk_status.src = topLocked ? 'locked.svg' : 'unlocked.svg';
+    }
+  }
+  window.updateDiscButtonUI = updateDiscButtonUI;
+
+  function triggerPulseActiveDiscs() {
+    const isSampleLoaded = (typeof activeSampleIndex !== 'undefined' && activeSampleIndex !== -1);
+    if (!isSampleLoaded) return;
+
+    const botDisc = document.getElementById('bottom_disk');
+    const topDisc = document.getElementById('top_disk');
+    const botLocked = !!bottom_disk_locked;
+    const topLocked = !!top_disk_locked;
+    const bothLocked = botLocked && topLocked;
+
+    const discsToPulse = [];
+    if (bothLocked) {
+      if (botDisc) discsToPulse.push(botDisc);
+      if (topDisc) discsToPulse.push(topDisc);
+    } else {
+      if (!botLocked && botDisc) discsToPulse.push(botDisc);
+      if (!topLocked && topDisc) discsToPulse.push(topDisc);
+    }
+
+    discsToPulse.forEach((disc) => {
+      disc.classList.remove('disc_pulse');
+      // Trigger reflow to restart CSS animation if already present
+      void disc.offsetWidth;
+      disc.classList.add('disc_pulse');
+    });
+
+    setTimeout(() => {
+      if (botDisc) botDisc.classList.remove('disc_pulse');
+      if (topDisc) topDisc.classList.remove('disc_pulse');
+    }, 700);
+  }
+  window.triggerPulseActiveDiscs = triggerPulseActiveDiscs;
+
+  switch_bottom_disk.addEventListener('mousedown', (e) => {
+    e.stopImmediatePropagation();
+  });
+  switch_bottom_disk.addEventListener('click', (e) => {
+    if (typeof cancelTutorialDemo === 'function') cancelTutorialDemo();
+    check_bottom_switch(e);
+  });
+  switch_bottom_disk.addEventListener('touchend', (e) => {
+    if (typeof cancelTutorialDemo === 'function') cancelTutorialDemo();
+    check_bottom_switch(e);
+  });
+
+  function updateZoomButtonVisibility() {
+    const zoomBtn = document.getElementById('zoom_button');
+    if (!zoomBtn) return;
+    // Visible whenever the top disk is unlocked OR both disks are locked
+    const topUnlocked = (typeof top_disk_locked !== 'undefined' && !top_disk_locked);
+    const bothLocked = (typeof top_disk_locked !== 'undefined' && top_disk_locked && typeof bottom_disk_locked !== 'undefined' && bottom_disk_locked);
+    const isVisible = topUnlocked || bothLocked;
+    const capHolder = document.getElementById('capillary_holder');
+
+    if (isVisible) {
+      zoomBtn.classList.remove('hidden');
+      zoomBtn.classList.add('visible');
+      if (capHolder) {
+        if (typeof is_zoomed !== 'undefined' && is_zoomed) {
+          capHolder.classList.remove('zoomIN');
+          capHolder.classList.add('zoomOUT');
+        } else {
+          capHolder.classList.remove('zoomOUT');
+          capHolder.classList.add('zoomIN');
+        }
+      }
+    } else {
+      zoomBtn.classList.remove('visible');
+      zoomBtn.classList.add('hidden');
+      if (capHolder) {
+        capHolder.classList.remove('zoomIN', 'zoomOUT');
+      }
+      // Reset zoom view to unzoomed (1x) if zoom button becomes hidden
+      if (typeof is_zoomed !== 'undefined' && is_zoomed) {
+        if (typeof setCapillaryZoom === 'function') {
+          setCapillaryZoom(false, true);
+        }
+      }
+    }
+  }
+  window.updateZoomButtonVisibility = updateZoomButtonVisibility;
+
+  function check_bottom_switch(e) {
+    if (typeof recordStrokeStart === 'function') recordStrokeStart();
+    if (bottom_disk_locked) {
+      // Activate bottom disk, lock top disk
+      bottom_disk_locked = false;
+      top_disk_locked = true;
+    } else {
+      // Bottom disk was already active; clicking locks it -> both become locked
+      bottom_disk_locked = true;
+    }
+    // Check if mode violates active step constraints
+    if (typeof stepState !== 'undefined') {
+      if (!stepState.step2_bottom100 && bottom_disk_locked) {
+        if (typeof markIncorrectActionOccurred === 'function') markIncorrectActionOccurred();
+      } else if (stepState.step2_bottom100 && !stepState.step3_plasma && !bottom_disk_locked) {
+        if (typeof markIncorrectActionOccurred === 'function') markIncorrectActionOccurred();
+      } else if (stepState.step2_bottom100 && stepState.step3_plasma && (!bottom_disk_locked || !top_disk_locked)) {
+        if (typeof markIncorrectActionOccurred === 'function') markIncorrectActionOccurred();
+      }
+    }
+    updateDiscButtonUI();
+    triggerPulseActiveDiscs();
+    if (typeof updateAlignmentFeedback === 'function') {
+      updateAlignmentFeedback();
+    }
+    updateZoomButtonVisibility();
+  };
+
+  switch_top_disk.addEventListener('mousedown', (e) => {
+    e.stopImmediatePropagation();
+  });
+  switch_top_disk.addEventListener('click', (e) => {
+    if (typeof cancelTutorialDemo === 'function') cancelTutorialDemo();
+    check_top_switch(e);
+  });
+  switch_top_disk.addEventListener('touchend', (e) => {
+    if (typeof cancelTutorialDemo === 'function') cancelTutorialDemo();
+    check_top_switch(e);
+  });
+
+  function check_top_switch(e) {
+    if (typeof recordStrokeStart === 'function') recordStrokeStart();
+    if (top_disk_locked) {
+      // Activate top disk, lock bottom disk
+      top_disk_locked = false;
+      bottom_disk_locked = true;
+    } else {
+      // Top disk was already active; clicking locks it -> both become locked
+      top_disk_locked = true;
+    }
+    // Check if mode violates active step constraints
+    if (typeof stepState !== 'undefined') {
+      if (!stepState.step2_bottom100 && !top_disk_locked) {
+        if (typeof markIncorrectActionOccurred === 'function') markIncorrectActionOccurred();
+      } else if (stepState.step2_bottom100 && !stepState.step3_plasma && top_disk_locked) {
+        if (typeof markIncorrectActionOccurred === 'function') markIncorrectActionOccurred();
+      } else if (stepState.step2_bottom100 && stepState.step3_plasma && (!bottom_disk_locked || !top_disk_locked)) {
+        if (typeof markIncorrectActionOccurred === 'function') markIncorrectActionOccurred();
+      }
+    }
+    updateDiscButtonUI();
+    triggerPulseActiveDiscs();
+    if (typeof updateAlignmentFeedback === 'function') {
+      updateAlignmentFeedback();
+    }
+    updateZoomButtonVisibility();
+  }
+</script>
+
+<!-- DISK ROTATION WITH MOUSE/TOUCH -->
+<script>
+  var rand_rot_bottom = 0;
+  var rand_rot_top = 0;
+  var disksCompleted = 0;
+  var reinitDisksPending = 0;
+  var diskReinitResolvers = [];
+  var animationTriggeredNotification = false;
+
+  function notifyDiskReinitComplete() {
+    if (diskReinitResolvers.length > 0) {
+      const resolvers = [...diskReinitResolvers];
+      diskReinitResolvers = [];
+      resolvers.forEach((resolve) => resolve());
+    }
+  }
+
+  function reinitializeReader(fast = false) {
+    if (typeof cancelTutorialDemo === 'function') {
+      cancelTutorialDemo();
+    }
+
+    // Reset zoom view to unzoomed (1x) if currently zoomed
+    if (typeof is_zoomed !== 'undefined' && is_zoomed) {
+      if (typeof capillary_holder !== 'undefined') {
+        capillary_holder.classList.remove('zoomOUT', 'zoomIN');
+      }
+      is_zoomed = false;
+      zoom_translate_y = 0;
+      if (typeof reader !== 'undefined') {
+        reader.classList.remove('zoomed_view');
+        reader.style.transition = 'transform 0.3s ease-out';
+        reader.style.transform = 'scale(1) translateY(0px)';
+      }
+    }
+
+    // Reset switches to initial default state (bottom active, top fixed)
+    bottom_disk_locked = false;
+    top_disk_locked = true;
+    if (typeof updateDiscButtonUI === 'function') {
+      updateDiscButtonUI();
+    }
+    if (typeof updateZoomButtonVisibility === 'function') {
+      updateZoomButtonVisibility();
+    }
+
+    // Reset disk animation classes
+    bottom_disk.classList.remove('anim_rot_bot_disk');
+    top_disk.classList.remove('anim_rot_top_disk');
+
+    const curBot = (typeof bottom_disk.value === 'number') ? bottom_disk.value : 0;
+    const curTop = (typeof top_disk.value === 'number') ? top_disk.value : 0;
+
+    rand_rot_bottom = Math.round(((Math.random() * 250) + 45) * 10) / 10;
+    rand_rot_top = Math.round(((Math.random() * 250) + 45) * 10) / 10;
+
+    bottom_disk.value = rand_rot_bottom;
+    top_disk.value = rand_rot_top;
+
+    checkpoint0 = {
+      botAngle: rand_rot_bottom,
+      topAngle: rand_rot_top,
+      botLocked: false,
+      topLocked: true,
+      stepState: {
+        step1_zeroSet: true,
+        step2_bottom100: false,
+        step3_plasma: false,
+        step4_rbc: false,
+        step2_invalidated: false,
+        step3_invalidated: false,
+        calibratedPlasmaTopAngle: null,
+        calibratedPlasmaBotAngle: null
+      }
+    };
+    validCheckpointStep2 = null;
+    validCheckpointStep3 = null;
+
+    const animDuration = fast ? '1s' : '2s';
+    const delayA = fast ? Math.floor(Math.random() * 26) + 25 : Math.floor(Math.random() * 51) + 50; // 25-50ms vs 50-100ms
+    const delayB = fast ? Math.floor(Math.random() * 101) + 200 : Math.floor(Math.random() * 201) + 400; // 200-300ms vs 400-600ms
+    const botGetsFast = Math.random() < 0.5;
+    const delay_bottom = botGetsFast ? delayA : delayB;
+    const delay_top = botGetsFast ? delayB : delayA;
+
+    document.documentElement.style.setProperty('--rot_bot_disk_start', curBot + 'deg');
+    document.documentElement.style.setProperty('--rot_bot_disk_end', rand_rot_bottom + 'deg');
+    document.documentElement.style.setProperty('--rot_top_disk_start', curTop + 'deg');
+    document.documentElement.style.setProperty('--rot_top_disk_end', rand_rot_top + 'deg');
+
+    // Force DOM reflow so CSS animation restarts cleanly
+    void bottom_disk.offsetWidth;
+    void top_disk.offsetWidth;
+
+    bottom_disk.style.animationDuration = animDuration;
+    top_disk.style.animationDuration = animDuration;
+    bottom_disk.style.animationDelay = delay_bottom + 'ms';
+    top_disk.style.animationDelay = delay_top + 'ms';
+
+    reinitDisksPending = 2;
+
+    bottom_disk.classList.add('anim_rot_bot_disk');
+    top_disk.classList.add('anim_rot_top_disk');
+
+    return new Promise((resolve) => {
+      diskReinitResolvers.push(resolve);
+    });
+  }
+  window.reinitializeReader = reinitializeReader;
+
+  function handleDiskAnimationEnd() {
+    disksCompleted++;
+    if (reinitDisksPending > 0) {
+      reinitDisksPending--;
+      if (reinitDisksPending === 0) {
+        notifyDiskReinitComplete();
+      }
+    }
+    if (disksCompleted >= 2 && !animationTriggeredNotification) {
+      animationTriggeredNotification = true;
+      if (activeSampleIndex === -1 && (typeof isSampleChanging === 'undefined' || !isSampleChanging)) {
+        showSampleNotification();
+      }
+    }
+  }
+
+  var notifTextScale = 1.0;
+  const MAX_NOTIF_TEXT_SCALE = 3.0;
+  const NOTIF_TEXT_SCALE_STEP = 0.25;
+
+  function updateSampleNotifScale() {
+    const notif = document.getElementById('sample_notification');
+    if (notif) {
+      notif.style.setProperty('--notif-text-scale', notifTextScale);
+    }
+  }
+
+  function resetSampleNotifScale() {
+    notifTextScale = 1.0;
+    updateSampleNotifScale();
+  }
+
+  function showSampleNotification() {
+    if ((typeof isExamMode !== 'undefined' && isExamMode) || activeSampleIndex !== -1 || (typeof isSampleChanging !== 'undefined' && isSampleChanging)) return;
+    const notif = document.getElementById('sample_notification');
+    const samplesTray = document.getElementById('samples');
+    if (notif && activeSampleIndex === -1) {
+      updateSampleNotifScale();
+      notif.classList.remove('hide');
+      notif.classList.add('show');
+    }
+    if (samplesTray && activeSampleIndex === -1) {
+      samplesTray.classList.add('pill_theme');
+    }
+  }
+
+  function hideSampleNotification() {
+    const notif = document.getElementById('sample_notification');
+    const samplesTray = document.getElementById('samples');
+    if (notif) {
+      notif.classList.remove('show');
+      notif.classList.add('hide');
+    }
+    if (samplesTray) {
+      samplesTray.classList.remove('pill_theme');
+    }
+    resetSampleNotifScale();
+  }
+
+  let lastNonSampleClickTime = 0;
+  function handleNonSampleClick(e) {
+    if ((typeof isExamMode !== 'undefined' && isExamMode) || activeSampleIndex !== -1 || (typeof isSampleChanging !== 'undefined' && isSampleChanging)) return;
+    const notif = document.getElementById('sample_notification');
+    if (!notif) return;
+
+    // Check if target is a sample card or inside a sample card
+    if (e.target && e.target.closest && e.target.closest('.sample_card')) {
+      return;
+    }
+
+    const now = performance.now();
+    if (now - lastNonSampleClickTime < 120) return;
+    lastNonSampleClickTime = now;
+
+    if (notifTextScale < MAX_NOTIF_TEXT_SCALE) {
+      notifTextScale = Math.min(MAX_NOTIF_TEXT_SCALE, Math.round((notifTextScale + NOTIF_TEXT_SCALE_STEP) * 100) / 100);
+      updateSampleNotifScale();
+    }
+  }
+
+  window.addEventListener('pointerdown', handleNonSampleClick, true);
+
+  bottom_disk.addEventListener('animationend', () => {
+    bottom_disk.classList.remove('anim_rot_bot_disk');
+    bottom_disk.style.transform = 'rotate(' + bottom_disk.value + 'deg)';
+    bottom_disk.style.animationDelay = '';
+    bottom_disk.style.animationDuration = '';
+    if (typeof updateAlignmentFeedback === 'function') {
+      updateAlignmentFeedback();
+    }
+    handleDiskAnimationEnd();
+  });
+
+  top_disk.addEventListener('animationend', () => {
+    top_disk.classList.remove('anim_rot_top_disk');
+    top_disk.style.transform = 'rotate(' + top_disk.value + 'deg)';
+    top_disk.style.animationDelay = '';
+    top_disk.style.animationDuration = '';
+    if (typeof updateAlignmentFeedback === 'function') {
+      updateAlignmentFeedback();
+    }
+    handleDiskAnimationEnd();
+  });
+
+  // Run initial randomized disk motions on initial load
+  reinitializeReader();
+
+  rotate_disks = false;
+  mouse_enter = false;
+  mouse_move = false;
+  reader.addEventListener('mousedown', (e) => {
+    if (e.button !== 0) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    if (typeof cancelTutorialDemo === 'function') cancelTutorialDemo();
+    if (typeof recordStrokeStart === 'function') recordStrokeStart();
+    if (bottom_disk.classList.contains('anim_rot_bot_disk')) {
+      bottom_disk.classList.remove('anim_rot_bot_disk');
+      bottom_disk.style.transform = 'rotate(' + bottom_disk.value + 'deg)';
+      bottom_disk.style.animationDelay = '';
+      bottom_disk.style.animationDuration = '';
+      handleDiskAnimationEnd();
+    }
+    if (top_disk.classList.contains('anim_rot_top_disk')) {
+      top_disk.classList.remove('anim_rot_top_disk');
+      top_disk.style.transform = 'rotate(' + top_disk.value + 'deg)';
+      top_disk.style.animationDelay = '';
+      top_disk.style.animationDuration = '';
+      handleDiskAnimationEnd();
+    }
+    rotate_disks = true;
+    document.body.classList.add('is-dragging-disc');
+    m_cX = e.clientX;
+    m_cY = e.clientY;
+    get_initial_angle(e, m_cX, m_cY);
+  });
+  bottom_disk.addEventListener('mouseenter', () => {
+    mouse_enter = true;
+  });
+  reader.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    if (typeof cancelTutorialDemo === 'function') cancelTutorialDemo();
+    if (typeof recordStrokeStart === 'function') recordStrokeStart();
+    if (bottom_disk.classList.contains('anim_rot_bot_disk')) {
+      bottom_disk.classList.remove('anim_rot_bot_disk');
+      bottom_disk.style.transform = 'rotate(' + bottom_disk.value + 'deg)';
+      bottom_disk.style.animationDelay = '';
+      bottom_disk.style.animationDuration = '';
+      handleDiskAnimationEnd();
+    }
+    if (top_disk.classList.contains('anim_rot_top_disk')) {
+      top_disk.classList.remove('anim_rot_top_disk');
+      top_disk.style.transform = 'rotate(' + top_disk.value + 'deg)';
+      top_disk.style.animationDelay = '';
+      top_disk.style.animationDuration = '';
+      handleDiskAnimationEnd();
+    }
+    rotate_disks = true;
+    document.body.classList.add('is-dragging-disc');
+    t_cX = e.touches[0].clientX;
+    t_cY = e.touches[0].clientY;
+    get_initial_angle(e, t_cX, t_cY);
+  });
+
+  function stopDiscDrag() {
+    if (!rotate_disks) return;
+    rotate_disks = false;
+    document.body.classList.remove('is-dragging-disc');
+  }
+
+  window.addEventListener('mouseup', stopDiscDrag);
+  window.addEventListener('touchend', stopDiscDrag);
+  window.addEventListener('touchcancel', stopDiscDrag);
+
+  window.addEventListener('mousemove', (e) => {
+    if(rotate_disks) {
+      m_cX = e.clientX;
+      m_cY = e.clientY;
+      rotate_disk(e, m_cX, m_cY);
+      mouse_move = true;
+    }
+  });
+  window.addEventListener('touchmove', (e) => {
+    if(rotate_disks) {
+      t_cX = e.touches[0].clientX;
+      t_cY = e.touches[0].clientY;
+      rotate_disk(e, t_cX, t_cY);
+    }
+  }, { passive: false });
+  
+  function getDiskCenterInfo() {
+    const diskEl = document.getElementById('top_disk') || document.getElementById('reader');
+    if (!diskEl) return { x: 0, y: 0, width: 0 };
+    const rect = diskEl.getBoundingClientRect();
+    return {
+      x: rect.left + rect.width / 2,
+      y: rect.top + rect.height / 2,
+      width: rect.width
+    };
+  }
+
+  function get_initial_angle(e, e_mX, e_mY) {
+    const center = getDiskCenterInfo();
+    disk_centerX_tot = center.x;
+    disk_centerY_tot = center.y;
+
+    mX = e_mX - disk_centerX_tot;
+    mY = e_mY - disk_centerY_tot;
+
+    prev_angle = Math.atan2(mY, mX) * (180/Math.PI);
+  }
+
+  function rotate_disk(e, e_mX, e_mY) {
+    const center = getDiskCenterInfo();
+    disk_centerX_tot = center.x;
+    disk_centerY_tot = center.y;
+
+    mX = e_mX - disk_centerX_tot;
+    mY = e_mY - disk_centerY_tot;
+
+    new_angle = (Math.atan2(mY, mX) * (180/Math.PI));
+
+    let angle_diff = new_angle - prev_angle;
+    while (angle_diff > 180) angle_diff -= 360;
+    while (angle_diff < -180) angle_diff += 360;
+
+    if (Math.abs(angle_diff) > 0.001) {
+      if (!hasDiscMovedAfterSampleLoad) {
+        hasDiscMovedAfterSampleLoad = true;
+        if (typeof updateTopPillVisibility === 'function') {
+          updateTopPillVisibility();
+        }
+      }
+    }
+
+    const bothLocked = (bottom_disk_locked && top_disk_locked);
+
+    // Track valid vs violating disc rotations
+    if (typeof stepState !== 'undefined' && Math.abs(angle_diff) > 0.001) {
+      if (!stepState.step2_bottom100) {
+        // Step 2 active: only bottom disk rotation in bottom active mode is valid
+        if (bothLocked || (top_disk_locked === false)) {
+          if (typeof markIncorrectActionOccurred === 'function') markIncorrectActionOccurred();
+        } else {
+          if (typeof markValidProgressOccurred === 'function') markValidProgressOccurred();
+        }
+      } else if (!stepState.step3_plasma) {
+        // Step 3 active: only top disk rotation in top active mode (bottom fixed at 0°) is valid
+        if (bothLocked || (bottom_disk_locked === false)) {
+          if (typeof markIncorrectActionOccurred === 'function') markIncorrectActionOccurred();
+        } else {
+          if (typeof markValidProgressOccurred === 'function') markValidProgressOccurred();
+        }
+      } else {
+        // Step 4 active: both disks must rotate linked together
+        if (!bothLocked) {
+          if (typeof markIncorrectActionOccurred === 'function') markIncorrectActionOccurred();
+        } else {
+          if (typeof markValidProgressOccurred === 'function') markValidProgressOccurred();
+        }
+      }
+    }
+
+    /* ROTATE BOTTOM DISK */
+    if(!bottom_disk_locked || bothLocked) {
+      const prev_bot_angle = (typeof bottom_disk.value === 'number') ? bottom_disk.value : 0;
+      let bottom_disk_new_angle = prev_bot_angle + angle_diff;
+      if(bottom_disk_new_angle < 0) {
+        bottom_disk_new_angle = 0;
+      }
+      if(bottom_disk_new_angle > 340.5) {
+        bottom_disk_new_angle = 340.5;
+      }
+      bottom_disk.style.transform = 'rotate(' + bottom_disk_new_angle + 'deg)';
+      bottom_disk.value = bottom_disk_new_angle;
+
+      /* When both disks are locked together, top disk moves by the exact delta bottom disk moved */
+      if(bothLocked) {
+        const effective_diff = bottom_disk_new_angle - prev_bot_angle;
+        const prev_top_angle = (typeof top_disk.value === 'number') ? top_disk.value : 0;
+        const top_disk_new_angle = prev_top_angle + effective_diff;
+        top_disk.style.transform = 'rotate(' + top_disk_new_angle + 'deg)';
+        top_disk.value = top_disk_new_angle;
+      }
+    }
+
+    /* ROTATE TOP DISK (FULL CONTINUOUS ROTATION) */
+    if(!top_disk_locked && !bothLocked) {
+      const prev_top_angle = (typeof top_disk.value === 'number') ? top_disk.value : 0;
+      const top_disk_new_angle = prev_top_angle + angle_diff;
+      top_disk.style.transform = 'rotate(' + top_disk_new_angle + 'deg)';
+      top_disk.value = top_disk_new_angle;
+    }
+
+    prev_angle = new_angle;
+    if (typeof updateAlignmentFeedback === 'function') {
+      updateAlignmentFeedback();
+    }
+  }
+
+  /* ZOOM TO CAPILLARY HOLDER & VERTICAL SCROLLING */
+  var is_zoomed = false;
+  var zoom_translate_y = 0;
+  var ZOOM_SCALE = 2.5;
+
+  function updateZoomTransform(smooth = false) {
+    const doneCheck = document.getElementById('done_check_container');
+    if (smooth) {
+      reader.style.transition = 'transform 0.3s ease-out';
+      if (doneCheck) doneCheck.style.transition = 'opacity 0.25s ease, transform 0.3s ease-out, top 0.3s ease-out, left 0.3s ease-out';
+    } else {
+      reader.style.transition = 'none';
+      if (doneCheck) doneCheck.style.transition = 'none';
+    }
+    reader.style.setProperty('--zoom-ty', `${zoom_translate_y}px`);
+    reader.style.transform = `scale(${ZOOM_SCALE}) translateY(${zoom_translate_y}px)`;
+  }
+
+  capillary_holder.addEventListener('mousedown', (e) => {
+    e.stopImmediatePropagation();
+  });
+  capillary_holder.addEventListener('click', () => {
+    const zoomBtn = document.getElementById('zoom_button');
+    const isZoomButtonVisible = zoomBtn && zoomBtn.classList.contains('visible');
+    if (!is_zoomed && !isZoomButtonVisible) return;
+    adjust_capillary_view();
+  });
+  capillary_holder.addEventListener('touchstart', (e) => {
+    e.stopImmediatePropagation();
+  });
+  capillary_holder.addEventListener('touchend', () => {
+    const zoomBtn = document.getElementById('zoom_button');
+    const isZoomButtonVisible = zoomBtn && zoomBtn.classList.contains('visible');
+    if (!is_zoomed && !isZoomButtonVisible) return;
+    adjust_capillary_view();
+  });
+
+  const zoomBtnEl = document.getElementById('zoom_button');
+  if (zoomBtnEl) {
+    zoomBtnEl.addEventListener('mousedown', (e) => {
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+    });
+    zoomBtnEl.addEventListener('touchstart', (e) => {
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+    });
+    zoomBtnEl.addEventListener('click', (e) => {
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      adjust_capillary_view();
+    });
+    zoomBtnEl.addEventListener('touchend', (e) => {
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      adjust_capillary_view();
+    });
+  }
+
+  function getTargetZoomTranslateY(targetType) {
+    const readerH = (typeof reader !== 'undefined' && reader.offsetHeight) ? reader.offsetHeight : 500;
+    let targetYPercent = 75;
+
+    if (targetType === 'plasma') {
+      const plasmaIndicator = document.getElementById('plasma_intersect_indicator');
+      if (plasmaIndicator && plasmaIndicator.style.top) {
+        targetYPercent = parseFloat(plasmaIndicator.style.top);
+      } else if (typeof activeSampleIndex !== 'undefined' && currentCases[activeSampleIndex]) {
+        targetYPercent = 58.0775 + (currentCases[activeSampleIndex].fill / 100) * 35.586;
+      }
+    } else if (targetType === 'rbc') {
+      const rbcIndicator = document.getElementById('intersect_indicator');
+      if (rbcIndicator && rbcIndicator.style.top) {
+        targetYPercent = parseFloat(rbcIndicator.style.top);
+      } else if (typeof activeSampleIndex !== 'undefined' && currentCases[activeSampleIndex]) {
+        const fracs = calculateFractions(currentCases[activeSampleIndex]);
+        targetYPercent = 58.0775 + (fracs.rbc / 100) * 35.586;
+      }
+    }
+
+    const Y = targetYPercent / 100;
+    const targetTy = ( (1 - Y) - (0.5 / ZOOM_SCALE) ) * readerH;
+    const minTranslateY = 0;
+    const maxTranslateY = readerH * (0.535 - 1 / ZOOM_SCALE);
+    return Math.max(minTranslateY, Math.min(maxTranslateY, targetTy));
+  }
+  window.getTargetZoomTranslateY = getTargetZoomTranslateY;
+
+  let lastReaderHeight = (typeof reader !== 'undefined' && reader.offsetHeight) ? reader.offsetHeight : 0;
+
+  function setCapillaryZoom(shouldZoom, smooth = true, targetType = null) {
+    const zoomBtn = document.getElementById('zoom_button');
+    const isZoomButtonVisible = zoomBtn && zoomBtn.classList.contains('visible');
+    if (shouldZoom && !isZoomButtonVisible && !targetType) {
+      return;
+    }
+
+    if (shouldZoom) {
+      if (typeof reader !== 'undefined') {
+        reader.classList.add('zoomed_view');
+      }
+      if (typeof capillary_holder !== 'undefined') {
+        capillary_holder.classList.remove('zoomIN');
+        capillary_holder.classList.add('zoomOUT');
+      }
+      if (zoomBtn) {
+        zoomBtn.setAttribute('title', 'Zoom out capillary reader');
+        zoomBtn.setAttribute('aria-label', 'Zoom out capillary reader');
+      }
+      is_zoomed = true;
+      lastReaderHeight = (typeof reader !== 'undefined' && reader.offsetHeight) ? reader.offsetHeight : 0;
+      zoom_translate_y = targetType ? getTargetZoomTranslateY(targetType) : 0;
+      updateZoomTransform(smooth);
+    } else {
+      if (typeof reader !== 'undefined') {
+        reader.classList.remove('zoomed_view');
+      }
+      if (typeof capillary_holder !== 'undefined') {
+        capillary_holder.classList.remove('zoomOUT');
+        if (isZoomButtonVisible) {
+          capillary_holder.classList.add('zoomIN');
+        } else {
+          capillary_holder.classList.remove('zoomIN');
+        }
+      }
+      if (zoomBtn) {
+        zoomBtn.setAttribute('title', 'Zoom in capillary reader');
+        zoomBtn.setAttribute('aria-label', 'Zoom in capillary reader');
+      }
+      is_zoomed = false;
+      zoom_translate_y = 0;
+      if (typeof reader !== 'undefined') {
+        reader.style.setProperty('--zoom-ty', '0px');
+      }
+      const doneCheckEl = document.getElementById('done_check_container');
+      if (smooth) {
+        reader.style.transition = 'transform 0.35s ease-out';
+        if (doneCheckEl) doneCheckEl.style.transition = 'opacity 0.25s ease, transform 0.3s ease-out, top 0.3s ease-out, left 0.3s ease-out';
+      } else {
+        reader.style.transition = 'none';
+        if (doneCheckEl) doneCheckEl.style.transition = 'none';
+      }
+      reader.style.transform = 'scale(1) translateY(0px)';
+    }
+
+    if (typeof updateIndicatorPosition === 'function') {
+      updateIndicatorPosition();
+    }
+    if (typeof updateAlignmentFeedback === 'function') {
+      updateAlignmentFeedback();
+    }
+  }
+  window.setCapillaryZoom = setCapillaryZoom;
+
+  function adjust_capillary_view(skipCancel = false) {
+    if (!skipCancel && typeof cancelTutorialDemo === 'function') cancelTutorialDemo();
+    const zoomBtn = document.getElementById('zoom_button');
+    const isZoomButtonVisible = zoomBtn && zoomBtn.classList.contains('visible');
+    if (!is_zoomed && !isZoomButtonVisible) {
+      return;
+    }
+    setCapillaryZoom(!is_zoomed, true);
+  }
+
+  function handleViewportChange() {
+    const currentReaderHeight = (typeof reader !== 'undefined' && reader.offsetHeight) ? reader.offsetHeight : 0;
+    if (is_zoomed && lastReaderHeight > 0 && currentReaderHeight > 0) {
+      zoom_translate_y = (zoom_translate_y / lastReaderHeight) * currentReaderHeight;
+      const minTranslateY = 0;
+      const maxTranslateY = currentReaderHeight * (0.535 - 1 / ZOOM_SCALE);
+      zoom_translate_y = Math.max(minTranslateY, Math.min(maxTranslateY, zoom_translate_y));
+      updateZoomTransform(false);
+    }
+    if (currentReaderHeight > 0) {
+      lastReaderHeight = currentReaderHeight;
+    }
+
+    if (typeof updateIndicatorPosition === 'function') {
+      updateIndicatorPosition();
+    }
+    if (typeof updateAlignmentFeedback === 'function') {
+      updateAlignmentFeedback();
+    }
+  }
+
+  window.addEventListener('resize', handleViewportChange);
+  document.addEventListener('fullscreenchange', () => {
+    setTimeout(handleViewportChange, 60);
+  });
+  document.addEventListener('webkitfullscreenchange', () => {
+    setTimeout(handleViewportChange, 60);
+  });
+
+  /* Bounded vertical scrolling when zoomed in */
+  window.addEventListener('wheel', (e) => {
+    if (!is_zoomed) return;
+    e.preventDefault();
+
+    const readerH = reader.offsetHeight;
+    // Lowest down scroll is exact default zoom position (0)
+    // Highest up scroll has equal margin past top of holder as bottom has past bottom of disk
+    const minTranslateY = 0;
+    const maxTranslateY = readerH * (0.535 - 1 / ZOOM_SCALE); // 0.135 * readerH
+
+    const scrollSpeed = 0.5;
+    zoom_translate_y -= e.deltaY * scrollSpeed;
+
+    if (zoom_translate_y > maxTranslateY) zoom_translate_y = maxTranslateY;
+    if (zoom_translate_y < minTranslateY) zoom_translate_y = minTranslateY;
+
+    updateZoomTransform(false);
+  }, { passive: false });
+
+  /* =========================================================================
+   * SPIRAL GEOMETRY & INVERSE DIAL CALIBRATION MODULE
+   * Maps 4-step reader alignment to exact 1:1 physical dial readings
+   * ========================================================================= */
+  var SpiralGeometry = (() => {
+    const SVG_VIEWBOX = 10.416667;
+    const SVG_CENTER = 5.2083335;
+    const R_MIN = 0.847656; // 0% HCT baseline radius (y ~ 6.056)
+    const R_MAX = 4.545514; // 100% HCT full-scale radius (y ~ 9.754)
+
+    // Exact Bezier segment definitions from reader/top_disk.svg (path213)
+    const rawSegments = [
+      { type: 'L', p0: [5.6083772, 6.0559895], p1: [5.2062844, 6.0559882] },
+      { type: 'C', p0: [5.2062844, 6.0559882], p1: [5.0626642, 6.0559877], p2: [4.9160121, 6.048263], p3: [4.7829061, 5.9943227] },
+      { type: 'C', p0: [4.7829061, 5.9943227], p1: [4.6498001, 5.9403824], p2: [4.5355008, 5.8451882], p3: [4.4490082, 5.7305331] },
+      { type: 'C', p0: [4.4490082, 5.7305331], p1: [4.328002, 5.5701265], p2: [4.2572342, 5.3728492], p3: [4.2459233, 5.172238] },
+      { type: 'C', p0: [4.2459233, 5.172238], p1: [4.2346124, 4.9716268], p2: [4.2824282, 4.7684116], p3: [4.3795823, 4.5925313] },
+      { type: 'C', p0: [4.3795823, 4.5925313], p1: [4.5543333, 4.2761756], p2: [4.885236, 4.0593243], p3: [5.2402008, 3.9913623] },
+      { type: 'C', p0: [5.2402008, 3.9913623], p1: [5.2402008 + 0.4460045, 3.9913623 - 0.085393], p2: [5.2402008 + 0.9186918, 3.9913623 + 0.054972], p3: [5.2402008 + 1.2823138, 3.9913623 + 0.3269844] },
+      { type: 'C', p0: [6.5225146, 4.3183467], p1: [6.5225146 + 0.2713596, 4.3183467 + 0.2029945], p2: [6.5225146 + 0.4875487, 4.3183467 + 0.4756814], p3: [6.5225146 + 0.6396175, 4.3183467 + 0.7785311] },
+      { type: 'C', p0: [7.1621321, 5.0968778], p1: [7.1621321 + 0.132786, 5.0968778 + 0.2644475], p2: [7.1621321 + 0.2178424, 5.0968778 + 0.552403], p3: [7.1621321 + 0.2539458, 5.0968778 + 0.8461055] },
+      { type: 'C', p0: [7.4160779, 5.9429833], p1: [7.4160779 + 0.0341, 5.9429833 + 0.2774071], p2: [7.4160779 + 0.024768, 5.9429833 + 0.5592843], p3: [7.4160779 - 0.01571, 5.9429833 + 0.8358328] },
+      { type: 'C', p0: [7.4003679, 6.7788161], p1: [7.3623802, 7.0383508], p2: [7.2969373, 7.2940986], p3: [7.2015839, 7.538453] },
+      { type: 'C', p0: [7.2015839, 7.538453], p1: [7.106745, 7.7814889], p2: [6.9826667, 8.0125107], p3: [6.8412033, 8.2317114] },
+      { type: 'C', p0: [6.8412033, 8.2317114], p1: [6.7043583, 8.4437558], p2: [6.5508877, 8.6453625], p3: [6.3786883, 8.829853] },
+      { type: 'C', p0: [6.3786883, 8.829853], p1: [6.2046757, 9.0162861], p2: [6.0120376, 9.184737], p3: [5.8100871, 9.3404729] },
+      { type: 'C', p0: [5.8100871, 9.3404729], p1: [5.6161058, 9.4900633], p2: [5.413274, 9.6281756], p3: [5.2030058, 9.7538471] }
+    ];
+
+    function evalBezier(p0, p1, p2, p3, t) {
+      const t1 = 1 - t;
+      const x = t1 * t1 * t1 * p0[0] + 3 * t1 * t1 * t * p1[0] + 3 * t1 * t * t * p2[0] + t * t * t * p3[0];
+      const y = t1 * t1 * t1 * p0[1] + 3 * t1 * t1 * t * p1[1] + 3 * t1 * t * t * p2[1] + t * t * t * p3[1];
+      return [x, y];
+    }
+
+    const curveSamples = [];
+    for (const seg of rawSegments) {
+      const n = seg.type === 'L' ? 25 : 75;
+      for (let i = 0; i <= n; i++) {
+        const t = i / n;
+        const pt = seg.type === 'L'
+          ? [seg.p0[0] + t * (seg.p1[0] - seg.p0[0]), seg.p0[1] + t * (seg.p1[1] - seg.p0[1])]
+          : evalBezier(seg.p0, seg.p1, seg.p2, seg.p3, t);
+        const dx = pt[0] - SVG_CENTER;
+        const dy = pt[1] - SVG_CENTER;
+        const r = Math.hypot(dx, dy);
+        const baseAngleDeg = Math.atan2(dy, dx) * 180 / Math.PI;
+        // Required top disk rotation to align this point to the downward vertical slit (+90 deg):
+        const alignAngleDeg = (90 - baseAngleDeg + 360) % 360;
+        const hctPercent = ((r - R_MIN) / (R_MAX - R_MIN)) * 100;
+        curveSamples.push({
+          x: pt[0],
+          y: pt[1],
+          r,
+          baseAngleDeg,
+          alignAngleDeg,
+          hctPercent: Math.max(0, Math.min(100, hctPercent))
+        });
+      }
+    }
+
+    function getAngleFromRadius(targetRSvg) {
+      let best = curveSamples[0];
+      let minDiff = Infinity;
+      for (const pt of curveSamples) {
+        const diff = Math.abs(pt.r - targetRSvg);
+        if (diff < minDiff) {
+          minDiff = diff;
+          best = pt;
+        }
+      }
+      return (90 - best.baseAngleDeg + 360) % 360;
+    }
+
+    function getRadiusFromAngle(alignAngle) {
+      const normAngle = ((alignAngle % 360) + 360) % 360;
+      let best = curveSamples[0];
+      let minDiff = Infinity;
+      for (const pt of curveSamples) {
+        let diff = Math.abs(pt.alignAngleDeg - normAngle);
+        if (diff > 180) diff = 360 - diff;
+        if (diff < minDiff) {
+          minDiff = diff;
+          best = pt;
+        }
+      }
+      return best.r;
+    }
+
+    return {
+      SVG_VIEWBOX,
+      SVG_CENTER,
+      R_MIN,
+      R_MAX,
+      curveSamples,
+      getAngleFromRadius,
+      getRadiusFromAngle
+    };
+  })();
+
+  const DIAL_ANGLES_MAP = [
+    [100.0, 0.000000],
+    [99.0, 0.787974],
+    [98.0, 1.707440],
+    [97.0, 2.542531],
+    [96.0, 3.317490],
+    [95.0, 4.208058],
+    [94.0, 4.975825],
+    [93.0, 5.796481],
+    [92.0, 6.668609],
+    [91.0, 7.520181],
+    [90.0, 8.271480],
+    [89.0, 9.323919],
+    [88.0, 10.259769],
+    [87.0, 11.163756],
+    [86.0, 12.096992],
+    [85.0, 12.999447],
+    [84.0, 13.856018],
+    [83.0, 14.806620],
+    [82.0, 15.846638],
+    [81.0, 16.866852],
+    [80.0, 17.887974],
+    [79.0, 18.740613],
+    [78.0, 19.688918],
+    [77.0, 20.795182],
+    [76.0, 21.857129],
+    [75.0, 22.966965],
+    [74.0, 23.984324],
+    [73.0, 25.131228],
+    [72.0, 26.190879],
+    [71.0, 27.232508],
+    [70.0, 28.370692],
+    [69.0, 29.485748],
+    [68.0, 30.716365],
+    [67.0, 31.884648],
+    [66.0, 33.147022],
+    [65.0, 34.350714],
+    [64.0, 35.542918],
+    [63.0, 36.750240],
+    [62.0, 37.954403],
+    [61.0, 39.215340],
+    [60.0, 40.569869],
+    [59.0, 41.885281],
+    [58.0, 43.194360],
+    [57.0, 44.583729],
+    [56.0, 45.939430],
+    [55.0, 47.398958],
+    [54.0, 48.720722],
+    [53.0, 50.117366],
+    [52.0, 51.450689],
+    [51.0, 52.855667],
+    [50.0, 54.447797],
+    [49.0, 56.097134],
+    [48.0, 57.678733],
+    [47.0, 59.390203],
+    [46.0, 61.041306],
+    [45.0, 62.679146],
+    [44.0, 64.501052],
+    [43.0, 66.255464],
+    [42.0, 68.023043],
+    [41.0, 69.732079],
+    [40.0, 71.611961],
+    [39.0, 73.603725],
+    [38.0, 75.487614],
+    [37.0, 77.687942],
+    [36.0, 79.573642],
+    [35.0, 81.463092],
+    [34.0, 83.792297],
+    [33.0, 86.209589],
+    [32.0, 88.344197],
+    [31.0, 90.966887],
+    [30.0, 93.370646],
+    [29.0, 95.819788],
+    [28.0, 98.434374],
+    [27.0, 101.393524],
+    [26.0, 104.320540],
+    [25.0, 107.302321],
+    [24.0, 110.307434],
+    [23.0, 113.426932],
+    [22.0, 116.871383],
+    [21.0, 120.344305],
+    [20.0, 124.141073],
+    [19.0, 128.067546],
+    [18.0, 132.835049],
+    [17.0, 136.742981],
+    [16.0, 141.393074],
+    [15.0, 146.507454],
+    [14.0, 151.963087],
+    [13.0, 157.695879],
+    [12.0, 164.031587],
+    [11.0, 170.903939],
+    [10.0, 178.521728],
+    [9.0, 186.986478],
+    [8.0, 196.380883],
+    [7.0, 207.085255],
+    [6.0, 219.096305],
+    [5.0, 233.460553],
+    [4.0, 250.806599],
+    [3.0, 272.416436],
+    [2.0, 304.562809]
+  ];
+
+  function getDialAngleForHct(hct) {
+    if (hct >= 100) return 0;
+    if (hct <= 2) return 304.562809;
+    for (let i = 0; i < DIAL_ANGLES_MAP.length - 1; i++) {
+      const [r1, a1] = DIAL_ANGLES_MAP[i];
+      const [r2, a2] = DIAL_ANGLES_MAP[i + 1];
+      if (hct <= r1 && hct >= r2) {
+        if (r1 === r2) return a1;
+        const frac = (r1 - hct) / (r1 - r2);
+        return a1 + frac * (a2 - a1);
+      }
+    }
+    return 0;
+  }
+
+  function getCalibratedRbcFraction(fill, hct) {
+    if (typeof SpiralGeometry === 'undefined' || !SpiralGeometry.getAngleFromRadius) {
+      return fill * (hct / 100);
+    }
+    const r_plasma = 0.8414078 + (fill / 100) * 3.7068715;
+    const theta_plasma = SpiralGeometry.getAngleFromRadius(r_plasma);
+    const delta_dial = getDialAngleForHct(hct);
+    const theta_rbc = (theta_plasma + delta_dial) % 360;
+    const r_rbc = SpiralGeometry.getRadiusFromAngle(theta_rbc);
+    const rbcHeight = ((r_rbc - 0.8414078) / 3.7068715) * 100;
+    return Math.max(0, Math.min(fill, rbcHeight));
+  }
+
+  /* SAMPLES DATA & INTERACTIVE MANAGEMENT */
+  const defaultCases = [
+    { label: "S-01", name: "Normal", hct: 42, buffy: 1.0, fill: 71.0 },
+    { label: "S-02", name: "Mild Anemia", hct: 32, buffy: 1.0, fill: 70.0 },
+    { label: "S-03", name: "Severe Anemia", hct: 20, buffy: 0.8, fill: 68.0 },
+    { label: "S-04", name: "Polycythemia", hct: 62, buffy: 1.2, fill: 73.5 },
+    { label: "S-05", name: "Leukocytosis", hct: 44, buffy: 6.0, fill: 72.0 }
+  ];
+
+  /* 20 DETERMINISTIC EXAM UNKNOWNS:
+   * Low (20–30%): Unknowns 2, 5, 8, 11, 14, 18
+   * Normal (35–45%): Unknowns 1, 4, 7, 9, 12, 15, 17, 20
+   * High (50–65%): Unknowns 3, 6, 10, 13, 16, 19
+   */
+  const examCases = [
+    { label: "Unknown #1", name: "Unknown #1", hct: 41.5, buffy: 1.0, fill: 71.2 },
+    { label: "Unknown #2", name: "Unknown #2", hct: 24.0, buffy: 0.8, fill: 69.5 },
+    { label: "Unknown #3", name: "Unknown #3", hct: 56.5, buffy: 1.2, fill: 73.0 },
+    { label: "Unknown #4", name: "Unknown #4", hct: 37.0, buffy: 1.0, fill: 70.0 },
+    { label: "Unknown #5", name: "Unknown #5", hct: 28.5, buffy: 0.9, fill: 68.5 },
+    { label: "Unknown #6", name: "Unknown #6", hct: 61.0, buffy: 1.4, fill: 74.0 },
+    { label: "Unknown #7", name: "Unknown #7", hct: 44.0, buffy: 1.1, fill: 72.5 },
+    { label: "Unknown #8", name: "Unknown #8", hct: 21.5, buffy: 0.8, fill: 69.0 },
+    { label: "Unknown #9", name: "Unknown #9", hct: 39.5, buffy: 1.0, fill: 70.8 },
+    { label: "Unknown #10", name: "Unknown #10", hct: 53.0, buffy: 1.3, fill: 71.8 },
+    { label: "Unknown #11", name: "Unknown #11", hct: 26.5, buffy: 0.9, fill: 70.5 },
+    { label: "Unknown #12", name: "Unknown #12", hct: 43.0, buffy: 1.1, fill: 73.2 },
+    { label: "Unknown #13", name: "Unknown #13", hct: 51.5, buffy: 1.2, fill: 69.2 },
+    { label: "Unknown #14", name: "Unknown #14", hct: 22.5, buffy: 0.8, fill: 68.8 },
+    { label: "Unknown #15", name: "Unknown #15", hct: 36.5, buffy: 1.0, fill: 69.8 },
+    { label: "Unknown #16", name: "Unknown #16", hct: 58.0, buffy: 1.3, fill: 73.5 },
+    { label: "Unknown #17", name: "Unknown #17", hct: 40.0, buffy: 1.2, fill: 71.5 },
+    { label: "Unknown #18", name: "Unknown #18", hct: 29.0, buffy: 1.0, fill: 72.0 },
+    { label: "Unknown #19", name: "Unknown #19", hct: 63.5, buffy: 1.4, fill: 74.2 },
+    { label: "Unknown #20", name: "Unknown #20", hct: 45.0, buffy: 1.0, fill: 72.8 }
+  ];
+
+  let isExamMode = false;
+  let examUnknownIndex = -1;
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('exam')) {
+    let num = parseInt(urlParams.get('exam'), 10);
+    if (isNaN(num) || num < 1 || num > 20) {
+      num = 1;
+    }
+    isExamMode = true;
+    examUnknownIndex = num - 1;
+  }
+
+  var currentCases = isExamMode ? [...examCases] : [...defaultCases];
+  var activeSampleIndex = isExamMode ? examUnknownIndex : -1;
+
+  function calculateFractions(sampleData) {
+    // Fill percent between 2/3 (66.67%) and 3/4 (75.0%) of space above critoseal
+    const fill = sampleData.fill;
+    const rbcHeight = getCalibratedRbcFraction(fill, sampleData.hct);
+    const wbcHeight = fill * (sampleData.buffy / 100);
+    const plasmaHeight = Math.max(0, fill - rbcHeight - wbcHeight);
+    return {
+      rbc: rbcHeight,
+      wbc: wbcHeight,
+      plasma: plasmaHeight,
+      fill: fill
+    };
+  }
+
+  var trainerVisible = false;
+  var trainerStateOn = false;
+
+  function setTrainerState(isOn) {
+    if (isExamMode) return;
+    trainerStateOn = isOn;
+    const btn = document.getElementById('trainer_btn');
+    const badge = document.getElementById('trainer_status_badge');
+    if (btn && badge) {
+      if (isOn) {
+        btn.className = 'trainer_btn status_on';
+        btn.setAttribute('title', 'Trainer is ON (Click to turn off)');
+        badge.textContent = 'ON';
+        badge.className = 'trainer_badge badge_on';
+      } else {
+        btn.className = 'trainer_btn status_off';
+        btn.setAttribute('title', 'Trainer is OFF (Click to turn on)');
+        badge.textContent = 'OFF';
+        badge.className = 'trainer_badge badge_off';
+      }
+    }
+    if (typeof updateAlignmentFeedback === 'function') {
+      updateAlignmentFeedback();
+    }
+    if (typeof updateTopPillVisibility === 'function') {
+      updateTopPillVisibility();
+    }
+  }
+  window.setTrainerState = setTrainerState;
+
+  /* =========================================================================
+   * TOP PILL COORDINATION: "SHOW ME" & "DONE & CHECK"
+   * ========================================================================= */
+  var hasDiscMovedAfterSampleLoad = false;
+
+  function updateTopPillVisibility() {
+    const showMeBtn = document.getElementById('show_me_btn');
+    const doneCheckContainer = document.getElementById('done_check_container');
+
+    if (isExamMode) {
+      if (showMeBtn) {
+        showMeBtn.classList.remove('visible');
+        showMeBtn.classList.add('hidden');
+      }
+      if (doneCheckContainer) {
+        doneCheckContainer.classList.remove('visible');
+        doneCheckContainer.classList.add('hidden');
+        resetDoneCheckState();
+      }
+      return;
+    }
+
+    const hasSample = (typeof activeSampleIndex !== 'undefined' && activeSampleIndex !== -1 && currentCases && currentCases[activeSampleIndex]);
+    const isTrainerAppeared = !!(trainerVisible || trainerStateOn);
+
+    if (!hasSample) {
+      if (showMeBtn) {
+        showMeBtn.classList.remove('visible');
+        showMeBtn.classList.add('hidden');
+      }
+      if (doneCheckContainer) {
+        doneCheckContainer.classList.remove('visible');
+        doneCheckContainer.classList.add('hidden');
+        resetDoneCheckState();
+      }
+      return;
+    }
+
+    // Show Me button appears only when Trainer is ON and final step is incomplete
+    if (showMeBtn) {
+      if (trainerStateOn && (!stepState || !stepState.step4_rbc)) {
+        showMeBtn.classList.remove('hidden');
+        showMeBtn.classList.add('visible');
+      } else {
+        showMeBtn.classList.remove('visible');
+        showMeBtn.classList.add('hidden');
+      }
+    }
+
+    // Done & Check pill appears when trainer is OFF or final step is reached
+    if (doneCheckContainer) {
+      if (!trainerStateOn || (stepState && stepState.step4_rbc)) {
+        if (hasDiscMovedAfterSampleLoad) {
+          doneCheckContainer.classList.remove('hidden');
+          doneCheckContainer.classList.add('visible');
+        } else {
+          doneCheckContainer.classList.remove('visible');
+          doneCheckContainer.classList.add('hidden');
+          resetDoneCheckState();
+        }
+      } else {
+        doneCheckContainer.classList.remove('visible');
+        doneCheckContainer.classList.add('hidden');
+        resetDoneCheckState();
+      }
+    }
+  }
+  window.updateTopPillVisibility = updateTopPillVisibility;
+
+  function updateShowMeVisibility() {
+    updateTopPillVisibility();
+  }
+  window.updateShowMeVisibility = updateShowMeVisibility;
+
+  function updateDoneCheckVisibility(show = true) {
+    updateTopPillVisibility();
+  }
+  window.updateDoneCheckVisibility = updateDoneCheckVisibility;
+
+  function startShowMeDemo(e) {
+    if (e) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
+    if (typeof startShowMeStepDemo === 'function') {
+      startShowMeStepDemo();
+    }
+  }
+  window.startShowMeDemo = startShowMeDemo;
+
+  const showMeBtnEl = document.getElementById('show_me_btn');
+  if (showMeBtnEl) {
+    showMeBtnEl.addEventListener('pointerdown', (e) => e.stopPropagation());
+    showMeBtnEl.addEventListener('mousedown', (e) => e.stopPropagation());
+    showMeBtnEl.addEventListener('touchstart', (e) => e.stopPropagation());
+  }
+
+  /* =========================================================================
+   * DONE & CHECK MODULE
+   * ========================================================================= */
+  function resetDoneCheckState() {
+    const btn = document.getElementById('done_check_btn');
+    const card = document.getElementById('done_check_input_card');
+    const input = document.getElementById('hct_result_input');
+    const feedback = document.getElementById('done_check_feedback');
+    if (btn) btn.classList.remove('hidden');
+    if (card) card.classList.add('hidden');
+    if (input) input.value = '';
+    if (feedback) {
+      feedback.className = 'done_check_feedback hidden';
+      feedback.innerHTML = '';
+    }
+  }
+  window.resetDoneCheckState = resetDoneCheckState;
+
+  function openDoneCheckInput(e) {
+    if (e) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
+    if (typeof cancelTutorialDemo === 'function') cancelTutorialDemo();
+
+    // Remove active lavender outline from discs
+    const botDisc = document.getElementById('bottom_disk');
+    const topDisc = document.getElementById('top_disk');
+    if (botDisc) botDisc.classList.remove('disc_active');
+    if (topDisc) topDisc.classList.remove('disc_active');
+
+    const btn = document.getElementById('done_check_btn');
+    const card = document.getElementById('done_check_input_card');
+    const input = document.getElementById('hct_result_input');
+    const feedback = document.getElementById('done_check_feedback');
+    if (btn) btn.classList.add('hidden');
+    if (card) card.classList.remove('hidden');
+    if (feedback) {
+      feedback.className = 'done_check_feedback hidden';
+      feedback.innerHTML = '';
+    }
+    if (input) {
+      input.value = '';
+      setTimeout(() => input.focus(), 60);
+    }
+  }
+  window.openDoneCheckInput = openDoneCheckInput;
+
+  function closeDoneCheckInput(e) {
+    if (e) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
+    resetDoneCheckState();
+  }
+  window.closeDoneCheckInput = closeDoneCheckInput;
+
+  function launchTrainerFromCheck(e) {
+    if (e) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
+    // Close the input card
+    resetDoneCheckState();
+    // Ensure trainer is shown and turned ON
+    showTrainerButton();
+    setTrainerState(true);
+    // Start show me step demo for the earliest incorrect step
+    if (typeof startShowMeStepDemo === 'function') {
+      startShowMeStepDemo();
+    }
+  }
+  window.launchTrainerFromCheck = launchTrainerFromCheck;
+
+  function submitDoneCheckResult(e) {
+    if (e) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
+    if (typeof activeSampleIndex === 'undefined' || activeSampleIndex === -1 || !currentCases[activeSampleIndex]) {
+      return;
+    }
+    const input = document.getElementById('hct_result_input');
+    const feedback = document.getElementById('done_check_feedback');
+    if (!input || !feedback) return;
+
+    const rawVal = input.value.trim();
+    if (rawVal === '' || isNaN(Number(rawVal))) {
+      feedback.className = 'done_check_feedback warning';
+      feedback.innerHTML = `
+        <div class="feedback_header">
+          <span>Please enter a number</span>
+        </div>
+      `;
+      return;
+    }
+
+    const userVal = parseFloat(rawVal);
+    const sample = currentCases[activeSampleIndex];
+    // True target result rounded to the nearest 0.5
+    const targetRounded = Math.round(sample.hct * 2) / 2;
+    const minRange = (targetRounded - 0.5).toFixed(1);
+    const maxRange = (targetRounded + 0.5).toFixed(1);
+    // Calculate difference
+    const diff = Math.abs(userVal - targetRounded);
+
+    if (diff <= 0.5 + 1e-6) {
+      // IDEAL: within +-0.5% (Green)
+      feedback.className = 'done_check_feedback ideal';
+      feedback.innerHTML = `
+        <div class="feedback_header">
+          <svg class="feedback_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span>Ideal</span>
+        </div>
+        <div class="feedback_details">
+          <span>Target: <strong>${targetRounded.toFixed(1)}%</strong> (range: ${minRange}% &ndash; ${maxRange}%)</span>
+          <span class="feedback_sub">Your entry: ${userVal.toFixed(1)}%</span>
+        </div>
+      `;
+    } else if (diff < 1.0 - 1e-6) {
+      // VERY CLOSE: > +-0.5% but < +-1.0% (Yellow-Green)
+      feedback.className = 'done_check_feedback very_close';
+      feedback.innerHTML = `
+        <div class="feedback_header">
+          <svg class="feedback_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <span>Very Close</span>
+        </div>
+        <div class="feedback_details">
+          <span>Target: <strong>${targetRounded.toFixed(1)}%</strong> (ideal range: ${minRange}% &ndash; ${maxRange}%)</span>
+          <span class="feedback_sub">Your entry: ${userVal.toFixed(1)}% (diff: ${diff.toFixed(1)}%)</span>
+        </div>
+      `;
+    } else if (diff <= 2.0 + 1e-6) {
+      // CLOSE: >= +-1.0% and <= +-2.0% (Yellow)
+      feedback.className = 'done_check_feedback close';
+      feedback.innerHTML = `
+        <div class="feedback_header">
+          <svg class="feedback_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          <span>Close</span>
+        </div>
+        <div class="feedback_details">
+          <span>Target: <strong>${targetRounded.toFixed(1)}%</strong> (ideal range: ${minRange}% &ndash; ${maxRange}%)</span>
+          <span class="feedback_sub">Your entry: ${userVal.toFixed(1)}% (diff: ${diff.toFixed(1)}%)</span>
+        </div>
+      `;
+    } else {
+      // NOT YET: > +-2.0% (Red)
+      feedback.className = 'done_check_feedback not_yet';
+      feedback.innerHTML = `
+        <div class="feedback_header">
+          <svg class="feedback_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="15" y1="9" x2="9" y2="15"></line>
+            <line x1="9" y1="9" x2="15" y2="15"></line>
+          </svg>
+          <span>Not Yet</span>
+        </div>
+        <div class="feedback_details">
+          <span class="feedback_sub">Your entry: ${userVal.toFixed(1)}%</span>
+        </div>
+        <button class="show_me_btn done_check_show_me_btn" onclick="launchTrainerFromCheck(event)" title="Show me how to read hematocrit" aria-label="Show me tutorial">
+          <svg class="show_me_icon" width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+          <span>Show Me</span>
+        </button>
+      `;
+    }
+  }
+  window.submitDoneCheckResult = submitDoneCheckResult;
+
+  // Prevent reader drag when clicking/typing inside Done & Check container
+  const doneCheckContainerEl = document.getElementById('done_check_container');
+  if (doneCheckContainerEl) {
+    doneCheckContainerEl.addEventListener('mousedown', (e) => e.stopPropagation());
+    doneCheckContainerEl.addEventListener('touchstart', (e) => e.stopPropagation());
+  }
+  const hctResultInputEl = document.getElementById('hct_result_input');
+  if (hctResultInputEl) {
+    hctResultInputEl.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        submitDoneCheckResult(e);
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        closeDoneCheckInput(e);
+      }
+    });
+  }
+
+  var newCasesVisible = false;
+
+  function showTrainerButton() {
+    trainerVisible = true;
+    const container = document.getElementById('trainer_container');
+    if (container) {
+      container.classList.remove('hidden');
+      container.classList.add('visible');
+    }
+    if (typeof updateTopPillVisibility === 'function') {
+      updateTopPillVisibility();
+    }
+  }
+  window.showTrainerButton = showTrainerButton;
+
+  function showNewCasesButton() {
+    newCasesVisible = true;
+    const container = document.getElementById('new_cases_container');
+    if (container) {
+      container.classList.remove('hidden');
+      container.classList.add('visible');
+    }
+  }
+  window.showNewCasesButton = showNewCasesButton;
+
+  var lastDemoCancelTime = 0;
+
+  function toggleTrainer(e) {
+    if (e) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
+    if (demoActive || (Date.now() - lastDemoCancelTime < 350)) {
+      cancelTutorialDemo();
+      setTrainerState(false);
+      return;
+    }
+    if (trainerStateOn) {
+      setTrainerState(false);
+      cancelTutorialDemo();
+    } else {
+      setTrainerState(true);
+    }
+  }
+  window.toggleTrainer = toggleTrainer;
+
+  function renderSamplesTray() {
+    if (isExamMode) return;
+    const container = document.getElementById('samples');
+    if (!container) return;
+
+    const isTrainerVisibleClass = trainerVisible ? ' visible' : ' hidden';
+    const isNewCasesVisibleClass = newCasesVisible ? ' visible' : ' hidden';
+    const statusClass = trainerStateOn ? ' status_on' : ' status_off';
+    const badgeClass = trainerStateOn ? ' badge_on' : ' badge_off';
+    const badgeText = trainerStateOn ? 'ON' : 'OFF';
+
+    let html = `
+      <div id="trainer_container" class="trainer_container${isTrainerVisibleClass}">
+        <button id="trainer_btn" class="trainer_btn${statusClass}" onclick="toggleTrainer(event)" title="${trainerStateOn ? 'Trainer is ON (Click to turn off)' : 'Trainer is OFF (Click to turn on)'}">
+          <div class="trainer_btn_left">
+            <svg class="trainer_icon_svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+            </svg>
+            <span class="trainer_label">Trainer</span>
+          </div>
+          <div id="trainer_status_badge" class="trainer_badge${badgeClass}">${badgeText}</div>
+        </button>
+      </div>
+    `;
+
+    html += '<div class="samples_list">';
+    currentCases.forEach((item, index) => {
+      const fracs = calculateFractions(item);
+      const isActive = index === activeSampleIndex ? ' active' : '';
+      html += `
+        <div class="sample_card${isActive}" id="sample_card_${index}" onclick="selectSample(${index})">
+          <div class="mini_tube_container">
+            <div class="mini_tube">
+              <div class="mini_blood">
+                <div class="mini_plasma" style="height: ${fracs.plasma}%;"></div>
+                <div class="mini_wbc" style="height: ${fracs.wbc}%;"></div>
+                <div class="mini_rbc" style="height: ${fracs.rbc}%;"></div>
+              </div>
+              <div class="mini_critoseal"></div>
+            </div>
+          </div>
+          <div class="sample_label_group">
+            <div class="sample_num">${item.label}</div>
+            <div class="sample_desc">${item.name}</div>
+            <button class="sample_refresh_btn" onclick="reloadSample(event, ${index})" title="Reload sample" aria-label="Reload sample">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      `;
+    });
+    html += '</div>';
+
+    html += `
+      <div id="new_cases_container" class="samples_action${isNewCasesVisibleClass}">
+        <button class="new_cases_btn" onclick="generateNewCases()" title="Generate 5 new random cases">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+          </svg>
+          <span>New Cases</span>
+        </button>
+      </div>
+    `;
+
+    container.innerHTML = html;
+  }
+
+  function reloadSample(e, index) {
+    if (e) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
+    selectSample(index, true);
+  }
+  window.reloadSample = reloadSample;
+
+  var isSampleChanging = false;
+
+  async function selectSample(index, forceReinit = false) {
+    if (isSampleChanging) return;
+    const isInitialFirstLoad = (activeSampleIndex === -1);
+    if (!isInitialFirstLoad && !forceReinit && index === activeSampleIndex) return;
+
+    isSampleChanging = true;
+    activeSampleIndex = index;
+    animationTriggeredNotification = true;
+    hasDiscMovedAfterSampleLoad = false;
+
+    if (typeof hideSampleNotification === 'function') {
+      hideSampleNotification();
+    }
+
+    if (typeof cancelTutorialDemo === 'function') {
+      cancelTutorialDemo();
+    }
+
+    // Stop any ongoing initial disk spin animation immediately
+    bottom_disk.classList.remove('anim_rot_bot_disk');
+    top_disk.classList.remove('anim_rot_top_disk');
+
+    const sampleData = currentCases[index];
+    if (!sampleData) return;
+
+    console.log(`Sample ${sampleData.label} (${sampleData.name}) - RBC Hematocrit: ${sampleData.hct}%`);
+
+    // Update active sample card indicator immediately for responsive feel
+    document.querySelectorAll('.sample_card').forEach((card, idx) => {
+      if (idx === index) {
+        card.classList.add('active');
+      } else {
+        card.classList.remove('active');
+      }
+    });
+
+    const sampleEl = document.getElementById('sample');
+    const indicator = document.getElementById('intersect_indicator');
+    const plasmaIndicator = document.getElementById('plasma_intersect_indicator');
+    const critosealIndicator = document.getElementById('critoseal_indicator');
+    const bottom100Indicator = document.getElementById('bottom_100_indicator');
+
+    if (typeof resetIndicatorSteps === 'function') {
+      resetIndicatorSteps();
+    }
+
+    if (!isInitialFirstLoad) {
+      // 1. First animate the capillary sliding away (halved duration: 220ms)
+      if (typeof applyIndicatorState === 'function') {
+        applyIndicatorState(indicator, 'hidden');
+        applyIndicatorState(plasmaIndicator, 'hidden');
+        applyIndicatorState(critosealIndicator, 'hidden');
+        applyIndicatorState(bottom100Indicator, 'hidden');
+      } else {
+        if (indicator) indicator.classList.remove('active');
+        if (plasmaIndicator) plasmaIndicator.classList.remove('active');
+        if (critosealIndicator) critosealIndicator.classList.remove('active');
+        if (bottom100Indicator) bottom100Indicator.classList.remove('active');
+      }
+      if (sampleEl) {
+        sampleEl.classList.remove('tube_slide_up');
+        sampleEl.classList.remove('tube_slide_up_fast');
+        sampleEl.classList.add('tube_hidden');
+      }
+
+      // Wait for capillary tube to slide away
+      await new Promise((resolve) => setTimeout(resolve, 220));
+    }
+
+    // 2. Then initiate reinitialization of disk rotations (fast mode: 1s duration) and wait until rotations stop
+    if (typeof reinitializeReader === 'function') {
+      await reinitializeReader(true);
+    }
+
+    // Brief settling pause after discs come to a full stop
+    await new Promise((resolve) => setTimeout(resolve, 40));
+
+    // 3. Then slide in new sample (halved duration: 0.3s)
+    activeSampleIndex = index;
+    if (typeof updateDiscButtonUI === 'function') {
+      updateDiscButtonUI();
+    }
+    const fracs = calculateFractions(sampleData);
+    rbc_fraction.style.height = fracs.rbc + '%';
+    wbc_plt_fraction.style.height = fracs.wbc + '%';
+    plasma_fraction.style.height = fracs.plasma + '%';
+
+    if (sampleEl) {
+      void sampleEl.offsetWidth; // Force DOM reflow so slide-up transition replays cleanly
+      sampleEl.classList.remove('tube_hidden');
+      sampleEl.classList.remove('tube_slide_up');
+      sampleEl.classList.add('tube_slide_up_fast');
+    }
+
+    if (typeof updateIndicatorPosition === 'function') {
+      updateIndicatorPosition();
+    }
+    if (typeof updateAlignmentFeedback === 'function') {
+      updateAlignmentFeedback();
+    }
+
+    checkpoint0 = {
+      botAngle: (typeof bottom_disk.value === 'number') ? bottom_disk.value : rand_rot_bottom,
+      topAngle: (typeof top_disk.value === 'number') ? top_disk.value : rand_rot_top,
+      botLocked: false,
+      topLocked: true,
+      stepState: {
+        step1_zeroSet: true,
+        step2_bottom100: false,
+        step3_plasma: false,
+        step4_rbc: false,
+        step2_invalidated: false,
+        step3_invalidated: false,
+        calibratedPlasmaTopAngle: null,
+        calibratedPlasmaBotAngle: null
+      }
+    };
+    validCheckpointStep2 = null;
+    validCheckpointStep3 = null;
+    lastValidState = JSON.parse(JSON.stringify(checkpoint0));
+    firstIncorrectState = null;
+    currentStrokeStartSnapshot = null;
+
+    if (typeof updateDoneCheckVisibility === 'function') {
+      updateDoneCheckVisibility(true);
+    }
+
+    if (typeof showTrainerButton === 'function') {
+      showTrainerButton();
+    }
+    if (typeof showNewCasesButton === 'function') {
+      showNewCasesButton();
+    }
+
+    isSampleChanging = false;
+
+    if (isInitialFirstLoad && typeof startTutorialDemo === 'function') {
+      startTutorialDemo();
+    }
+  }
+
+  /* =========================================================================
+   * ONBOARDING TUTORIAL DEMO ANIMATION & STROKE-LEVEL STATE TRACKING
+   * ========================================================================= */
+  var checkpoint0 = null;
+  var validCheckpointStep2 = null;
+  var validCheckpointStep3 = null;
+  var lastValidState = null;
+  var firstIncorrectState = null;
+  var currentStrokeStartSnapshot = null;
+
+  function captureCurrentStateSnapshot() {
+    return {
+      botAngle: (typeof bottom_disk !== 'undefined' && typeof bottom_disk.value === 'number') ? bottom_disk.value : 0,
+      topAngle: (typeof top_disk !== 'undefined' && typeof top_disk.value === 'number') ? top_disk.value : 0,
+      botLocked: !!bottom_disk_locked,
+      topLocked: !!top_disk_locked,
+      stepState: (typeof stepState !== 'undefined') ? JSON.parse(JSON.stringify(stepState)) : {}
+    };
+  }
+
+  function recordStrokeStart() {
+    if (demoActive) return;
+    currentStrokeStartSnapshot = captureCurrentStateSnapshot();
+    if (!lastValidState) {
+      lastValidState = JSON.parse(JSON.stringify(currentStrokeStartSnapshot));
+    }
+  }
+
+  function markIncorrectActionOccurred() {
+    if (demoActive) return;
+    if (!firstIncorrectState) {
+      firstIncorrectState = currentStrokeStartSnapshot
+        ? JSON.parse(JSON.stringify(currentStrokeStartSnapshot))
+        : (lastValidState ? JSON.parse(JSON.stringify(lastValidState)) : captureCurrentStateSnapshot());
+    }
+  }
+
+  function markValidProgressOccurred() {
+    if (demoActive) return;
+    if (!firstIncorrectState) {
+      lastValidState = captureCurrentStateSnapshot();
+    }
+  }
+
+  var demoActive = false;
+  var demoHasRun = false;
+  var demoTimeouts = [];
+  var demoRafIds = [];
+
+  function clearDemoTimers() {
+    if (Array.isArray(demoTimeouts)) {
+      demoTimeouts.forEach(t => clearTimeout(t));
+      demoTimeouts = [];
+    }
+    if (Array.isArray(demoRafIds)) {
+      demoRafIds.forEach(id => cancelAnimationFrame(id));
+      demoRafIds = [];
+    }
+  }
+
+  var savedShowMeState = null;
+  var savedTutorialState = null;
+
+  function getPriorValidCheckpoint() {
+    // If Step 2 is not completed or has been invalidated, show Step 2
+    if (!stepState.step2_bottom100 || stepState.step2_invalidated) {
+      const fallbackCp = checkpoint0 || lastValidState || captureCurrentStateSnapshot();
+      return { checkpoint: fallbackCp, step: 2 };
+    }
+
+    // Step 2 is valid and completed.
+    // If Step 3 is also valid and completed, show next step: Step 4
+    if (stepState.step3_plasma && !stepState.step3_invalidated) {
+      const plasmaTarget = (stepState.calibratedPlasmaTopAngle !== null)
+        ? stepState.calibratedPlasmaTopAngle
+        : checkSpiralIntersection('plasma').targetAngle;
+
+      const cp = validCheckpointStep3 || {
+        botAngle: 0,
+        topAngle: plasmaTarget,
+        botLocked: true,
+        topLocked: false,
+        stepState: {
+          step1_zeroSet: true,
+          step2_bottom100: true,
+          step3_plasma: true,
+          step4_rbc: false,
+          step2_invalidated: false,
+          step3_invalidated: false,
+          calibratedPlasmaTopAngle: plasmaTarget,
+          calibratedPlasmaBotAngle: 0
+        }
+      };
+      return { checkpoint: cp, step: 4 };
+    }
+
+    // Step 2 is complete, but Step 3 is incomplete or was invalidated.
+    // Show next step: Step 3
+    const cp = validCheckpointStep2 || {
+      botAngle: 0,
+      topAngle: (typeof top_disk !== 'undefined' && typeof top_disk.value === 'number') ? top_disk.value : (checkpoint0 ? checkpoint0.topAngle : 0),
+      botLocked: false,
+      topLocked: true,
+      stepState: {
+        step1_zeroSet: true,
+        step2_bottom100: true,
+        step3_plasma: false,
+        step4_rbc: false,
+        step2_invalidated: false,
+        step3_invalidated: false,
+        calibratedPlasmaTopAngle: null,
+        calibratedPlasmaBotAngle: null
+      }
+    };
+    return { checkpoint: cp, step: 3 };
+  }
+
+  function applyCheckpoint(cp, animate = false) {
+    if (!cp) return Promise.resolve();
+
+    bottom_disk_locked = cp.botLocked;
+    top_disk_locked = cp.topLocked;
+    if (typeof updateDiscButtonUI === 'function') updateDiscButtonUI();
+    if (typeof updateZoomButtonVisibility === 'function') updateZoomButtonVisibility();
+
+    if (cp.stepState) {
+      Object.assign(stepState, JSON.parse(JSON.stringify(cp.stepState)));
+    }
+
+    if (animate) {
+      bottom_disk.style.transition = 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)';
+      top_disk.style.transition = 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)';
+      bottom_disk.value = cp.botAngle;
+      bottom_disk.style.transform = `rotate(${cp.botAngle}deg)`;
+      top_disk.value = cp.topAngle;
+      top_disk.style.transform = `rotate(${cp.topAngle}deg)`;
+
+      return new Promise((resolve) => {
+        const t = setTimeout(() => {
+          bottom_disk.style.transition = '';
+          top_disk.style.transition = '';
+          if (cp.stepState) {
+            Object.assign(stepState, JSON.parse(JSON.stringify(cp.stepState)));
+          }
+          if (typeof updateAlignmentFeedback === 'function') updateAlignmentFeedback();
+          resolve();
+        }, 400);
+        demoTimeouts.push(t);
+      });
+    } else {
+      bottom_disk.style.transition = 'none';
+      top_disk.style.transition = 'none';
+      bottom_disk.value = cp.botAngle;
+      bottom_disk.style.transform = `rotate(${cp.botAngle}deg)`;
+      top_disk.value = cp.topAngle;
+      top_disk.style.transform = `rotate(${cp.topAngle}deg)`;
+      void bottom_disk.offsetWidth;
+      void top_disk.offsetWidth;
+      bottom_disk.style.transition = '';
+      top_disk.style.transition = '';
+      if (typeof updateAlignmentFeedback === 'function') updateAlignmentFeedback();
+      return Promise.resolve();
+    }
+  }
+
+  function cancelTutorialDemo() {
+    if (!demoActive && !document.getElementById('demo_hand')) return;
+    demoActive = false;
+    lastDemoCancelTime = Date.now();
+    clearDemoTimers();
+    setTrainerState(false);
+
+    if (typeof closeProcedureModal === 'function') {
+      closeProcedureModal();
+    }
+
+    if (savedTutorialState) {
+      bottom_disk.style.transition = 'transform 0.25s ease-out';
+      top_disk.style.transition = 'transform 0.25s ease-out';
+      bottom_disk.value = savedTutorialState.initialBotAngle;
+      bottom_disk.style.transform = `rotate(${savedTutorialState.initialBotAngle}deg)`;
+      top_disk.value = savedTutorialState.initialTopAngle;
+      top_disk.style.transform = `rotate(${savedTutorialState.initialTopAngle}deg)`;
+      bottom_disk_locked = savedTutorialState.initialBotLocked;
+      top_disk_locked = savedTutorialState.initialTopLocked;
+      savedTutorialState = null;
+
+      if (typeof resetIndicatorSteps === 'function') {
+        resetIndicatorSteps();
+      }
+
+      if (checkpoint0) {
+        lastValidState = JSON.parse(JSON.stringify(checkpoint0));
+      } else {
+        lastValidState = captureCurrentStateSnapshot();
+      }
+      firstIncorrectState = null;
+
+      setTimeout(() => {
+        bottom_disk.style.transition = '';
+        top_disk.style.transition = '';
+      }, 250);
+      if (typeof updateDiscButtonUI === 'function') updateDiscButtonUI();
+      if (typeof updateZoomButtonVisibility === 'function') updateZoomButtonVisibility();
+      if (typeof updateAlignmentFeedback === 'function') updateAlignmentFeedback();
+      if (typeof updateTopPillVisibility === 'function') updateTopPillVisibility();
+    }
+
+    if (savedShowMeState) {
+      if (savedShowMeState.targetCp) {
+        applyCheckpoint(savedShowMeState.targetCp, true);
+      }
+      firstIncorrectState = null;
+      lastValidState = captureCurrentStateSnapshot();
+      savedShowMeState = null;
+    }
+
+    if (typeof is_zoomed !== 'undefined' && is_zoomed) {
+      if (typeof setCapillaryZoom === 'function') {
+        setCapillaryZoom(false, true);
+      }
+    }
+
+    document.body.classList.remove('is-dragging-disc');
+    if (bottom_disk) bottom_disk.classList.remove('disc_pulse');
+    if (top_disk) top_disk.classList.remove('disc_pulse');
+
+    const hand = document.getElementById('demo_hand');
+    if (hand) {
+      hand.style.transition = 'opacity 0.25s ease';
+      hand.style.opacity = '0';
+      setTimeout(() => {
+        if (hand && hand.parentNode) hand.parentNode.removeChild(hand);
+      }, 250);
+    }
+  }
+
+  // Prevent sim continuation at any click/pointer occurrence within the window
+  function handleSimInterrupt(e) {
+    if (demoActive) {
+      cancelTutorialDemo();
+    }
+  }
+  window.addEventListener('pointerdown', handleSimInterrupt, true);
+  window.addEventListener('mousedown', handleSimInterrupt, true);
+  window.addEventListener('click', handleSimInterrupt, true);
+  window.addEventListener('touchstart', handleSimInterrupt, true);
+
+  function demoWait(ms) {
+    return new Promise((resolve) => {
+      const t = setTimeout(resolve, ms);
+      demoTimeouts.push(t);
+    });
+  }
+
+  function moveDemoHand(xPercent, yPercent, durationMs) {
+    return new Promise((resolve) => {
+      const hand = document.getElementById('demo_hand');
+      if (!hand || !demoActive) return resolve();
+      hand.style.transition = `left ${durationMs}ms cubic-bezier(0.25, 1, 0.5, 1), top ${durationMs}ms cubic-bezier(0.25, 1, 0.5, 1)`;
+      hand.style.left = `${xPercent}%`;
+      hand.style.top = `${yPercent}%`;
+      const t = setTimeout(resolve, durationMs);
+      demoTimeouts.push(t);
+    });
+  }
+
+  var currentHandAngle = 0;
+
+  function animateDemoArcDrag(diskType, targetDeltaDeg, durationMs) {
+    return new Promise((resolve) => {
+      if (!demoActive) return resolve();
+      document.body.classList.add('is-dragging-disc');
+      const hand = document.getElementById('demo_hand');
+      const startBot = bottom_disk.value;
+      const startTop = top_disk.value;
+      const startAngle = currentHandAngle;
+      const targetDeltaRad = (targetDeltaDeg * Math.PI) / 180;
+      const radius = 22; // Radial distance from center (50%, 50%) to center-right apex (72%, 50%)
+      const startTime = performance.now();
+
+      function step(now) {
+        if (!demoActive) {
+          document.body.classList.remove('is-dragging-disc');
+          return resolve();
+        }
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / durationMs, 1);
+        const ease = 0.5 - 0.5 * Math.cos(progress * Math.PI);
+
+        // Synchronously rotate disk
+        if (diskType === 'bottom' || diskType === 'both') {
+          const newBot = Math.max(0, Math.min(340.5, startBot + targetDeltaDeg * ease));
+          bottom_disk.value = newBot;
+          bottom_disk.style.transform = `rotate(${newBot}deg)`;
+        }
+        if (diskType === 'top' || diskType === 'both') {
+          const newTop = startTop + targetDeltaDeg * ease;
+          top_disk.value = newTop;
+          top_disk.style.transform = `rotate(${newTop}deg)`;
+          if (typeof updateAlignmentFeedback === 'function') {
+            updateAlignmentFeedback();
+          }
+        }
+
+        // Curve the hand along the circular arc
+        const curAngle = startAngle + targetDeltaRad * ease;
+        currentHandAngle = curAngle;
+        if (hand) {
+          const hX = 50 + radius * Math.cos(curAngle);
+          const hY = 50 + radius * Math.sin(curAngle);
+          hand.style.transition = 'none';
+          hand.style.left = `${hX}%`;
+          hand.style.top = `${hY}%`;
+        }
+
+        if (progress < 1) {
+          const id = requestAnimationFrame(step);
+          demoRafIds.push(id);
+        } else {
+          document.body.classList.remove('is-dragging-disc');
+          resolve();
+        }
+      }
+      const id = requestAnimationFrame(step);
+      demoRafIds.push(id);
+    });
+  }
+
+  function animateDemoZoomedSweep(diskType, targetDeltaDeg, durationMs, targetYPercent) {
+    return new Promise((resolve) => {
+      if (!demoActive) return resolve();
+      document.body.classList.add('is-dragging-disc');
+      const hand = document.getElementById('demo_hand');
+      const startBot = bottom_disk.value;
+      const startTop = top_disk.value;
+      const startTime = performance.now();
+
+      // Increased sweeping distance (span ~7.0%)
+      // Clockwise (targetDeltaDeg >= 0): sweeps right to left
+      // Counterclockwise (targetDeltaDeg < 0): sweeps left to right
+      const sweepMagnitude = Math.max(4.5, Math.min(7.0, Math.abs(targetDeltaDeg) * 0.28));
+      const sweepDir = (targetDeltaDeg >= 0) ? -1 : 1;
+      const sweepRangeX = sweepDir * sweepMagnitude;
+      const midX = 62.5;
+      const startX = midX - sweepRangeX * 0.5;
+      const startY = targetYPercent || 72;
+
+      function step(now) {
+        if (!demoActive) {
+          document.body.classList.remove('is-dragging-disc');
+          return resolve();
+        }
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / durationMs, 1);
+        const ease = 0.5 - 0.5 * Math.cos(progress * Math.PI);
+
+        // Synchronously rotate disk
+        if (diskType === 'bottom' || diskType === 'both') {
+          const newBot = Math.max(0, Math.min(340.5, startBot + targetDeltaDeg * ease));
+          bottom_disk.value = newBot;
+          bottom_disk.style.transform = `rotate(${newBot}deg)`;
+        }
+        if (diskType === 'top' || diskType === 'both') {
+          const newTop = startTop + targetDeltaDeg * ease;
+          top_disk.value = newTop;
+          top_disk.style.transform = `rotate(${newTop}deg)`;
+          if (typeof updateAlignmentFeedback === 'function') {
+            updateAlignmentFeedback();
+          }
+        }
+
+        if (hand) {
+          const curX = startX + sweepRangeX * ease;
+          const curY = startY + Math.sin(progress * Math.PI) * 0.5;
+          hand.style.transition = 'none';
+          hand.style.left = `${curX}%`;
+          hand.style.top = `${curY}%`;
+        }
+
+        if (progress < 1) {
+          const id = requestAnimationFrame(step);
+          demoRafIds.push(id);
+        } else {
+          document.body.classList.remove('is-dragging-disc');
+          resolve();
+        }
+      }
+      const id = requestAnimationFrame(step);
+      demoRafIds.push(id);
+    });
+  }
+
+  async function startTutorialDemo(force = false) {
+    if (demoHasRun && !force) return;
+    demoHasRun = true;
+    demoActive = true;
+
+    showTrainerButton();
+    setTrainerState(true);
+
+    // Capture disk locations and lock states prior to trainer beginning
+    const initialBotAngle = (typeof bottom_disk.value === 'number') ? bottom_disk.value : 0;
+    const initialTopAngle = (typeof top_disk.value === 'number') ? top_disk.value : 0;
+    const initialBotLocked = (typeof bottom_disk_locked !== 'undefined') ? bottom_disk_locked : false;
+    const initialTopLocked = (typeof top_disk_locked !== 'undefined') ? top_disk_locked : true;
+
+    savedTutorialState = {
+      initialBotAngle,
+      initialTopAngle,
+      initialBotLocked,
+      initialTopLocked
+    };
+
+    // Wait for capillary tube to finish sliding up
+    await demoWait(700);
+    if (!demoActive) return;
+
+    const readerEl = document.getElementById('reader');
+    if (!readerEl) return;
+
+    let hand = document.getElementById('demo_hand');
+    if (!hand) {
+      hand = document.createElement('div');
+      hand.id = 'demo_hand';
+      hand.innerHTML = `
+        <div class="hand_pulse_ring"></div>
+        <svg class="hand_open" viewBox="0 0 24 24" fill="#0f172a" stroke="#38bdf8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"></path>
+          <path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"></path>
+          <path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"></path>
+          <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"></path>
+        </svg>
+        <svg class="hand_grab" viewBox="0 0 24 24" fill="#0f172a" stroke="#38bdf8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 11V7a2 2 0 0 0-4 0v1"></path>
+          <path d="M14 10V6a2 2 0 0 0-4 0v2"></path>
+          <path d="M10 10.5V7a2 2 0 0 0-4 0v4"></path>
+          <path d="M18 9a2 2 0 0 1 4 0v4a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 14"></path>
+        </svg>
+      `;
+      readerEl.appendChild(hand);
+    }
+
+    // --- PRECEDING PHASE: PROCEDURE PILL & MODAL DEMO ---
+    const deviceNamePill = document.getElementById('device_name');
+    if (deviceNamePill && readerEl) {
+      const readerRect = readerEl.getBoundingClientRect();
+      const pillRect = deviceNamePill.getBoundingClientRect();
+      const pillCenterX = pillRect.left + pillRect.width / 2;
+      const pillCenterY = pillRect.top + pillRect.height / 2;
+      const pillLeftPercent = ((pillCenterX - readerRect.left) / readerRect.width) * 100;
+      const pillTopPercent = ((pillCenterY - readerRect.top) / readerRect.height) * 100;
+
+      // Position hand near the procedure pill and fade in
+      currentHandAngle = 0;
+      hand.style.left = `${pillLeftPercent}%`;
+      hand.style.top = `${pillTopPercent + 9}%`;
+      await demoWait(50);
+      if (!demoActive) return;
+      hand.style.opacity = '1';
+      await demoWait(300);
+      if (!demoActive) return;
+
+      // Move directly onto the procedure pill
+      await moveDemoHand(pillLeftPercent, pillTopPercent, 450);
+      if (!demoActive) return;
+
+      // Click the procedure pill
+      hand.classList.add('clicking');
+      await demoWait(180);
+      if (!demoActive) return;
+
+      // Open procedure modal
+      if (typeof openProcedureModal === 'function') {
+        openProcedureModal();
+      }
+
+      await demoWait(150);
+      if (!demoActive) return;
+      hand.classList.remove('clicking');
+
+      const modalCloseBtn = document.getElementById('modal_close_btn');
+      if (modalCloseBtn) {
+        document.body.appendChild(hand);
+        hand.style.position = 'fixed';
+        hand.style.zIndex = '2000';
+        hand.style.left = `${pillCenterX}px`;
+        hand.style.top = `${pillCenterY}px`;
+
+        // Short hesitation while the procedure modal is displayed
+        await demoWait(1200);
+        if (!demoActive) return;
+
+        // Get close button location
+        const closeRect = modalCloseBtn.getBoundingClientRect();
+        const closeCenterX = closeRect.left + closeRect.width / 2;
+        const closeCenterY = closeRect.top + closeRect.height / 2;
+
+        // Move hand smoothly to modal close button
+        hand.style.transition = 'left 500ms cubic-bezier(0.25, 1, 0.5, 1), top 500ms cubic-bezier(0.25, 1, 0.5, 1)';
+        hand.style.left = `${closeCenterX}px`;
+        hand.style.top = `${closeCenterY}px`;
+        await demoWait(520);
+        if (!demoActive) return;
+
+        // Click close button
+        hand.classList.add('clicking');
+        await demoWait(180);
+        if (!demoActive) return;
+
+        if (typeof closeProcedureModal === 'function') {
+          closeProcedureModal();
+        }
+
+        await demoWait(150);
+        if (!demoActive) return;
+        hand.classList.remove('clicking');
+        await demoWait(220);
+        if (!demoActive) return;
+
+        // Restore hand to readerEl
+        readerEl.appendChild(hand);
+        hand.style.position = 'absolute';
+        hand.style.zIndex = '60';
+        const rRect = readerEl.getBoundingClientRect();
+        const curLeftPct = ((closeCenterX - rRect.left) / rRect.width) * 100;
+        const curTopPct = ((closeCenterY - rRect.top) / rRect.height) * 100;
+        hand.style.transition = 'none';
+        hand.style.left = `${curLeftPct}%`;
+        hand.style.top = `${curTopPct}%`;
+      } else {
+        await demoWait(1000);
+        if (!demoActive) return;
+        if (typeof closeProcedureModal === 'function') {
+          closeProcedureModal();
+        }
+        await demoWait(300);
+        if (!demoActive) return;
+      }
+    }
+
+    // Move hand to center-right of disk to begin Phase 1
+    currentHandAngle = 0;
+    await moveDemoHand(72, 50, 480);
+    if (!demoActive) return;
+    await demoWait(250);
+    if (!demoActive) return;
+
+    // --- PHASE 1: Drag bottom disk along circular arc (Bottom is unlocked, Top is locked) ---
+    hand.classList.add('grabbing');
+    await demoWait(150);
+    if (!demoActive) return;
+
+    await animateDemoArcDrag('bottom', -35, 550);
+    if (!demoActive) return;
+
+    hand.classList.remove('grabbing');
+    await demoWait(300);
+    if (!demoActive) return;
+
+    // --- PHASE 2: Move to TOP button and click it to unlock TOP disk (center of button) ---
+    await moveDemoHand(66.5, 30.5, 500);
+    if (!demoActive) return;
+    hand.classList.add('clicking');
+    await demoWait(150);
+    if (!demoActive) return;
+
+    // Unlock TOP, Lock BOTTOM
+    top_disk_locked = false;
+    bottom_disk_locked = true;
+    if (typeof updateDiscButtonUI === 'function') updateDiscButtonUI();
+    if (typeof triggerPulseActiveDiscs === 'function') triggerPulseActiveDiscs();
+    if (typeof updateZoomButtonVisibility === 'function') updateZoomButtonVisibility();
+
+    await demoWait(180);
+    if (!demoActive) return;
+    hand.classList.remove('clicking');
+    await demoWait(300);
+    if (!demoActive) return;
+
+    // --- PHASE 3: Move back to disk & drag top disk along circular arc (Top is unlocked, Bottom is locked) ---
+    currentHandAngle = 0;
+    await moveDemoHand(72, 50, 450);
+    if (!demoActive) return;
+    hand.classList.add('grabbing');
+    await demoWait(150);
+    if (!demoActive) return;
+
+    await animateDemoArcDrag('top', 22, 420);
+    if (!demoActive) return;
+    await animateDemoArcDrag('top', -44, 560);
+    if (!demoActive) return;
+    await animateDemoArcDrag('top', 22, 420);
+    if (!demoActive) return;
+
+    hand.classList.remove('grabbing');
+    await demoWait(300);
+    if (!demoActive) return;
+
+    // --- PHASE 4: Move to TOP button and click it again to lock TOP disk (center of button) ---
+    await moveDemoHand(66.5, 30.5, 500);
+    if (!demoActive) return;
+    hand.classList.add('clicking');
+    await demoWait(150);
+    if (!demoActive) return;
+
+    // Lock TOP (both are now locked)
+    top_disk_locked = true;
+    if (typeof updateDiscButtonUI === 'function') updateDiscButtonUI();
+    if (typeof triggerPulseActiveDiscs === 'function') triggerPulseActiveDiscs();
+    if (typeof updateZoomButtonVisibility === 'function') updateZoomButtonVisibility();
+
+    await demoWait(180);
+    if (!demoActive) return;
+    hand.classList.remove('clicking');
+    await demoWait(300);
+    if (!demoActive) return;
+
+    // --- PHASE 5: Move back to disk & drag both disks together along circular arc ---
+    currentHandAngle = 0;
+    await moveDemoHand(72, 50, 450);
+    if (!demoActive) return;
+    hand.classList.add('grabbing');
+    await demoWait(150);
+    if (!demoActive) return;
+
+    await animateDemoArcDrag('both', 22, 420);
+    if (!demoActive) return;
+    await animateDemoArcDrag('both', -44, 560);
+    if (!demoActive) return;
+    await animateDemoArcDrag('both', 22, 420);
+    if (!demoActive) return;
+
+    hand.classList.remove('grabbing');
+    await demoWait(350);
+    if (!demoActive) return;
+
+    // --- PHASE 6: Move to TRAINER button at top of sample section and click it to turn OFF ---
+    const trainerBtn = document.getElementById('trainer_btn');
+    if (trainerBtn && readerEl) {
+      const readerRect = readerEl.getBoundingClientRect();
+      const btnRect = trainerBtn.getBoundingClientRect();
+      const btnCenterX = btnRect.left + btnRect.width / 2;
+      const btnCenterY = btnRect.top + btnRect.height / 2;
+      const targetLeftPercent = ((btnCenterX - readerRect.left) / readerRect.width) * 100;
+      const targetTopPercent = ((btnCenterY - readerRect.top) / readerRect.height) * 100;
+
+      await moveDemoHand(targetLeftPercent, targetTopPercent, 650);
+      if (!demoActive) return;
+
+      hand.classList.add('clicking');
+      await demoWait(180);
+      if (!demoActive) return;
+
+      setTrainerState(false);
+
+      await demoWait(200);
+      if (!demoActive) return;
+      hand.classList.remove('clicking');
+      await demoWait(250);
+      if (!demoActive) return;
+    }
+
+    // Fade out and remove hand
+    hand.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+    hand.style.opacity = '0';
+    hand.style.transform = 'translate(-50%, -50%) scale(0.85)';
+    await demoWait(450);
+    if (hand && hand.parentNode) {
+      hand.parentNode.removeChild(hand);
+    }
+    savedTutorialState = null;
+    demoActive = false;
+
+    // Return disks and switches to their locations and states prior to trainer beginning
+    bottom_disk.style.transition = 'transform 0.35s ease-out';
+    top_disk.style.transition = 'transform 0.35s ease-out';
+    bottom_disk.value = initialBotAngle;
+    bottom_disk.style.transform = `rotate(${initialBotAngle}deg)`;
+    top_disk.value = initialTopAngle;
+    top_disk.style.transform = `rotate(${initialTopAngle}deg)`;
+
+    bottom_disk_locked = initialBotLocked;
+    top_disk_locked = initialTopLocked;
+    if (typeof updateDiscButtonUI === 'function') {
+      updateDiscButtonUI();
+    }
+
+    if (typeof resetIndicatorSteps === 'function') {
+      resetIndicatorSteps();
+    }
+
+    setTimeout(() => {
+      bottom_disk.style.transition = '';
+      top_disk.style.transition = '';
+    }, 350);
+
+    if (typeof updateZoomButtonVisibility === 'function') {
+      updateZoomButtonVisibility();
+    }
+    if (typeof updateAlignmentFeedback === 'function') {
+      updateAlignmentFeedback();
+    }
+  }
+  window.startTutorialDemo = startTutorialDemo;
+
+  async function startShowMeStepDemo() {
+    if (demoActive) return;
+    demoActive = true;
+
+    // Ensure Trainer is ON and indicators are active
+    showTrainerButton();
+    setTrainerState(true);
+
+    const { checkpoint: targetCp, step: stepToSim } = getPriorValidCheckpoint();
+
+    savedShowMeState = {
+      targetCp,
+      stepToSim
+    };
+
+    // Smoothly reset all to the state immediately prior to the first incorrect step
+    await applyCheckpoint(targetCp, true);
+    if (!demoActive) return;
+
+    await demoWait(100);
+    if (!demoActive) return;
+
+    const readerEl = document.getElementById('reader');
+    if (!readerEl) {
+      demoActive = false;
+      return;
+    }
+
+    let hand = document.getElementById('demo_hand');
+    if (!hand) {
+      hand = document.createElement('div');
+      hand.id = 'demo_hand';
+      hand.innerHTML = `
+        <div class="hand_pulse_ring"></div>
+        <svg class="hand_open" viewBox="0 0 24 24" fill="#0f172a" stroke="#38bdf8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"></path>
+          <path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"></path>
+          <path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"></path>
+          <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"></path>
+        </svg>
+        <svg class="hand_grab" viewBox="0 0 24 24" fill="#0f172a" stroke="#38bdf8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 11V7a2 2 0 0 0-4 0v1"></path>
+          <path d="M14 10V6a2 2 0 0 0-4 0v2"></path>
+          <path d="M10 10.5V7a2 2 0 0 0-4 0v4"></path>
+          <path d="M18 9a2 2 0 0 1 4 0v4a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 14"></path>
+        </svg>
+      `;
+      readerEl.appendChild(hand);
+    }
+
+    // Position hand above disk to start
+    currentHandAngle = 0;
+    hand.style.left = '72%';
+    hand.style.top = '50%';
+    await demoWait(30);
+    if (!demoActive) return;
+    hand.style.opacity = '1';
+    await demoWait(250);
+    if (!demoActive) return;
+
+    if (stepToSim === 2) {
+      // Step 2: Bottom Disk 100% Mark (0°)
+      if (bottom_disk_locked) {
+        // Unlock Bottom disk (landing slightly lower right of button center point)
+        await moveDemoHand(35, 32.5, 480);
+        if (!demoActive) return;
+        hand.classList.add('clicking');
+        await demoWait(160);
+        if (!demoActive) return;
+        bottom_disk_locked = false;
+        top_disk_locked = true;
+        if (typeof updateDiscButtonUI === 'function') updateDiscButtonUI();
+        if (typeof triggerPulseActiveDiscs === 'function') triggerPulseActiveDiscs();
+        if (typeof updateZoomButtonVisibility === 'function') updateZoomButtonVisibility();
+        await demoWait(180);
+        if (!demoActive) return;
+        hand.classList.remove('clicking');
+        await demoWait(220);
+        if (!demoActive) return;
+      }
+
+      // Move to dial
+      currentHandAngle = 0;
+      await moveDemoHand(72, 50, 420);
+      if (!demoActive) return;
+      hand.classList.add('grabbing');
+      await demoWait(140);
+      if (!demoActive) return;
+
+      // Calculate rotation delta to 0° (strictly counterclockwise)
+      const curAngle = (typeof bottom_disk.value === 'number') ? bottom_disk.value : 0;
+      let delta = -curAngle;
+      if (Math.abs(delta) < 5) delta = -18; // Ensure visible movement if already near 0
+
+      await animateDemoArcDrag('bottom', delta, Math.max(480, Math.min(850, Math.abs(delta) * 4.5)));
+      if (!demoActive) return;
+
+      bottom_disk.value = 0;
+      bottom_disk.style.transform = 'rotate(0deg)';
+      if (typeof updateAlignmentFeedback === 'function') updateAlignmentFeedback();
+
+      hand.classList.remove('grabbing');
+      await demoWait(250);
+      if (!demoActive) return;
+
+    } else if (stepToSim === 3) {
+      // Step 3: Top Disk Spiral at Plasma Meniscus (Bottom disk locked at 0°, Top unlocked)
+      if (top_disk_locked || !bottom_disk_locked) {
+        // Unlock Top disk (landing slightly lower right of button center point)
+        await moveDemoHand(68, 32.5, 480);
+        if (!demoActive) return;
+        hand.classList.add('clicking');
+        await demoWait(160);
+        if (!demoActive) return;
+        top_disk_locked = false;
+        bottom_disk_locked = true;
+        if (typeof updateDiscButtonUI === 'function') updateDiscButtonUI();
+        if (typeof triggerPulseActiveDiscs === 'function') triggerPulseActiveDiscs();
+        if (typeof updateZoomButtonVisibility === 'function') updateZoomButtonVisibility();
+        await demoWait(180);
+        if (!demoActive) return;
+        hand.classList.remove('clicking');
+        await demoWait(220);
+        if (!demoActive) return;
+      }
+
+      // Slowed zoom action: zoom in and center vertically on the plasma meniscus
+      if (typeof is_zoomed !== 'undefined' && !is_zoomed) {
+        await moveDemoHand(55, 91.5, 520);
+        if (!demoActive) return;
+        hand.classList.add('clicking');
+        await demoWait(180);
+        if (!demoActive) return;
+        if (typeof setCapillaryZoom === 'function') {
+          setCapillaryZoom(true, true, 'plasma');
+        }
+        await demoWait(420);
+        if (!demoActive) return;
+        hand.classList.remove('clicking');
+        await demoWait(250);
+        if (!demoActive) return;
+      }
+
+      // Compute target angle for plasma meniscus
+      const plasmaTarget = checkSpiralIntersection('plasma').targetAngle;
+      const curTop = ((top_disk.value % 360) + 360) % 360;
+      let delta = plasmaTarget - curTop;
+      while (delta > 180) delta -= 360;
+      while (delta < -180) delta += 360;
+      if (Math.abs(delta) < 5) delta = 22;
+
+      // Position hand in zoomed field of view beside the plasma meniscus
+      const plasmaIndicator = document.getElementById('plasma_intersect_indicator');
+      const plasmaY = (plasmaIndicator && plasmaIndicator.style.top) ? parseFloat(plasmaIndicator.style.top) : 75;
+
+      await moveDemoHand(62, plasmaY, 450);
+      if (!demoActive) return;
+      hand.classList.add('grabbing');
+      await demoWait(160);
+      if (!demoActive) return;
+
+      // Sweep left-to-right / right-to-left within visible zoomed view
+      await animateDemoZoomedSweep('top', delta, Math.max(700, Math.min(1200, Math.abs(delta) * 7.0)), plasmaY);
+      if (!demoActive) return;
+
+      top_disk.value = plasmaTarget;
+      top_disk.style.transform = `rotate(${plasmaTarget}deg)`;
+      if (typeof updateAlignmentFeedback === 'function') updateAlignmentFeedback();
+
+      hand.classList.remove('grabbing');
+      await demoWait(280);
+      if (!demoActive) return;
+
+    } else {
+      // Step 4: Both Disks Locked at RBC Meniscus
+      // Ensure Step 2 and Step 3 state calibrations are registered for simulation
+      stepState.step1_zeroSet = true;
+      stepState.step2_bottom100 = true;
+      stepState.step2_invalidated = false;
+      stepState.step3_plasma = true;
+      stepState.step3_invalidated = false;
+      if (stepState.calibratedPlasmaTopAngle === null) {
+        stepState.calibratedPlasmaTopAngle = checkSpiralIntersection('plasma').targetAngle;
+        stepState.calibratedPlasmaBotAngle = 0;
+      }
+
+      if (!top_disk_locked || !bottom_disk_locked) {
+        // Lock both disks together (landing slightly lower right of button center point)
+        await moveDemoHand(68, 32.5, 480);
+        if (!demoActive) return;
+        hand.classList.add('clicking');
+        await demoWait(160);
+        if (!demoActive) return;
+        top_disk_locked = true;
+        bottom_disk_locked = true;
+        if (typeof updateDiscButtonUI === 'function') updateDiscButtonUI();
+        if (typeof triggerPulseActiveDiscs === 'function') triggerPulseActiveDiscs();
+        if (typeof updateZoomButtonVisibility === 'function') updateZoomButtonVisibility();
+        await demoWait(180);
+        if (!demoActive) return;
+        hand.classList.remove('clicking');
+        await demoWait(220);
+        if (!demoActive) return;
+      }
+
+      // Slowed zoom action: zoom in and center vertically on the RBC meniscus
+      if (typeof is_zoomed !== 'undefined' && !is_zoomed) {
+        await moveDemoHand(55, 91.5, 520);
+        if (!demoActive) return;
+        hand.classList.add('clicking');
+        await demoWait(180);
+        if (!demoActive) return;
+        if (typeof setCapillaryZoom === 'function') {
+          setCapillaryZoom(true, true, 'rbc');
+        }
+        await demoWait(420);
+        if (!demoActive) return;
+        hand.classList.remove('clicking');
+        await demoWait(250);
+        if (!demoActive) return;
+      }
+
+      // Compute target angle for RBC meniscus
+      const rbcTarget = checkSpiralIntersection().targetAngle;
+      const curTop = (typeof top_disk.value === 'number') ? top_disk.value : 0;
+      const curBot = (typeof bottom_disk.value === 'number') ? bottom_disk.value : 0;
+      const normCurTop = ((curTop % 360) + 360) % 360;
+      let delta = rbcTarget - normCurTop;
+      while (delta > 180) delta -= 360;
+      while (delta < -180) delta += 360;
+      if (Math.abs(delta) < 5) delta = 22;
+
+      // Position hand in zoomed field of view beside the RBC meniscus
+      const rbcIndicator = document.getElementById('intersect_indicator');
+      const rbcY = (rbcIndicator && rbcIndicator.style.top) ? parseFloat(rbcIndicator.style.top) : 72;
+
+      await moveDemoHand(62, rbcY, 450);
+      if (!demoActive) return;
+      hand.classList.add('grabbing');
+      await demoWait(160);
+      if (!demoActive) return;
+
+      // Sweep left-to-right / right-to-left within visible zoomed view
+      await animateDemoZoomedSweep('both', delta, Math.max(700, Math.min(1200, Math.abs(delta) * 7.0)), rbcY);
+      if (!demoActive) return;
+
+      top_disk.value = curTop + delta;
+      top_disk.style.transform = `rotate(${top_disk.value}deg)`;
+      bottom_disk.value = Math.max(0, Math.min(340.5, curBot + delta));
+      bottom_disk.style.transform = `rotate(${bottom_disk.value}deg)`;
+      if (typeof updateAlignmentFeedback === 'function') updateAlignmentFeedback();
+
+      hand.classList.remove('grabbing');
+      await demoWait(280);
+      if (!demoActive) return;
+    }
+
+    // Pause on the green aligned state so user clearly sees target alignment
+    await demoWait(800);
+    if (!demoActive) return;
+
+    // Fade out and remove demo hand
+    hand.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+    hand.style.opacity = '0';
+    hand.style.transform = 'translate(-50%, -50%) scale(0.85)';
+    await demoWait(350);
+    if (hand && hand.parentNode) {
+      hand.parentNode.removeChild(hand);
+    }
+
+    // Automatically reset zoom to 1x if zoomed during the demo
+    if (typeof is_zoomed !== 'undefined' && is_zoomed) {
+      if (typeof setCapillaryZoom === 'function') {
+        setCapillaryZoom(false, true);
+        await demoWait(250);
+      }
+    }
+
+    // After Show Me finishes, smoothly display the state immediately prior to incorrect movement
+    await applyCheckpoint(targetCp, true);
+
+    firstIncorrectState = null;
+    lastValidState = captureCurrentStateSnapshot();
+    savedShowMeState = null;
+    demoActive = false;
+  }
+  window.startShowMeStepDemo = startShowMeStepDemo;
+
+  async function generateNewCases() {
+    if (isSampleChanging) return;
+    if (typeof cancelTutorialDemo === 'function') {
+      cancelTutorialDemo();
+    }
+
+    // Turn off and hide trainer and new cases when new cases is clicked
+    trainerVisible = false;
+    newCasesVisible = false;
+    const trainerContainer = document.getElementById('trainer_container');
+    if (trainerContainer) {
+      trainerContainer.classList.remove('visible');
+      trainerContainer.classList.add('hidden');
+    }
+    const newCasesContainer = document.getElementById('new_cases_container');
+    if (newCasesContainer) {
+      newCasesContainer.classList.remove('visible');
+      newCasesContainer.classList.add('hidden');
+    }
+    if (typeof setTrainerState === 'function') {
+      setTrainerState(false);
+    }
+
+    // Reset zoom view to unzoomed (1x) if currently zoomed
+    if (typeof is_zoomed !== 'undefined' && is_zoomed) {
+      if (typeof capillary_holder !== 'undefined') {
+        capillary_holder.classList.remove('zoomOUT', 'zoomIN');
+      }
+      is_zoomed = false;
+      zoom_translate_y = 0;
+      if (typeof reader !== 'undefined') {
+        reader.classList.remove('zoomed_view');
+        reader.style.transition = 'transform 0.3s ease-out';
+        reader.style.transform = 'scale(1) translateY(0px)';
+      }
+    }
+
+    if (typeof resetIndicatorSteps === 'function') {
+      resetIndicatorSteps();
+    }
+    const indicator = document.getElementById('intersect_indicator');
+    const plasmaIndicator = document.getElementById('plasma_intersect_indicator');
+    const critosealIndicator = document.getElementById('critoseal_indicator');
+    const bottom100Indicator = document.getElementById('bottom_100_indicator');
+
+    if (typeof applyIndicatorState === 'function') {
+      applyIndicatorState(indicator, 'hidden');
+      applyIndicatorState(plasmaIndicator, 'hidden');
+      applyIndicatorState(critosealIndicator, 'hidden');
+      applyIndicatorState(bottom100Indicator, 'hidden');
+    } else {
+      if (indicator) indicator.classList.remove('active');
+      if (plasmaIndicator) plasmaIndicator.classList.remove('active');
+      if (critosealIndicator) critosealIndicator.classList.remove('active');
+      if (bottom100Indicator) bottom100Indicator.classList.remove('active');
+    }
+
+    const sampleEl = document.getElementById('sample');
+    if (sampleEl && !sampleEl.classList.contains('tube_hidden')) {
+      sampleEl.classList.remove('tube_slide_up');
+      sampleEl.classList.remove('tube_slide_up_fast');
+      sampleEl.classList.add('tube_hidden');
+      await new Promise((resolve) => setTimeout(resolve, 220));
+    }
+
+    const conditions = [
+      { name: "Normal", minHct: 38, maxHct: 48, minBuffy: 0.8, maxBuffy: 1.5 },
+      { name: "Mild Anemia", minHct: 28, maxHct: 35, minBuffy: 0.8, maxBuffy: 1.2 },
+      { name: "Severe Anemia", minHct: 16, maxHct: 25, minBuffy: 0.5, maxBuffy: 1.0 },
+      { name: "Polycythemia", minHct: 55, maxHct: 68, minBuffy: 1.0, maxBuffy: 1.8 },
+      { name: "Leukocytosis", minHct: 36, maxHct: 46, minBuffy: 4.5, maxBuffy: 7.5 },
+      { name: "Hemoconcentration", minHct: 50, maxHct: 58, minBuffy: 1.0, maxBuffy: 1.5 }
+    ];
+
+    const shuffled = [...conditions].sort(() => 0.5 - Math.random());
+    currentCases = [];
+
+    for (let i = 0; i < 5; i++) {
+      const cond = shuffled[i % shuffled.length];
+      const rawHct = Math.random() * (cond.maxHct - cond.minHct) + cond.minHct;
+      const hct = Math.round(rawHct * 2) / 2;
+      const buffy = Math.round((Math.random() * (cond.maxBuffy - cond.minBuffy) + cond.minBuffy) * 10) / 10;
+      // Fill between 2/3 (66.7%) and 3/4 (75.0%)
+      const fill = Math.round((Math.random() * (75.0 - 66.7) + 66.7) * 10) / 10;
+
+      currentCases.push({
+        label: `UN-0${i + 1}`,
+        name: "Unknown Dx",
+        diagnosis: cond.name,
+        hct: hct,
+        buffy: buffy,
+        fill: fill
+      });
+    }
+
+    activeSampleIndex = -1;
+    if (typeof updateDiscButtonUI === 'function') {
+      updateDiscButtonUI();
+    }
+    hasDiscMovedAfterSampleLoad = false;
+    resetSampleNotifScale();
+    if (typeof updateDoneCheckVisibility === 'function') {
+      updateDoneCheckVisibility(false);
+    }
+    renderSamplesTray();
+    showSampleNotification();
+  }
+
+  /* =========================================================================
+   * SPIRAL INTERSECTION DETECTION MODULE
+   * Accurately detects when top_disk's spiral line intersects detect_intersect
+   * ========================================================================= */
+
+  /**
+   * Detects whether the spiral line on top_disk intersects a target meniscus (RBC, Plasma, or numeric/HCT).
+   */
+  function checkSpiralIntersection(target, options = {}) {
+    const {
+      toleranceDeg = 1.0,
+      angle = (typeof top_disk !== 'undefined' && top_disk.value !== undefined) ? top_disk.value : 0
+    } = options;
+
+    let targetRSvg = null;
+    let targetHct = null;
+
+    if (typeof target === 'number') {
+      targetHct = target;
+      targetRSvg = SpiralGeometry.R_MIN + (targetHct / 100) * (SpiralGeometry.R_MAX - SpiralGeometry.R_MIN);
+    } else if (target && typeof target.hct === 'number') {
+      targetHct = target.hct;
+      targetRSvg = SpiralGeometry.R_MIN + (targetHct / 100) * (SpiralGeometry.R_MAX - SpiralGeometry.R_MIN);
+    } else if (target === 'plasma' || (target && target.type === 'plasma')) {
+      if (typeof currentCases !== 'undefined' && activeSampleIndex !== -1 && currentCases[activeSampleIndex]) {
+        const sample = currentCases[activeSampleIndex];
+        targetHct = sample.fill;
+        targetRSvg = 0.8414078 + (sample.fill / 100) * 3.7068715;
+      }
+    } else if (typeof currentCases !== 'undefined' && activeSampleIndex !== -1 && currentCases[activeSampleIndex]) {
+      const sample = currentCases[activeSampleIndex];
+      targetHct = sample.hct;
+      const fracs = calculateFractions(sample);
+      const rbcFraction = fracs.rbc / 100;
+      targetRSvg = 0.8414078 + rbcFraction * 3.7068715;
+    }
+
+    if (targetRSvg === null || targetRSvg === undefined) {
+      return {
+        intersects: false,
+        currentAngle: Math.round(angle * 100) / 100,
+        targetAngle: 0,
+        diffDeg: 180,
+        measuredHct: 0,
+        targetHct: 0
+      };
+    }
+
+    // Find the closest point along the intrinsic spiral matching the target radius
+    let bestRadiusSample = SpiralGeometry.curveSamples[0];
+    let minRadiusDiff = Infinity;
+    for (const pt of SpiralGeometry.curveSamples) {
+      const diff = Math.abs(pt.r - targetRSvg);
+      if (diff < minRadiusDiff) {
+        minRadiusDiff = diff;
+        bestRadiusSample = pt;
+      }
+    }
+
+    // Required disk rotation angle to align matching radius to downward slit (+90 deg)
+    const requiredDiskAngle = (90 - bestRadiusSample.baseAngleDeg + 360) % 360;
+
+    // Angular difference between current disk angle (normalized 0..360) and required angle
+    const normAngle = ((angle % 360) + 360) % 360;
+    let diffDeg = Math.abs(normAngle - requiredDiskAngle);
+    if (diffDeg > 180) diffDeg = 360 - diffDeg;
+
+    // Measure hematocrit corresponding to current angle along the vertical slit (+90 deg)
+    let currentSlitSample = SpiralGeometry.curveSamples[0];
+    let minSlitAngleDiff = Infinity;
+    for (const pt of SpiralGeometry.curveSamples) {
+      let ad = Math.abs(pt.alignAngleDeg - normAngle);
+      if (ad > 180) ad = 360 - ad;
+      if (ad < minSlitAngleDiff) {
+        minSlitAngleDiff = ad;
+        currentSlitSample = pt;
+      }
+    }
+    const measuredHct = Math.round(currentSlitSample.hctPercent * 10) / 10;
+
+    const visual = computeAlignmentVisual(diffDeg);
+
+    return {
+      active: visual.active,
+      intersects: visual.active,
+      isFullyAligned: visual.isFullyAligned,
+      intensity: visual.intensity,
+      opacity: visual.opacity,
+      scale: visual.scale,
+      color: visual.color,
+      currentAngle: Math.round(angle * 100) / 100,
+      targetAngle: Math.round(requiredDiskAngle * 100) / 100,
+      diffDeg: Math.round(diffDeg * 100) / 100,
+      measuredHct,
+      targetHct: Math.round((targetHct || 0) * 10) / 10
+    };
+  }
+
+  /**
+   * Computes fade-in, color transition, and bloom scale for alignment indicators:
+   * - > 1.5°: Hidden (opacity: 0)
+   * - 1.5° -> 1.0°: Fade in to Yellow (opacity: 0 -> 1, scale: 0.8 -> 0.9, yellow)
+   * - 1.0° -> 0.5°: Transition Yellow -> Neon Green (opacity: 1, scale: 0.9 -> 1.0)
+   * - <= 0.5°: Solid Neon Green (#39ff14) at scale 1.0
+   */
+  function computeAlignmentVisual(diffDeg) {
+    if (diffDeg > 1.5) {
+      return {
+        active: false,
+        isFullyAligned: false,
+        intensity: 0,
+        opacity: 0,
+        scale: 0.8,
+        color: 'rgb(255, 255, 0)'
+      };
+    }
+
+    if (diffDeg > 1.0) {
+      // Fade in to yellow (1.5° -> 1.0°)
+      const t1 = (1.5 - diffDeg) / 0.5; // 0 to 1
+      const op = Math.max(0, Math.min(1, Math.round(t1 * 1000) / 1000));
+      return {
+        active: op > 0,
+        isFullyAligned: false,
+        intensity: Math.round(t1 * 500) / 1000,
+        opacity: op,
+        scale: Math.round((0.8 + 0.1 * t1) * 1000) / 1000,
+        color: 'rgb(255, 255, 0)' // Yellow
+      };
+    }
+
+    if (diffDeg > 0.5) {
+      // Transition from yellow to neon green (1.0° -> 0.5°)
+      const t2 = (1.0 - diffDeg) / 0.5; // 0 to 1
+      const r = Math.round(255 - 198 * t2);
+      const g = 255;
+      const b = Math.round(20 * t2);
+      return {
+        active: true,
+        isFullyAligned: false,
+        intensity: Math.round((0.5 + 0.5 * t2) * 1000) / 1000,
+        opacity: 1,
+        scale: Math.round((0.9 + 0.1 * t2) * 1000) / 1000,
+        color: `rgb(${r}, ${g}, ${b})`
+      };
+    }
+
+    // Fully aligned: <= 0.5°
+    return {
+      active: true,
+      isFullyAligned: true,
+      intensity: 1.0,
+      opacity: 1,
+      scale: 1.0,
+      color: 'rgb(57, 255, 20)' // Neon green (#39ff14)
+    };
+  }
+
+  /* =========================================================================
+   * SEQUENTIAL 4-STEP CALIBRATION & ERROR STATE MACHINE
+   * Step 1: Zero Set (Critoseal interface placed at 0% mark)
+   * Step 2: Bottom Disk 100 Set (Bottom disk unlocked -> 0° / 100% mark)
+   * Step 3: Spiral at Top of Plasma (Top disk unlocked, Bottom locked -> plasma meniscus)
+   * Step 4: Spiral at RBC / Buffy Coat (Both disks locked together -> RBC meniscus)
+   * Inactive steps show only blue outline; yellow intermediate near target; green when aligned.
+   * Error Handling: Broken calibration fills RED with blue outline until corrected.
+   * ========================================================================= */
+  var stepState = {
+    step1_zeroSet: false,
+    step2_bottom100: false,
+    step3_plasma: false,
+    step4_rbc: false,
+    step2_invalidated: false,
+    step3_invalidated: false,
+    calibratedPlasmaTopAngle: null,
+    calibratedPlasmaBotAngle: null
+  };
+
+  function resetIndicatorSteps() {
+    stepState.step1_zeroSet = false;
+    stepState.step2_bottom100 = false;
+    stepState.step3_plasma = false;
+    stepState.step4_rbc = false;
+    stepState.step2_invalidated = false;
+    stepState.step3_invalidated = false;
+    stepState.calibratedPlasmaTopAngle = null;
+    stepState.calibratedPlasmaBotAngle = null;
+    validCheckpointStep2 = null;
+    validCheckpointStep3 = null;
+    firstIncorrectState = null;
+    currentStrokeStartSnapshot = null;
+  }
+
+  function applyIndicatorState(el, state, visual = null) {
+    if (!el) return;
+    if (state === 'hidden') {
+      el.style.setProperty('--indicator-opacity', '0');
+      el.style.setProperty('--indicator-scale', '0.85');
+      el.style.setProperty('--indicator-color', 'transparent');
+      el.style.setProperty('--indicator-shadow', '0 0 0 2px #38bdf8, 0 0 10px rgba(56, 189, 248, 0.85), 0 0 18px rgba(37, 99, 235, 0.65)');
+      el.classList.remove('active');
+    } else if (state === 'outline') {
+      el.style.setProperty('--indicator-opacity', '1');
+      el.style.setProperty('--indicator-scale', '0.85');
+      el.style.setProperty('--indicator-color', 'transparent');
+      el.style.setProperty('--indicator-shadow', '0 0 0 2px #38bdf8, 0 0 10px rgba(56, 189, 248, 0.85), 0 0 18px rgba(37, 99, 235, 0.65)');
+      el.classList.add('active');
+    } else if (state === 'yellow') {
+      const scale = (visual && typeof visual.scale === 'number') ? visual.scale : 0.92;
+      const color = (visual && visual.color) ? visual.color : 'rgb(255, 255, 0)';
+      el.style.setProperty('--indicator-opacity', '1');
+      el.style.setProperty('--indicator-scale', scale);
+      el.style.setProperty('--indicator-color', color);
+      el.style.setProperty('--indicator-shadow', '0 0 0 2px #38bdf8, 0 0 12px rgba(56, 189, 248, 0.85), 0 0 18px rgba(37, 99, 235, 0.65)');
+      el.classList.add('active');
+    } else if (state === 'green') {
+      el.style.setProperty('--indicator-opacity', '1');
+      el.style.setProperty('--indicator-scale', '1.0');
+      el.style.setProperty('--indicator-color', 'rgb(57, 255, 20)');
+      el.style.setProperty('--indicator-shadow', '0 0 0 2px #38bdf8, 0 0 14px rgba(57, 255, 20, 0.9), 0 0 20px rgba(56, 189, 248, 0.75)');
+      el.classList.add('active');
+    } else if (state === 'red') {
+      el.style.setProperty('--indicator-opacity', '1');
+      el.style.setProperty('--indicator-scale', '1.0');
+      el.style.setProperty('--indicator-color', 'rgb(239, 68, 68)');
+      el.style.setProperty('--indicator-shadow', '0 0 0 2px #38bdf8, 0 0 14px rgba(239, 68, 68, 0.95), 0 0 22px rgba(220, 38, 38, 0.75)');
+      el.classList.add('active');
+    }
+  }
+
+  function applyIndicatorVisual(el, visual) {
+    if (!el) return;
+    if (visual && (visual.active || visual.intersects)) {
+      if (visual.isFullyAligned) {
+        applyIndicatorState(el, 'green', visual);
+      } else {
+        applyIndicatorState(el, 'yellow', visual);
+      }
+    } else {
+      applyIndicatorState(el, 'outline');
+    }
+  }
+
+  // Alias
+  const detectSpiralIntersection = checkSpiralIntersection;
+  window.checkSpiralIntersection = checkSpiralIntersection;
+  window.detectSpiralIntersection = detectSpiralIntersection;
+  window.computeAlignmentVisual = computeAlignmentVisual;
+  window.applyIndicatorVisual = applyIndicatorVisual;
+  window.applyIndicatorState = applyIndicatorState;
+  window.resetIndicatorSteps = resetIndicatorSteps;
+  window.stepState = stepState;
+
+  function updateIndicatorPosition() {
+    const indicator = document.getElementById('intersect_indicator');
+    const plasmaIndicator = document.getElementById('plasma_intersect_indicator');
+
+    if (typeof activeSampleIndex === 'undefined' || activeSampleIndex === -1 || !currentCases[activeSampleIndex]) {
+      applyIndicatorState(indicator, 'hidden');
+      applyIndicatorState(plasmaIndicator, 'hidden');
+      return;
+    }
+
+    const sample = currentCases[activeSampleIndex];
+    const fracs = calculateFractions(sample);
+    if (indicator) {
+      const rbcFraction = fracs.rbc / 100;
+      const totalTopPercent = 58.0775 + rbcFraction * 35.586;
+      indicator.style.top = `${totalTopPercent}%`;
+    }
+
+    if (plasmaIndicator) {
+      const plasmaTopPercent = 58.0775 + (sample.fill / 100) * 35.586;
+      plasmaIndicator.style.top = `${plasmaTopPercent}%`;
+    }
+  }
+
+  function updateAlignmentFeedback() {
+    const rbcIndicator = document.getElementById('intersect_indicator');
+    const plasmaIndicator = document.getElementById('plasma_intersect_indicator');
+    const critosealIndicator = document.getElementById('critoseal_indicator');
+    const bottom100Indicator = document.getElementById('bottom_100_indicator');
+
+    if (typeof activeSampleIndex === 'undefined' || activeSampleIndex === -1 || !currentCases[activeSampleIndex]) {
+      resetIndicatorSteps();
+      applyIndicatorState(critosealIndicator, 'hidden');
+      applyIndicatorState(bottom100Indicator, 'hidden');
+      applyIndicatorState(plasmaIndicator, 'hidden');
+      applyIndicatorState(rbcIndicator, 'hidden');
+      if (typeof updateTopPillVisibility === 'function') {
+        updateTopPillVisibility();
+      }
+      return;
+    }
+
+    if (rbcIndicator && (!rbcIndicator.style.top || rbcIndicator.style.top === '')) {
+      updateIndicatorPosition();
+    }
+    if (plasmaIndicator && (!plasmaIndicator.style.top || plasmaIndicator.style.top === '')) {
+      updateIndicatorPosition();
+    }
+
+    const botLocked = !!bottom_disk_locked;
+    const topLocked = !!top_disk_locked;
+    const bothLocked = botLocked && topLocked;
+    const botUnlocked = !botLocked;
+    const topUnlocked = !topLocked;
+
+    const botAngle = (typeof bottom_disk !== 'undefined' && typeof bottom_disk.value === 'number') ? bottom_disk.value : 0;
+    let botDiff = Math.abs(((botAngle % 360) + 360) % 360);
+    if (botDiff > 180) botDiff = 360 - botDiff;
+    const botVisual = computeAlignmentVisual(botDiff);
+    const isBotAligned = botDiff <= 0.5;
+
+    const resultPlasma = checkSpiralIntersection('plasma');
+    const isPlasmaAligned = resultPlasma.isFullyAligned;
+
+    const resultRbc = checkSpiralIntersection();
+    const isRbcAligned = resultRbc.isFullyAligned;
+
+    // STEP 1: ZERO SET (CRITOSEAL)
+    stepState.step1_zeroSet = true;
+    let critosealVisualState = 'green';
+    let critosealVisualData = null;
+
+    // STEP 2: BOTTOM DISK 100 SET
+    let bottom100VisualState = 'outline';
+    let bottom100VisualData = null;
+
+    if (!stepState.step2_bottom100) {
+      if (isBotAligned && botUnlocked) {
+        stepState.step2_bottom100 = true;
+        stepState.step2_invalidated = false;
+        bottom100VisualState = 'green';
+        firstIncorrectState = null;
+        if (!demoActive) {
+          validCheckpointStep2 = {
+            botAngle: 0,
+            topAngle: (typeof top_disk !== 'undefined' && typeof top_disk.value === 'number') ? top_disk.value : (checkpoint0 ? checkpoint0.topAngle : 0),
+            botLocked: false,
+            topLocked: true,
+            stepState: {
+              step1_zeroSet: true,
+              step2_bottom100: true,
+              step3_plasma: false,
+              step4_rbc: false,
+              step2_invalidated: false,
+              step3_invalidated: false,
+              calibratedPlasmaTopAngle: null,
+              calibratedPlasmaBotAngle: null
+            }
+          };
+          lastValidState = JSON.parse(JSON.stringify(validCheckpointStep2));
+        }
+      } else if (botVisual.active && botUnlocked) {
+        bottom100VisualState = 'yellow';
+        bottom100VisualData = botVisual;
+      } else {
+        bottom100VisualState = 'outline';
+      }
+    } else {
+      // Step 2 was previously completed
+      if (isBotAligned) {
+        stepState.step2_invalidated = false;
+        bottom100VisualState = 'green';
+        if (!stepState.step3_plasma) {
+          firstIncorrectState = null;
+          if (!demoActive && !validCheckpointStep2) {
+            validCheckpointStep2 = {
+              botAngle: 0,
+              topAngle: (typeof top_disk !== 'undefined' && typeof top_disk.value === 'number') ? top_disk.value : (checkpoint0 ? checkpoint0.topAngle : 0),
+              botLocked: false,
+              topLocked: true,
+              stepState: {
+                step1_zeroSet: true,
+                step2_bottom100: true,
+                step3_plasma: false,
+                step4_rbc: false,
+                step2_invalidated: false,
+                step3_invalidated: false,
+                calibratedPlasmaTopAngle: null,
+                calibratedPlasmaBotAngle: null
+              }
+            };
+          }
+        }
+      } else {
+        // Bottom disk moved away from 0°
+        if (!stepState.step3_plasma || !bothLocked) {
+          stepState.step2_invalidated = true;
+          bottom100VisualState = 'red';
+        } else {
+          // Both disks locked together in Step 4
+          stepState.step2_invalidated = false;
+          bottom100VisualState = 'green';
+        }
+      }
+    }
+
+    // STEP 3: PLASMA MENISCUS
+    let plasmaVisualState = 'hidden';
+    let plasmaVisualData = null;
+
+    if (!stepState.step2_bottom100) {
+      plasmaVisualState = 'hidden';
+    } else if (stepState.step2_invalidated) {
+      plasmaVisualState = 'red';
+    } else if (!stepState.step3_plasma) {
+      // Calibrating Step 3 (Top disk unlocked, bottom locked at 0°)
+      if (isPlasmaAligned && topUnlocked && isBotAligned) {
+        stepState.step3_plasma = true;
+        stepState.step3_invalidated = false;
+        stepState.calibratedPlasmaTopAngle = (typeof top_disk !== 'undefined') ? top_disk.value : 0;
+        stepState.calibratedPlasmaBotAngle = botAngle;
+        plasmaVisualState = 'green';
+        firstIncorrectState = null;
+        if (!demoActive) {
+          const plasmaTarget = checkSpiralIntersection('plasma').targetAngle;
+          validCheckpointStep3 = {
+            botAngle: 0,
+            topAngle: (typeof stepState.calibratedPlasmaTopAngle === 'number') ? stepState.calibratedPlasmaTopAngle : plasmaTarget,
+            botLocked: true,
+            topLocked: false,
+            stepState: {
+              step1_zeroSet: true,
+              step2_bottom100: true,
+              step3_plasma: true,
+              step4_rbc: false,
+              step2_invalidated: false,
+              step3_invalidated: false,
+              calibratedPlasmaTopAngle: (typeof stepState.calibratedPlasmaTopAngle === 'number') ? stepState.calibratedPlasmaTopAngle : plasmaTarget,
+              calibratedPlasmaBotAngle: 0
+            }
+          };
+          lastValidState = JSON.parse(JSON.stringify(validCheckpointStep3));
+        }
+      } else if (resultPlasma.active && topUnlocked && isBotAligned) {
+        plasmaVisualState = 'yellow';
+        plasmaVisualData = resultPlasma;
+      } else {
+        plasmaVisualState = 'outline';
+      }
+    } else {
+      // Step 3 was previously completed
+      if (bothLocked) {
+        stepState.step3_invalidated = false;
+        plasmaVisualState = 'green';
+      } else if (topUnlocked && isBotAligned) {
+        if (isPlasmaAligned) {
+          stepState.step3_invalidated = false;
+          stepState.calibratedPlasmaTopAngle = (typeof top_disk !== 'undefined') ? top_disk.value : 0;
+          stepState.calibratedPlasmaBotAngle = botAngle;
+          plasmaVisualState = 'green';
+          firstIncorrectState = null;
+          if (!demoActive) {
+            const plasmaTarget = checkSpiralIntersection('plasma').targetAngle;
+            validCheckpointStep3 = {
+              botAngle: 0,
+              topAngle: (typeof stepState.calibratedPlasmaTopAngle === 'number') ? stepState.calibratedPlasmaTopAngle : plasmaTarget,
+              botLocked: true,
+              topLocked: false,
+              stepState: {
+                step1_zeroSet: true,
+                step2_bottom100: true,
+                step3_plasma: true,
+                step4_rbc: false,
+                step2_invalidated: false,
+                step3_invalidated: false,
+                calibratedPlasmaTopAngle: (typeof stepState.calibratedPlasmaTopAngle === 'number') ? stepState.calibratedPlasmaTopAngle : plasmaTarget,
+                calibratedPlasmaBotAngle: 0
+              }
+            };
+            lastValidState = JSON.parse(JSON.stringify(validCheckpointStep3));
+          }
+        } else if (resultPlasma.active) {
+          plasmaVisualState = 'yellow';
+          plasmaVisualData = resultPlasma;
+        } else {
+          stepState.step3_invalidated = true;
+          plasmaVisualState = 'red';
+        }
+      } else {
+        stepState.step3_invalidated = true;
+        plasmaVisualState = 'red';
+      }
+    }
+
+    // STEP 4: RBC / BUFFY COAT
+    let rbcVisualState = 'hidden';
+    let rbcVisualData = null;
+
+    if (!stepState.step3_plasma) {
+      stepState.step4_rbc = false;
+      rbcVisualState = 'hidden';
+    } else if (stepState.step2_invalidated || stepState.step3_invalidated || !bothLocked) {
+      stepState.step4_rbc = false;
+      rbcVisualState = 'outline';
+    } else {
+      // Both disks locked together and calibrations valid
+      if (isRbcAligned) {
+        stepState.step4_rbc = true;
+        rbcVisualState = 'green';
+      } else if (resultRbc.active) {
+        stepState.step4_rbc = false;
+        rbcVisualState = 'yellow';
+        rbcVisualData = resultRbc;
+      } else {
+        stepState.step4_rbc = false;
+        rbcVisualState = 'outline';
+      }
+    }
+
+    // Apply visual indicator states if Trainer is ON; hide if Trainer is OFF or in Exam Mode
+    if (trainerStateOn && !isExamMode) {
+      applyIndicatorState(critosealIndicator, critosealVisualState, critosealVisualData);
+      applyIndicatorState(bottom100Indicator, bottom100VisualState, bottom100VisualData);
+      applyIndicatorState(plasmaIndicator, plasmaVisualState, plasmaVisualData);
+      applyIndicatorState(rbcIndicator, rbcVisualState, rbcVisualData);
+    } else {
+      applyIndicatorState(critosealIndicator, 'hidden');
+      applyIndicatorState(bottom100Indicator, 'hidden');
+      applyIndicatorState(plasmaIndicator, 'hidden');
+      applyIndicatorState(rbcIndicator, 'hidden');
+    }
+
+    // Update Show Me vs Done & Check pill visibility
+    if (typeof updateTopPillVisibility === 'function') {
+      updateTopPillVisibility();
+    }
+  }
+
+  window.updateIndicatorPosition = updateIndicatorPosition;
+  window.updateAlignmentFeedback = updateAlignmentFeedback;
+
+  // Initialize UI & Cases
+  if (isExamMode) {
+    document.body.classList.add('exam_mode');
+    trainerStateOn = false;
+    trainerVisible = false;
+
+    const deviceNameLong = document.getElementById('device_name_long');
+    const deviceNameShort = document.getElementById('device_name_short');
+    const deviceNameEl = document.getElementById('device_name');
+    if (deviceNameLong) deviceNameLong.textContent = `Unknown #${examUnknownIndex + 1}`;
+    if (deviceNameShort) deviceNameShort.textContent = `Unk #${examUnknownIndex + 1}`;
+    if (deviceNameEl) {
+      deviceNameEl.title = `Unknown #${examUnknownIndex + 1}`;
+      deviceNameEl.setAttribute('aria-label', `Unknown #${examUnknownIndex + 1}`);
+    }
+
+    const sampleData = currentCases[activeSampleIndex];
+    if (sampleData) {
+      const fracs = calculateFractions(sampleData);
+      const rbc_fraction = document.getElementById('rbc_fraction');
+      const wbc_plt_fraction = document.getElementById('wbc_plt_fraction');
+      const plasma_fraction = document.getElementById('plasma_fraction');
+      const sampleEl = document.getElementById('sample');
+      if (rbc_fraction && wbc_plt_fraction && plasma_fraction && sampleEl) {
+        rbc_fraction.style.height = fracs.rbc + '%';
+        wbc_plt_fraction.style.height = fracs.wbc + '%';
+        plasma_fraction.style.height = fracs.plasma + '%';
+        sampleEl.classList.remove('tube_hidden');
+      }
+    }
+    updateDiscButtonUI();
+    updateZoomButtonVisibility();
+  } else {
+    renderSamplesTray();
+    updateDiscButtonUI();
+    updateZoomButtonVisibility();
+  }
+
+  /* =========================================================================
+   * PROCEDURE MODAL INTERACTION LOGIC
+   * ========================================================================= */
+  const procedureModalBackdrop = document.getElementById('procedure_modal_backdrop');
+  const procedureModalDialog = document.getElementById('procedure_modal');
+  const modalCloseBtn = document.getElementById('modal_close_btn');
+  const deviceNamePill = document.getElementById('device_name');
+
+  function updateProcedureModalHighlight() {
+    const steps = document.querySelectorAll('.procedure_list.reader_steps > li');
+    if (!steps || steps.length === 0) return;
+
+    // Reset previous step highlights and badges
+    steps.forEach((li) => {
+      li.classList.remove('step_in_progress');
+      const existingBadge = li.querySelector('.step_badge_in_progress');
+      if (existingBadge) {
+        existingBadge.parentNode.removeChild(existingBadge);
+      }
+    });
+
+    let currentStepIdx = 0;
+    if (typeof activeSampleIndex === 'undefined' || activeSampleIndex === -1) {
+      currentStepIdx = 0; // Step 1: Set 0% Baseline (place tube)
+    } else if (typeof stepState !== 'undefined') {
+      if (!stepState.step2_bottom100 || stepState.step2_invalidated) {
+        currentStepIdx = 1; // Step 2: Set Bottom Dial to 100%
+      } else if (!stepState.step3_plasma || stepState.step3_invalidated) {
+        currentStepIdx = 2; // Step 3: Align Plasma Meniscus
+      } else if (!stepState.step4_rbc) {
+        currentStepIdx = 3; // Step 4: Read at RBC Meniscus
+      } else {
+        currentStepIdx = 4; // Step 5: Record Percentage
+      }
+    }
+
+    const targetLi = steps[currentStepIdx];
+    if (targetLi) {
+      targetLi.classList.add('step_in_progress');
+      const badge = document.createElement('span');
+      badge.className = 'step_badge_in_progress';
+      badge.innerHTML = `<span class="step_badge_pulse_dot"></span>In Progress`;
+
+      const strongTag = targetLi.querySelector('strong');
+      if (strongTag && strongTag.nextSibling) {
+        strongTag.parentNode.insertBefore(badge, strongTag.nextSibling);
+      } else {
+        targetLi.appendChild(badge);
+      }
+
+      // Ensure containing details element (Phase 2) is open
+      const phase2Details = targetLi.closest('details');
+      if (phase2Details) {
+        phase2Details.open = true;
+      }
+
+      // Smoothly ensure step is in view
+      setTimeout(() => {
+        targetLi.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 50);
+    }
+  }
+  window.updateProcedureModalHighlight = updateProcedureModalHighlight;
+
+  function openProcedureModal(e) {
+    if (isExamMode) return;
+    if (e) {
+      e.stopPropagation();
+      e.preventDefault();
+      if (typeof cancelTutorialDemo === 'function') cancelTutorialDemo();
+    }
+    updateProcedureModalHighlight();
+    if (procedureModalBackdrop) {
+      procedureModalBackdrop.classList.add('open');
+      procedureModalBackdrop.setAttribute('aria-hidden', 'false');
+    }
+  }
+
+  function closeProcedureModal() {
+    if (procedureModalBackdrop) {
+      procedureModalBackdrop.classList.remove('open');
+      procedureModalBackdrop.setAttribute('aria-hidden', 'true');
+    }
+  }
+
+  if (deviceNamePill) {
+    deviceNamePill.addEventListener('click', openProcedureModal);
+    deviceNamePill.addEventListener('mousedown', (e) => e.stopPropagation());
+    deviceNamePill.addEventListener('touchstart', (e) => e.stopPropagation());
+  }
+
+  if (modalCloseBtn) {
+    modalCloseBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeProcedureModal();
+    });
+  }
+
+  if (procedureModalBackdrop) {
+    procedureModalBackdrop.addEventListener('click', (e) => {
+      if (e.target === procedureModalBackdrop) {
+        closeProcedureModal();
+      }
+    });
+  }
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && procedureModalBackdrop && procedureModalBackdrop.classList.contains('open')) {
+      closeProcedureModal();
+    }
+  });
+
+</script>
+
+</html>
