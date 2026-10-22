@@ -185,10 +185,10 @@ window.COURSE_DISCUSSIONS = [
     "title": "Hemostasis",
     "type": "lecture",
     "number": 13,
-    "subfolder": "LEC",
-    "raw_subfolder": "LEC",
+    "subfolder": "Hemostasis",
+    "raw_subfolder": "Hemostasis",
     "filename": "13_Hemostasis_Complete_Discussion.html",
-    "rel_path_from_shared": "../Hematology/LEC/13_Hemostasis_Complete_Discussion.html"
+    "rel_path_from_shared": "../Hematology/LEC/Hemostasis/13_Hemostasis_Complete_Discussion.html"
   },
   {
     "id": "L5_Iron_Heme_S0_Discussion",
@@ -275,20 +275,20 @@ window.COURSE_DISCUSSIONS = [
     "title": "Primary Hemostasis",
     "type": "lecture",
     "number": 15,
-    "subfolder": "LEC",
-    "raw_subfolder": "LEC",
+    "subfolder": "Hemostasis",
+    "raw_subfolder": "Hemostasis",
     "filename": "15_Primary_Hemostasis_Complete_Discussion.html",
-    "rel_path_from_shared": "../Hematology/LEC/15_Primary_Hemostasis_Complete_Discussion.html"
+    "rel_path_from_shared": "../Hematology/LEC/Hemostasis/15_Primary_Hemostasis_Complete_Discussion.html"
   },
   {
     "id": "15_Primary_Hemostasis_Testing_Complete_Discussion",
     "title": "Primary Hemostasis Testing",
     "type": "lab",
     "number": 15,
-    "subfolder": "LAB",
-    "raw_subfolder": "LAB",
+    "subfolder": "Hemostasis",
+    "raw_subfolder": "Hemostasis",
     "filename": "15_Primary_Hemostasis_Testing_Complete_Discussion.html",
-    "rel_path_from_shared": "../Hematology/LAB/15_Primary_Hemostasis_Testing_Complete_Discussion.html"
+    "rel_path_from_shared": "../Hematology/LAB/Hemostasis/15_Primary_Hemostasis_Testing_Complete_Discussion.html"
   },
   {
     "id": "L4_RBC_Analysis_S0_Discussion",
@@ -305,20 +305,20 @@ window.COURSE_DISCUSSIONS = [
     "title": "Secondary Hemostasis",
     "type": "lecture",
     "number": 14,
-    "subfolder": "LEC",
-    "raw_subfolder": "LEC",
+    "subfolder": "Hemostasis",
+    "raw_subfolder": "Hemostasis",
     "filename": "14_Secondary_Hemostasis_Complete_Discussion.html",
-    "rel_path_from_shared": "../Hematology/LEC/14_Secondary_Hemostasis_Complete_Discussion.html"
+    "rel_path_from_shared": "../Hematology/LEC/Hemostasis/14_Secondary_Hemostasis_Complete_Discussion.html"
   },
   {
     "id": "14_Secondary_Hemostasis_Testing_Complete_Discussion",
     "title": "Secondary Hemostasis Testing",
     "type": "lab",
     "number": 14,
-    "subfolder": "LAB",
-    "raw_subfolder": "LAB",
+    "subfolder": "Hemostasis",
+    "raw_subfolder": "Hemostasis",
     "filename": "14_Secondary_Hemostasis_Testing_Complete_Discussion.html",
-    "rel_path_from_shared": "../Hematology/LAB/14_Secondary_Hemostasis_Testing_Complete_Discussion.html"
+    "rel_path_from_shared": "../Hematology/LAB/Hemostasis/14_Secondary_Hemostasis_Testing_Complete_Discussion.html"
   },
   {
     "id": "05_Semen_Complete_Discussion",
@@ -375,20 +375,20 @@ window.COURSE_DISCUSSIONS = [
     "title": "Thrombophilia & Fibrinolysis Testing",
     "type": "lab",
     "number": 16,
-    "subfolder": "LAB",
-    "raw_subfolder": "LAB",
+    "subfolder": "Hemostasis",
+    "raw_subfolder": "Hemostasis",
     "filename": "16_Thrombophilia_Fibrinolysis_Testing_Complete_Discussion.html",
-    "rel_path_from_shared": "../Hematology/LAB/16_Thrombophilia_Fibrinolysis_Testing_Complete_Discussion.html"
+    "rel_path_from_shared": "../Hematology/LAB/Hemostasis/16_Thrombophilia_Fibrinolysis_Testing_Complete_Discussion.html"
   },
   {
     "id": "16_Thrombophilia_Fibrinolysis_Complete_Discussion",
     "title": "Thrombophilia Fibrinolysis",
     "type": "lecture",
     "number": 16,
-    "subfolder": "LEC",
-    "raw_subfolder": "LEC",
+    "subfolder": "Hemostasis",
+    "raw_subfolder": "Hemostasis",
     "filename": "16_Thrombophilia_Fibrinolysis_Complete_Discussion.html",
-    "rel_path_from_shared": "../Hematology/LEC/16_Thrombophilia_Fibrinolysis_Complete_Discussion.html"
+    "rel_path_from_shared": "../Hematology/LEC/Hemostasis/16_Thrombophilia_Fibrinolysis_Complete_Discussion.html"
   },
   {
     "id": "08_Vaginal-Secretions_Complete_Discussion",
