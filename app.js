@@ -742,25 +742,7 @@ function buildHierarchy(files) {
 }
 
 function getMindMapUrlWithStats(filePath) {
-    if (!filePath || !filePath.includes('Mind_Map.html')) return filePath;
-    try {
-        let statsJson = '';
-        if (window.name) {
-            try {
-                const parsed = JSON.parse(window.name);
-                if (parsed && (parsed.stats || parsed.__chgh_quiz_signature__)) {
-                    statsJson = JSON.stringify(parsed.stats || parsed);
-                }
-            } catch(e) {}
-        }
-        if (!statsJson) {
-            statsJson = localStorage.getItem('CHGH_MINDMAP_QUIZ_STATS_V2') || sessionStorage.getItem('CHGH_MINDMAP_QUIZ_STATS_V2') || '';
-        }
-        if (statsJson) {
-            const enc = encodeURIComponent(btoa(unescape(encodeURIComponent(statsJson))));
-            return filePath + '#mmq=' + enc;
-        }
-    } catch(e) {}
+    // Return clean file path without appending #mmq= stats payload to links
     return filePath;
 }
 
@@ -901,7 +883,7 @@ function renderCardGrid(container, files) {
                         const catFormatted = formatCategory(file.category);
                         const badgeLabel = getBadgeLabel(file);
 
-                        const mindMapHref = file.type === 'Mind Map' ? getMindMapUrlWithStats(file.path) : file.path;
+                        const mindMapHref = file.path;
                         html += `
                             <div class="card" id="${cardDomId}" onclick="openPreview('${encodeURIComponent(file.path)}', '${escapeJsString(displayTitle)}')">
                                 <div>
@@ -1042,7 +1024,7 @@ function renderTree(container, files) {
                         const cardDomId = 'card-' + file.name.replace(/[^a-zA-Z0-9_-]/g, '_');
                         const badgeLabel = getBadgeLabel(file);
 
-                        const mindMapHref = file.type === 'Mind Map' ? getMindMapUrlWithStats(file.path) : file.path;
+                        const mindMapHref = file.path;
                         html += `
                             <div class="tree-item" id="${cardDomId}" onclick="openPreview('${encodeURIComponent(file.path)}', '${escapeJsString(displayTitle)}')">
                                 <div class="tree-item-left">
@@ -1243,7 +1225,7 @@ function getYouTubeId(url) {
 // Modal Viewport Controller
 function openPreview(encodedPath, title) {
     const rawPath = decodeURIComponent(encodedPath);
-    const path = getMindMapUrlWithStats(rawPath);
+    const path = rawPath;
     const modalBackdrop = document.getElementById('modalBackdrop');
     const modalTitle = document.getElementById('modalTitle');
     const modalBody = document.querySelector('.modal-body');

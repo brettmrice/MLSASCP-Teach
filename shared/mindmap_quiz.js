@@ -2305,8 +2305,7 @@
                 const mapData = this.stats.mapStats[item.id] || { seen: 0, correct: 0, partial: 0 };
                 const acc = mapData.seen > 0 ? Math.round(((mapData.correct + mapData.partial) / mapData.seen) * 100) + '%' : '-';
                 const isCurrent = this.currentMapInfo && this.currentMapInfo.id === item.id;
-                const encodedPayload = this.encodeStats(this.stats);
-                const fullHref = `${item.path}#mmq=${encodedPayload}`;
+                const fullHref = item.path;
                 return `
                   <tr>
                     <td>
@@ -2324,13 +2323,10 @@
           container.appendChild(secWrapper);
         });
 
-        // Ensure latest stats are encoded and saved on link click
+        // Ensure latest stats are saved on link click
         container.querySelectorAll('.mm-map-link').forEach(link => {
           link.addEventListener('click', (e) => {
             this.saveStats();
-            const basePath = link.getAttribute('data-path') || link.getAttribute('href').split('#')[0];
-            const encodedPayload = this.encodeStats(this.stats);
-            link.href = `${basePath}#mmq=${encodedPayload}`;
           });
         });
       }
