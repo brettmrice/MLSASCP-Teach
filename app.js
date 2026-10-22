@@ -48,20 +48,10 @@ const TOPIC_CONFIG = {
         'L11_MPN_MDS': 'Chronic Myeloid Neoplasms',
         'L12_ALL': 'Lymphoid Neoplasms',
         'L13_BM_Flow': 'Bone Marrow & Flow Cytometry',
-        '14_Secondary_Hemostasis_Testing': 'Secondary Hemostasis Testing',
-        'L14_Secondary_Hemostasis_Testing': 'Secondary Hemostasis Testing',
-        '15_Primary_Hemostasis_Testing': 'Primary Hemostasis Testing',
-        'L15_Primary_Hemostasis_Testing': 'Primary Hemostasis Testing',
-        '16_Thrombophilia_Fibrinolysis_Testing': 'Thrombophilia & Fibrinolysis Testing',
-        'L16_Thrombophilia_Fibrinolysis_Testing': 'Thrombophilia & Fibrinolysis Testing',,
-        '13_Hemostasis': 'Hemostasis',
         'L13_Hemostasis': 'Hemostasis',
-        '14_Secondary_Hemostasis': 'Secondary Hemostasis',
         'L14_Secondary_Hemostasis': 'Secondary Hemostasis',
-        '15_Primary_Hemostasis': 'Primary Hemostasis',
         'L15_Primary_Hemostasis': 'Primary Hemostasis',
-        '16_Thrombophilia_Fibrinolysis': 'Thrombophilia & Fibrinolysis',
-        'L16_Thrombophilia_Fibrinolysis': 'Thrombophilia & Fibrinolysis',
+        'L16_Thrombophilia_Fibrinolysis': 'Thrombophilia & Fibrinolysis'
     },
     laboratory: {
         'L1_Manual_Counts': 'Manual Counts',
@@ -76,7 +66,10 @@ const TOPIC_CONFIG = {
         'L10_AML': 'Acute Myeloid Neoplasms',
         'L11_MPN_MDS': 'Chronic Myeloid Neoplasms',
         'L12_LACLN': 'Lymphoid Neoplasms',
-        'L13_BM_Flow': 'Bone Marrow & Flow Cytometry'
+        'L13_BM_Flow': 'Bone Marrow & Flow Cytometry',
+        'L14_Secondary_Hemostasis_Testing': 'Secondary Hemostasis Testing',
+        'L15_Primary_Hemostasis_Testing': 'Primary Hemostasis Testing',
+        'L16_Thrombophilia_Fibrinolysis_Testing': 'Thrombophilia & Fibrinolysis Testing'
     },
     body_fluids: {
         '01_CSF': 'CSF',
@@ -86,8 +79,7 @@ const TOPIC_CONFIG = {
         '05_Semen': 'Semen',
         '06_Amniotic': 'Amniotic',
         '07_Feces': 'Feces',
-        '08_Vaginal-Secretions': 'Vaginal Secretions',
-        '08_Vaginal': 'Vaginal Secretions'
+        '08_Vaginal-Secretions': 'Vaginal Secretions'
     }
 };
 
