@@ -371,16 +371,6 @@ window.COURSE_DISCUSSIONS = [
     "rel_path_from_shared": "../Body_Fluids/03_Synovial_S0_Complete_Discussion.html"
   },
   {
-    "id": "L16_Thrombophilia_Fibrinolysis_Testing_S0_Complete_Discussion",
-    "title": "Thrombophilia & Fibrinolysis Testing",
-    "type": "lab",
-    "number": 16,
-    "subfolder": "Hemostasis",
-    "raw_subfolder": "Hemostasis",
-    "filename": "L16_Thrombophilia_Fibrinolysis_Testing_S0_Complete_Discussion.html",
-    "rel_path_from_shared": "../Hematology/LAB/Hemostasis/L16_Thrombophilia_Fibrinolysis_Testing_S0_Complete_Discussion.html"
-  },
-  {
     "id": "L16_Thrombophilia_Disorders_S0_Complete_Discussion",
     "title": "Thrombophilia Disorders",
     "type": "lecture",
@@ -389,6 +379,16 @@ window.COURSE_DISCUSSIONS = [
     "raw_subfolder": "Hemostasis",
     "filename": "L16_Thrombophilia_Disorders_S0_Complete_Discussion.html",
     "rel_path_from_shared": "../Hematology/LEC/Hemostasis/L16_Thrombophilia_Disorders_S0_Complete_Discussion.html"
+  },
+  {
+    "id": "L16_Thrombophilia_Testing_S0_Complete_Discussion",
+    "title": "Thrombophilia Testing",
+    "type": "lab",
+    "number": 16,
+    "subfolder": "Hemostasis",
+    "raw_subfolder": "Hemostasis",
+    "filename": "L16_Thrombophilia_Testing_S0_Complete_Discussion.html",
+    "rel_path_from_shared": "../Hematology/LAB/Hemostasis/L16_Thrombophilia_Testing_S0_Complete_Discussion.html"
   },
   {
     "id": "08_Vaginal-Secretions_S0_Complete_Discussion",

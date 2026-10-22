@@ -380,14 +380,14 @@
     "rel_path_from_shared": "../Hematology/LEC/Hemostasis/L16_Thrombophilia_Disorders_S1_Mind_Map.html"
   },
   {
-    "id": "L16_Thrombophilia_Fibrinolysis_Testing_S1_Mind_Map",
+    "id": "L16_Thrombophilia_Testing_S1_Mind_Map",
     "title": "Thrombophilia Fibrinolysis Testing",
     "type": "lab",
     "number": 16,
     "subfolder": "Hemostasis",
     "raw_subfolder": "Hemostasis",
-    "filename": "L16_Thrombophilia_Fibrinolysis_Testing_S1_Mind_Map.html",
-    "rel_path_from_shared": "../Hematology/LAB/Hemostasis/L16_Thrombophilia_Fibrinolysis_Testing_S1_Mind_Map.html"
+    "filename": "L16_Thrombophilia_Testing_S1_Mind_Map.html",
+    "rel_path_from_shared": "../Hematology/LAB/Hemostasis/L16_Thrombophilia_Testing_S1_Mind_Map.html"
   },
   {
     "id": "08_Vaginal-Secretions_S1_Mind_Map",
