@@ -20,24 +20,24 @@
     "rel_path_from_shared": "../Hematology/LEC/Leukocytes/L10_AML_S1_Mind_Map.html"
   },
   {
-    "id": "06_Amniotic_Mind_Map",
+    "id": "06_Amniotic_S1_Mind_Map",
     "title": "Amniotic",
     "type": "bf",
     "number": 6,
     "subfolder": "Body Fluids",
     "raw_subfolder": "Body_Fluids",
-    "filename": "06_Amniotic_Mind_Map.html",
-    "rel_path_from_shared": "../Body_Fluids/06_Amniotic_Mind_Map.html"
+    "filename": "06_Amniotic_S1_Mind_Map.html",
+    "rel_path_from_shared": "../Body_Fluids/06_Amniotic_S1_Mind_Map.html"
   },
   {
-    "id": "04_BAL_Mind_Map",
+    "id": "04_BAL_S1_Mind_Map",
     "title": "BAL",
     "type": "bf",
     "number": 4,
     "subfolder": "Body Fluids",
     "raw_subfolder": "Body_Fluids",
-    "filename": "04_BAL_Mind_Map.html",
-    "rel_path_from_shared": "../Body_Fluids/04_BAL_Mind_Map.html"
+    "filename": "04_BAL_S1_Mind_Map.html",
+    "rel_path_from_shared": "../Body_Fluids/04_BAL_S1_Mind_Map.html"
   },
   {
     "id": "L9_Benign_S1_Mind_Map",
@@ -100,14 +100,14 @@
     "rel_path_from_shared": "../Hematology/LEC/Leukocytes/L11_MPN_MDS_S1_Mind_Map.html"
   },
   {
-    "id": "01_CSF_Mind_Map",
+    "id": "01_CSF_S1_Mind_Map",
     "title": "CSF",
     "type": "bf",
     "number": 1,
     "subfolder": "Body Fluids",
     "raw_subfolder": "Body_Fluids",
-    "filename": "01_CSF_Mind_Map.html",
-    "rel_path_from_shared": "../Body_Fluids/01_CSF_Mind_Map.html"
+    "filename": "01_CSF_S1_Mind_Map.html",
+    "rel_path_from_shared": "../Body_Fluids/01_CSF_S1_Mind_Map.html"
   },
   {
     "id": "L2_BCE_RBC-HGB_S3_Mind_Map",
@@ -120,14 +120,14 @@
     "rel_path_from_shared": "../Hematology/LEC/Physiology/L2_BCE_RBC-HGB_S3_Mind_Map.html"
   },
   {
-    "id": "07_Feces_Mind_Map",
+    "id": "07_Feces_S1_Mind_Map",
     "title": "Feces",
     "type": "bf",
     "number": 7,
     "subfolder": "Body Fluids",
     "raw_subfolder": "Body_Fluids",
-    "filename": "07_Feces_Mind_Map.html",
-    "rel_path_from_shared": "../Body_Fluids/07_Feces_Mind_Map.html"
+    "filename": "07_Feces_S1_Mind_Map.html",
+    "rel_path_from_shared": "../Body_Fluids/07_Feces_S1_Mind_Map.html"
   },
   {
     "id": "L1_Hematopoiesis_S4_Mind_Map",
@@ -170,14 +170,14 @@
     "rel_path_from_shared": "../Hematology/LEC/Erythrocytes/L8_Hemolytic_S1_Mind_Map.html"
   },
   {
-    "id": "13_Hemostasis_Mind_Map",
+    "id": "L13_Hemostasis_S1_Mind_Map",
     "title": "Hemostasis",
     "type": "lecture",
     "number": 13,
     "subfolder": "Hemostasis",
     "raw_subfolder": "Hemostasis",
-    "filename": "13_Hemostasis_Mind_Map.html",
-    "rel_path_from_shared": "../Hematology/LEC/Hemostasis/13_Hemostasis_Mind_Map.html"
+    "filename": "L13_Hemostasis_S1_Mind_Map.html",
+    "rel_path_from_shared": "../Hematology/LEC/Hemostasis/L13_Hemostasis_S1_Mind_Map.html"
   },
   {
     "id": "L5_Iron_Heme_S1_Mind_Map",
@@ -270,24 +270,24 @@
     "rel_path_from_shared": "../Hematology/LAB/Erythrocytes/L8_Normocytic_S1_Mind_Map.html"
   },
   {
-    "id": "15_Primary_Hemostasis_Mind_Map",
-    "title": "Primary Hemostasis",
+    "id": "L15_Primary_Hemostasis_S1_Mind_Map",
+    "title": "Primary Hemostasis Disorders",
     "type": "lecture",
     "number": 15,
     "subfolder": "Hemostasis",
     "raw_subfolder": "Hemostasis",
-    "filename": "15_Primary_Hemostasis_Mind_Map.html",
-    "rel_path_from_shared": "../Hematology/LEC/Hemostasis/15_Primary_Hemostasis_Mind_Map.html"
+    "filename": "L15_Primary_Hemostasis_S1_Mind_Map.html",
+    "rel_path_from_shared": "../Hematology/LEC/Hemostasis/L15_Primary_Hemostasis_S1_Mind_Map.html"
   },
   {
-    "id": "15_Primary_Hemostasis_Testing_Mind_Map",
+    "id": "L15_Primary_Hemostasis_Testing_S1_Mind_Map",
     "title": "Primary Hemostasis Testing",
     "type": "lab",
     "number": 15,
     "subfolder": "Hemostasis",
     "raw_subfolder": "Hemostasis",
-    "filename": "15_Primary_Hemostasis_Testing_Mind_Map.html",
-    "rel_path_from_shared": "../Hematology/LAB/Hemostasis/15_Primary_Hemostasis_Testing_Mind_Map.html"
+    "filename": "L15_Primary_Hemostasis_Testing_S1_Mind_Map.html",
+    "rel_path_from_shared": "../Hematology/LAB/Hemostasis/L15_Primary_Hemostasis_Testing_S1_Mind_Map.html"
   },
   {
     "id": "L4_RBC_Analysis_S4_Mind_Map",
@@ -300,44 +300,44 @@
     "rel_path_from_shared": "../Hematology/LEC/Physiology/L4_RBC_Analysis_S4_Mind_Map.html"
   },
   {
-    "id": "14_Secondary_Hemostasis_Mind_Map",
-    "title": "Secondary Hemostasis",
+    "id": "L14_Secondary_Hemostasis_S1_Mind_Map",
+    "title": "Secondary Hemostasis Disorders",
     "type": "lecture",
     "number": 14,
     "subfolder": "Hemostasis",
     "raw_subfolder": "Hemostasis",
-    "filename": "14_Secondary_Hemostasis_Mind_Map.html",
-    "rel_path_from_shared": "../Hematology/LEC/Hemostasis/14_Secondary_Hemostasis_Mind_Map.html"
+    "filename": "L14_Secondary_Hemostasis_S1_Mind_Map.html",
+    "rel_path_from_shared": "../Hematology/LEC/Hemostasis/L14_Secondary_Hemostasis_S1_Mind_Map.html"
   },
   {
-    "id": "14_Secondary_Hemostasis_Testing_Mind_Map",
+    "id": "L14_Secondary_Hemostasis_Testing_S1_Mind_Map",
     "title": "Secondary Hemostasis Testing",
     "type": "lab",
     "number": 14,
     "subfolder": "Hemostasis",
     "raw_subfolder": "Hemostasis",
-    "filename": "14_Secondary_Hemostasis_Testing_Mind_Map.html",
-    "rel_path_from_shared": "../Hematology/LAB/Hemostasis/14_Secondary_Hemostasis_Testing_Mind_Map.html"
+    "filename": "L14_Secondary_Hemostasis_Testing_S1_Mind_Map.html",
+    "rel_path_from_shared": "../Hematology/LAB/Hemostasis/L14_Secondary_Hemostasis_Testing_S1_Mind_Map.html"
   },
   {
-    "id": "05_Semen_Mind_Map",
+    "id": "05_Semen_S1_Mind_Map",
     "title": "Semen",
     "type": "bf",
     "number": 5,
     "subfolder": "Body Fluids",
     "raw_subfolder": "Body_Fluids",
-    "filename": "05_Semen_Mind_Map.html",
-    "rel_path_from_shared": "../Body_Fluids/05_Semen_Mind_Map.html"
+    "filename": "05_Semen_S1_Mind_Map.html",
+    "rel_path_from_shared": "../Body_Fluids/05_Semen_S1_Mind_Map.html"
   },
   {
-    "id": "02_Serous_Mind_Map",
+    "id": "02_Serous_S1_Mind_Map",
     "title": "Serous",
     "type": "bf",
     "number": 2,
     "subfolder": "Body Fluids",
     "raw_subfolder": "Body_Fluids",
-    "filename": "02_Serous_Mind_Map.html",
-    "rel_path_from_shared": "../Body_Fluids/02_Serous_Mind_Map.html"
+    "filename": "02_Serous_S1_Mind_Map.html",
+    "rel_path_from_shared": "../Body_Fluids/02_Serous_S1_Mind_Map.html"
   },
   {
     "id": "L3_Slide_Evaluation_S3_Mind_Map",
@@ -360,43 +360,43 @@
     "rel_path_from_shared": "../Hematology/LAB/CBC_PBS/L2_Slide_Preparation_S2_Mind_Map.html"
   },
   {
-    "id": "03_Synovial_Mind_Map",
+    "id": "03_Synovial_S1_Mind_Map",
     "title": "Synovial",
     "type": "bf",
     "number": 3,
     "subfolder": "Body Fluids",
     "raw_subfolder": "Body_Fluids",
-    "filename": "03_Synovial_Mind_Map.html",
-    "rel_path_from_shared": "../Body_Fluids/03_Synovial_Mind_Map.html"
+    "filename": "03_Synovial_S1_Mind_Map.html",
+    "rel_path_from_shared": "../Body_Fluids/03_Synovial_S1_Mind_Map.html"
   },
   {
-    "id": "16_Thrombophilia_Fibrinolysis_Mind_Map",
-    "title": "Thrombophilia Fibrinolysis",
+    "id": "L16_Thrombophilia_Fibrinolysis_S1_Mind_Map",
+    "title": "Thrombophilia Disorders",
     "type": "lecture",
     "number": 16,
     "subfolder": "Hemostasis",
     "raw_subfolder": "Hemostasis",
-    "filename": "16_Thrombophilia_Fibrinolysis_Mind_Map.html",
-    "rel_path_from_shared": "../Hematology/LEC/Hemostasis/16_Thrombophilia_Fibrinolysis_Mind_Map.html"
+    "filename": "L16_Thrombophilia_Fibrinolysis_S1_Mind_Map.html",
+    "rel_path_from_shared": "../Hematology/LEC/Hemostasis/L16_Thrombophilia_Fibrinolysis_S1_Mind_Map.html"
   },
   {
-    "id": "16_Thrombophilia_Fibrinolysis_Testing_Mind_Map",
+    "id": "L16_Thrombophilia_Fibrinolysis_Testing_S1_Mind_Map",
     "title": "Thrombophilia Fibrinolysis Testing",
     "type": "lab",
     "number": 16,
     "subfolder": "Hemostasis",
     "raw_subfolder": "Hemostasis",
-    "filename": "16_Thrombophilia_Fibrinolysis_Testing_Mind_Map.html",
-    "rel_path_from_shared": "../Hematology/LAB/Hemostasis/16_Thrombophilia_Fibrinolysis_Testing_Mind_Map.html"
+    "filename": "L16_Thrombophilia_Fibrinolysis_Testing_S1_Mind_Map.html",
+    "rel_path_from_shared": "../Hematology/LAB/Hemostasis/L16_Thrombophilia_Fibrinolysis_Testing_S1_Mind_Map.html"
   },
   {
-    "id": "08_Vaginal-Secretions_Mind_Map",
+    "id": "08_Vaginal-Secretions_S1_Mind_Map",
     "title": "Vaginal Secretions",
     "type": "bf",
     "number": 8,
     "subfolder": "Body Fluids",
     "raw_subfolder": "Body_Fluids",
-    "filename": "08_Vaginal-Secretions_Mind_Map.html",
-    "rel_path_from_shared": "../Body_Fluids/08_Vaginal-Secretions_Mind_Map.html"
+    "filename": "08_Vaginal-Secretions_S1_Mind_Map.html",
+    "rel_path_from_shared": "../Body_Fluids/08_Vaginal-Secretions_S1_Mind_Map.html"
   }
 ]

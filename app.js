@@ -1,6 +1,6 @@
 let filesData = [];
 let selectedDomains = new Set(['all']); // Set containing 'all' and/or domain keys ('lecture', 'laboratory')
-let selectedModules = new Set(['all']); // Set containing 'all' and/or module keys ('Physiology', 'CBC_PBS', 'Erythrocyte', 'Leukocyte')
+let selectedModules = new Set(['all']); // Set containing 'all' and/or module keys ('Physiology', 'CBC_PBS', 'Erythrocyte', 'Leukocyte', 'Hemostasis')
 let selectedTypes = new Set(['all']);   // Set containing 'all' and/or type keys ('discussion', 'flowchart', 'pdf', 'video', 'demonstration', 'tool', 'trainer', 'mindmap')
 let currentSearch = '';
 let currentView = 'grid';   // 'grid' or 'tree'
@@ -8,7 +8,7 @@ let isPreviewModalOpen = false;
 let savedIndexScrollY = 0;
 
 const DOMAIN_KEYS = ['lecture', 'laboratory', 'body_fluids'];
-const MODULE_KEYS = ['Physiology', 'CBC_PBS', 'Erythrocyte', 'Leukocyte', 'Body_Fluids'];
+const MODULE_KEYS = ['Physiology', 'CBC_PBS', 'Erythrocyte', 'Leukocyte', 'Hemostasis', 'Body_Fluids'];
 const TYPE_KEYS = ['discussion', 'flowchart', 'pdf', 'video', 'demonstration', 'tool', 'trainer', 'mindmap'];
 
 const TYPE_KEY_TO_NAME = {
@@ -47,7 +47,21 @@ const TOPIC_CONFIG = {
         'L10_AML': 'Acute Myeloid Neoplasms',
         'L11_MPN_MDS': 'Chronic Myeloid Neoplasms',
         'L12_ALL': 'Lymphoid Neoplasms',
-        'L13_BM_Flow': 'Bone Marrow & Flow Cytometry'
+        'L13_BM_Flow': 'Bone Marrow & Flow Cytometry',
+        '14_Secondary_Hemostasis_Testing': 'Secondary Hemostasis Testing',
+        'L14_Secondary_Hemostasis_Testing': 'Secondary Hemostasis Testing',
+        '15_Primary_Hemostasis_Testing': 'Primary Hemostasis Testing',
+        'L15_Primary_Hemostasis_Testing': 'Primary Hemostasis Testing',
+        '16_Thrombophilia_Fibrinolysis_Testing': 'Thrombophilia & Fibrinolysis Testing',
+        'L16_Thrombophilia_Fibrinolysis_Testing': 'Thrombophilia & Fibrinolysis Testing',,
+        '13_Hemostasis': 'Hemostasis',
+        'L13_Hemostasis': 'Hemostasis',
+        '14_Secondary_Hemostasis': 'Secondary Hemostasis',
+        'L14_Secondary_Hemostasis': 'Secondary Hemostasis',
+        '15_Primary_Hemostasis': 'Primary Hemostasis',
+        'L15_Primary_Hemostasis': 'Primary Hemostasis',
+        '16_Thrombophilia_Fibrinolysis': 'Thrombophilia & Fibrinolysis',
+        'L16_Thrombophilia_Fibrinolysis': 'Thrombophilia & Fibrinolysis',
     },
     laboratory: {
         'L1_Manual_Counts': 'Manual Counts',
@@ -207,6 +221,7 @@ function getModuleKey(file) {
     if (cat.includes('cbc_pbs') || cat.includes('cbc & pbs') || path.includes('/cbc_pbs/')) return 'CBC_PBS';
     if (cat.includes('erythrocyte') || path.includes('/erythrocytes/') || path.includes('/erythrocyte/')) return 'Erythrocyte';
     if (cat.includes('leukocyte') || path.includes('/leukocytes/') || path.includes('/leukocyte/')) return 'Leukocyte';
+    if (cat.includes('hemostasis') || path.includes('/hemostasis/')) return 'Hemostasis';
     if (cat.includes('body_fluids') || cat.includes('body fluids') || path.startsWith('body_fluids/')) return 'Body_Fluids';
     return 'Other';
 }
@@ -542,6 +557,7 @@ function updateCategoryCounts() {
     const countModCBC = moduleCandidateFiles.filter(f => getModuleKey(f) === 'CBC_PBS').length;
     const countModEryth = moduleCandidateFiles.filter(f => getModuleKey(f) === 'Erythrocyte').length;
     const countModLeuk = moduleCandidateFiles.filter(f => getModuleKey(f) === 'Leukocyte').length;
+    const countModHemo = moduleCandidateFiles.filter(f => getModuleKey(f) === 'Hemostasis').length;
     const countModBF = moduleCandidateFiles.filter(f => getModuleKey(f) === 'Body_Fluids').length;
 
     const chipModAll = document.getElementById('tabModuleAll');
@@ -549,6 +565,7 @@ function updateCategoryCounts() {
     const chipModCBC = document.getElementById('tabModuleCBC');
     const chipModEryth = document.getElementById('tabModuleErythrocyte');
     const chipModLeuk = document.getElementById('tabModuleLeukocyte');
+    const chipModHemo = document.getElementById('tabModuleHemostasis');
     const chipModBF = document.getElementById('tabModuleBodyFluids');
 
     updateChipState(chipModAll, document.getElementById('countModuleAll'), countModAll);
@@ -556,6 +573,9 @@ function updateCategoryCounts() {
     updateChipState(chipModCBC, document.getElementById('countModuleCBC'), countModCBC);
     updateChipState(chipModEryth, document.getElementById('countModuleErythrocyte'), countModEryth);
     updateChipState(chipModLeuk, document.getElementById('countModuleLeukocyte'), countModLeuk);
+    if (chipModHemo) {
+        updateChipState(chipModHemo, document.getElementById('countModuleHemostasis'), countModHemo);
+    }
     if (chipModBF) {
         updateChipState(chipModBF, document.getElementById('countModuleBodyFluids'), countModBF);
     }
@@ -566,6 +586,7 @@ function updateCategoryCounts() {
         'CBC_PBS': countModCBC,
         'Erythrocyte': countModEryth,
         'Leukocyte': countModLeuk,
+        'Hemostasis': countModHemo,
         'Body_Fluids': countModBF
     };
     const availableModuleKeys = MODULE_KEYS.filter(k => (modCountMap[k] || 0) > 0);

@@ -21,24 +21,24 @@ window.COURSE_DISCUSSIONS = [
     "rel_path_from_shared": "../Hematology/LEC/Leukocytes/L10_AML_S0_Discussion.html"
   },
   {
-    "id": "06_Amniotic_Complete_Discussion",
+    "id": "06_Amniotic_S0_Complete_Discussion",
     "title": "Amniotic",
     "type": "bf",
     "number": 6,
     "subfolder": "Body Fluids",
     "raw_subfolder": "Body_Fluids",
-    "filename": "06_Amniotic_Complete_Discussion.html",
-    "rel_path_from_shared": "../Body_Fluids/06_Amniotic_Complete_Discussion.html"
+    "filename": "06_Amniotic_S0_Complete_Discussion.html",
+    "rel_path_from_shared": "../Body_Fluids/06_Amniotic_S0_Complete_Discussion.html"
   },
   {
-    "id": "04_BAL_Complete_Discussion",
+    "id": "04_BAL_S0_Complete_Discussion",
     "title": "BAL",
     "type": "bf",
     "number": 4,
     "subfolder": "Body Fluids",
     "raw_subfolder": "Body_Fluids",
-    "filename": "04_BAL_Complete_Discussion.html",
-    "rel_path_from_shared": "../Body_Fluids/04_BAL_Complete_Discussion.html"
+    "filename": "04_BAL_S0_Complete_Discussion.html",
+    "rel_path_from_shared": "../Body_Fluids/04_BAL_S0_Complete_Discussion.html"
   },
   {
     "id": "L9_Benign_S0_Discussion",
@@ -101,14 +101,14 @@ window.COURSE_DISCUSSIONS = [
     "rel_path_from_shared": "../Hematology/LEC/Leukocytes/L11_MPN_MDS_S0_Discussion.html"
   },
   {
-    "id": "01_CSF_Complete_Discussion",
+    "id": "01_CSF_S0_Complete_Discussion",
     "title": "CSF",
     "type": "bf",
     "number": 1,
     "subfolder": "Body Fluids",
     "raw_subfolder": "Body_Fluids",
-    "filename": "01_CSF_Complete_Discussion.html",
-    "rel_path_from_shared": "../Body_Fluids/01_CSF_Complete_Discussion.html"
+    "filename": "01_CSF_S0_Complete_Discussion.html",
+    "rel_path_from_shared": "../Body_Fluids/01_CSF_S0_Complete_Discussion.html"
   },
   {
     "id": "L2_BCE_RBC-HGB_S0_Discussion",
@@ -121,14 +121,14 @@ window.COURSE_DISCUSSIONS = [
     "rel_path_from_shared": "../Hematology/LEC/Physiology/L2_BCE_RBC-HGB_S0_Discussion.html"
   },
   {
-    "id": "07_Feces_Complete_Discussion",
+    "id": "07_Feces_S0_Complete_Discussion",
     "title": "Feces",
     "type": "bf",
     "number": 7,
     "subfolder": "Body Fluids",
     "raw_subfolder": "Body_Fluids",
-    "filename": "07_Feces_Complete_Discussion.html",
-    "rel_path_from_shared": "../Body_Fluids/07_Feces_Complete_Discussion.html"
+    "filename": "07_Feces_S0_Complete_Discussion.html",
+    "rel_path_from_shared": "../Body_Fluids/07_Feces_S0_Complete_Discussion.html"
   },
   {
     "id": "L1_Hematopoiesis_S0_Discussion",
@@ -181,14 +181,14 @@ window.COURSE_DISCUSSIONS = [
     "rel_path_from_shared": "../Hematology/LEC/Erythrocytes/L8_Hemolytic_S0_Discussion.html"
   },
   {
-    "id": "13_Hemostasis_Complete_Discussion",
+    "id": "L13_Hemostasis_S0_Complete_Discussion",
     "title": "Hemostasis",
     "type": "lecture",
     "number": 13,
     "subfolder": "Hemostasis",
     "raw_subfolder": "Hemostasis",
-    "filename": "13_Hemostasis_Complete_Discussion.html",
-    "rel_path_from_shared": "../Hematology/LEC/Hemostasis/13_Hemostasis_Complete_Discussion.html"
+    "filename": "L13_Hemostasis_S0_Complete_Discussion.html",
+    "rel_path_from_shared": "../Hematology/LEC/Hemostasis/L13_Hemostasis_S0_Complete_Discussion.html"
   },
   {
     "id": "L5_Iron_Heme_S0_Discussion",
@@ -271,24 +271,24 @@ window.COURSE_DISCUSSIONS = [
     "rel_path_from_shared": "../Hematology/LAB/Erythrocytes/L8_Normocytic_S0_Discussion.html"
   },
   {
-    "id": "15_Primary_Hemostasis_Complete_Discussion",
-    "title": "Primary Hemostasis",
+    "id": "L15_Primary_Hemostasis_S0_Complete_Discussion",
+    "title": "Primary Hemostasis Disorders",
     "type": "lecture",
     "number": 15,
     "subfolder": "Hemostasis",
     "raw_subfolder": "Hemostasis",
-    "filename": "15_Primary_Hemostasis_Complete_Discussion.html",
-    "rel_path_from_shared": "../Hematology/LEC/Hemostasis/15_Primary_Hemostasis_Complete_Discussion.html"
+    "filename": "L15_Primary_Hemostasis_S0_Complete_Discussion.html",
+    "rel_path_from_shared": "../Hematology/LEC/Hemostasis/L15_Primary_Hemostasis_S0_Complete_Discussion.html"
   },
   {
-    "id": "15_Primary_Hemostasis_Testing_Complete_Discussion",
+    "id": "L15_Primary_Hemostasis_Testing_S0_Complete_Discussion",
     "title": "Primary Hemostasis Testing",
     "type": "lab",
     "number": 15,
     "subfolder": "Hemostasis",
     "raw_subfolder": "Hemostasis",
-    "filename": "15_Primary_Hemostasis_Testing_Complete_Discussion.html",
-    "rel_path_from_shared": "../Hematology/LAB/Hemostasis/15_Primary_Hemostasis_Testing_Complete_Discussion.html"
+    "filename": "L15_Primary_Hemostasis_Testing_S0_Complete_Discussion.html",
+    "rel_path_from_shared": "../Hematology/LAB/Hemostasis/L15_Primary_Hemostasis_Testing_S0_Complete_Discussion.html"
   },
   {
     "id": "L4_RBC_Analysis_S0_Discussion",
@@ -301,44 +301,44 @@ window.COURSE_DISCUSSIONS = [
     "rel_path_from_shared": "../Hematology/LEC/Physiology/L4_RBC_Analysis_S0_Discussion.html"
   },
   {
-    "id": "14_Secondary_Hemostasis_Complete_Discussion",
-    "title": "Secondary Hemostasis",
+    "id": "L14_Secondary_Hemostasis_S0_Complete_Discussion",
+    "title": "Secondary Hemostasis Disorders",
     "type": "lecture",
     "number": 14,
     "subfolder": "Hemostasis",
     "raw_subfolder": "Hemostasis",
-    "filename": "14_Secondary_Hemostasis_Complete_Discussion.html",
-    "rel_path_from_shared": "../Hematology/LEC/Hemostasis/14_Secondary_Hemostasis_Complete_Discussion.html"
+    "filename": "L14_Secondary_Hemostasis_S0_Complete_Discussion.html",
+    "rel_path_from_shared": "../Hematology/LEC/Hemostasis/L14_Secondary_Hemostasis_S0_Complete_Discussion.html"
   },
   {
-    "id": "14_Secondary_Hemostasis_Testing_Complete_Discussion",
+    "id": "L14_Secondary_Hemostasis_Testing_S0_Complete_Discussion",
     "title": "Secondary Hemostasis Testing",
     "type": "lab",
     "number": 14,
     "subfolder": "Hemostasis",
     "raw_subfolder": "Hemostasis",
-    "filename": "14_Secondary_Hemostasis_Testing_Complete_Discussion.html",
-    "rel_path_from_shared": "../Hematology/LAB/Hemostasis/14_Secondary_Hemostasis_Testing_Complete_Discussion.html"
+    "filename": "L14_Secondary_Hemostasis_Testing_S0_Complete_Discussion.html",
+    "rel_path_from_shared": "../Hematology/LAB/Hemostasis/L14_Secondary_Hemostasis_Testing_S0_Complete_Discussion.html"
   },
   {
-    "id": "05_Semen_Complete_Discussion",
+    "id": "05_Semen_S0_Complete_Discussion",
     "title": "Semen",
     "type": "bf",
     "number": 5,
     "subfolder": "Body Fluids",
     "raw_subfolder": "Body_Fluids",
-    "filename": "05_Semen_Complete_Discussion.html",
-    "rel_path_from_shared": "../Body_Fluids/05_Semen_Complete_Discussion.html"
+    "filename": "05_Semen_S0_Complete_Discussion.html",
+    "rel_path_from_shared": "../Body_Fluids/05_Semen_S0_Complete_Discussion.html"
   },
   {
-    "id": "02_Serous_Complete_Discussion",
+    "id": "02_Serous_S0_Complete_Discussion",
     "title": "Serous",
     "type": "bf",
     "number": 2,
     "subfolder": "Body Fluids",
     "raw_subfolder": "Body_Fluids",
-    "filename": "02_Serous_Complete_Discussion.html",
-    "rel_path_from_shared": "../Body_Fluids/02_Serous_Complete_Discussion.html"
+    "filename": "02_Serous_S0_Complete_Discussion.html",
+    "rel_path_from_shared": "../Body_Fluids/02_Serous_S0_Complete_Discussion.html"
   },
   {
     "id": "L3_Slide_Evaluation_S0_Discussion",
@@ -361,43 +361,43 @@ window.COURSE_DISCUSSIONS = [
     "rel_path_from_shared": "../Hematology/LAB/CBC_PBS/L2_Slide_Preparation_S0_Discussion.html"
   },
   {
-    "id": "03_Synovial_Complete_Discussion",
+    "id": "03_Synovial_S0_Complete_Discussion",
     "title": "Synovial",
     "type": "bf",
     "number": 3,
     "subfolder": "Body Fluids",
     "raw_subfolder": "Body_Fluids",
-    "filename": "03_Synovial_Complete_Discussion.html",
-    "rel_path_from_shared": "../Body_Fluids/03_Synovial_Complete_Discussion.html"
+    "filename": "03_Synovial_S0_Complete_Discussion.html",
+    "rel_path_from_shared": "../Body_Fluids/03_Synovial_S0_Complete_Discussion.html"
   },
   {
-    "id": "16_Thrombophilia_Fibrinolysis_Testing_Complete_Discussion",
+    "id": "L16_Thrombophilia_Fibrinolysis_Testing_S0_Complete_Discussion",
     "title": "Thrombophilia & Fibrinolysis Testing",
     "type": "lab",
     "number": 16,
     "subfolder": "Hemostasis",
     "raw_subfolder": "Hemostasis",
-    "filename": "16_Thrombophilia_Fibrinolysis_Testing_Complete_Discussion.html",
-    "rel_path_from_shared": "../Hematology/LAB/Hemostasis/16_Thrombophilia_Fibrinolysis_Testing_Complete_Discussion.html"
+    "filename": "L16_Thrombophilia_Fibrinolysis_Testing_S0_Complete_Discussion.html",
+    "rel_path_from_shared": "../Hematology/LAB/Hemostasis/L16_Thrombophilia_Fibrinolysis_Testing_S0_Complete_Discussion.html"
   },
   {
-    "id": "16_Thrombophilia_Fibrinolysis_Complete_Discussion",
-    "title": "Thrombophilia Fibrinolysis",
+    "id": "L16_Thrombophilia_Fibrinolysis_S0_Complete_Discussion",
+    "title": "Thrombophilia Disorders",
     "type": "lecture",
     "number": 16,
     "subfolder": "Hemostasis",
     "raw_subfolder": "Hemostasis",
-    "filename": "16_Thrombophilia_Fibrinolysis_Complete_Discussion.html",
-    "rel_path_from_shared": "../Hematology/LEC/Hemostasis/16_Thrombophilia_Fibrinolysis_Complete_Discussion.html"
+    "filename": "L16_Thrombophilia_Fibrinolysis_S0_Complete_Discussion.html",
+    "rel_path_from_shared": "../Hematology/LEC/Hemostasis/L16_Thrombophilia_Fibrinolysis_S0_Complete_Discussion.html"
   },
   {
-    "id": "08_Vaginal-Secretions_Complete_Discussion",
+    "id": "08_Vaginal-Secretions_S0_Complete_Discussion",
     "title": "Vaginal Secretions",
     "type": "bf",
     "number": 8,
     "subfolder": "Body Fluids",
     "raw_subfolder": "Body_Fluids",
-    "filename": "08_Vaginal-Secretions_Complete_Discussion.html",
-    "rel_path_from_shared": "../Body_Fluids/08_Vaginal-Secretions_Complete_Discussion.html"
+    "filename": "08_Vaginal-Secretions_S0_Complete_Discussion.html",
+    "rel_path_from_shared": "../Body_Fluids/08_Vaginal-Secretions_S0_Complete_Discussion.html"
   }
 ];
